@@ -1,0 +1,8 @@
+{
+    "FileName": {
+        "value": "tables/IneqRestrict.xlsx",
+        "type": "string",
+        "label": "Path to the inequality restrictions table file"
+    }
+}
+

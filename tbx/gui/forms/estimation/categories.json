@@ -1,0 +1,6 @@
+[
+  "Plain estimators",
+  "Time-varying estimators",
+  "Panel estimators with separable units",
+  "Panel estimators with cross-unit dependence"
+]

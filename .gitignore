@@ -1,0 +1,10 @@
+.DS_Store
+results/
+*.mat
+*.zip
+.DS_Store
+.obsidian/
+
+*.asv
+*\ 2*
+

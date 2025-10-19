@@ -1,0 +1,23 @@
+{
+    "IncludeInitial": {
+        "value": true,
+        "type": "logical",
+        "label": "Include initial conditions output data"
+    },
+    "SaveXLS": {
+        "value": true,
+        "type": "logical",
+        "label": "Save output table as an Excel file"
+    },
+    "SaveCSV": {
+        "value": true,
+        "type": "logical",
+        "label": "Save output table as a CSV file"
+    },
+    "SaveMAT": {
+        "value": false,
+        "type": "logical",
+        "label": "Save output table as a MAT file"
+    }
+}
+

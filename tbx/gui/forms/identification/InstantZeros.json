@@ -1,0 +1,8 @@
+{
+    "FileName": {
+        "value": "tables/InstantZeros.xlsx",
+        "type": "string",
+        "label": "Path to the instant zeros restrictions table file"
+    }
+}
+

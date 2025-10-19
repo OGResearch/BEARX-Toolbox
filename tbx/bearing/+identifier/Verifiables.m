@@ -1,54 +1,60 @@
 
-classdef Verifiables < identifier.Base
+classdef Verifiables ...
+    < base.Identifier
 
     properties (Constant)
         DEFAULT_MAX_CANDIDATES = 100
-        DEFAULT_FLIP_SIGN = true
+        DEFAULT_TRY_FLIP_SIGNS = true
     end
 
 
-    properties
-        InstantZeros (1, 1) identifier.InstantZeros
-        VerifiableTests identifier.VerifiableTests
-        MaxCandidates (1, 1) double {mustBePositive} = identifier.Verifiables.DEFAULT_MAX_CANDIDATES
+    properties (SetAccess = protected)
+        TestStrings (:, 1) string
+        VerifiableTests
+        InstantZeros = base.identifier.InstantZeros()
+        IneqRestrictTable (:, :) table
+        %
+        MaxCandidates (1, 1) double {mustBePositive} = base.identifier.Verifiables.DEFAULT_MAX_CANDIDATES
+        TryFlipSigns (1, 1) logical = base.identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
     end
 
 
     methods
-        function this = Verifiables(options)
+        function this = Verifiables(testStrings, inputs, options)
             arguments
-                options.TestStrings (:, 1) string = string.empty(0, 1)
-                options.InstantZeros = [] % identifier.InstantZeros()
-                options.InstantZerosTable = []
-                options.SignRestrictionsTable = []
-                options.MaxCandidates (1, 1) double = identifier.Verifiables.DEFAULT_MAX_CANDIDATES
-                options.FlipSign (1, 1) logical = identifier.Verifiables.DEFAULT_FLIP_SIGN
-                options.ShortCircuit (1, 1) logical = true
+                testStrings (:, 1) string = string.empty(0, 1)
+                %
+                inputs.IneqRestrictTable = []
+                inputs.InstantZeros = []
+                inputs.InstantZerosTable = []
+                %
+                options.MaxCandidates (1, 1) double = base.identifier.Verifiables.DEFAULT_MAX_CANDIDATES
+                options.TryFlipSigns (1, 1) logical = base.identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
+                % options.ShortCircuit (1, 1) logical = base.identifier.VerifiableTests.DEFAULT_SHORT_CIRCUIT
             end
             %
-            testStrings = options.TestStrings;
-            this.addInstantZeros(options);
-            addTests = this.addSignRestrictions(options);
-            testStrings = [testStrings; addTests];
-            this.VerifiableTests = identifier.VerifiableTests(testStrings);
+            this.TestStrings = testStrings;
             this.MaxCandidates = options.MaxCandidates;
+            this.TryFlipSigns = options.TryFlipSigns;
+            this.IneqRestrictTable = inputs.IneqRestrictTable;
+            this.addInstantZeros(inputs);
+            %
         end%
 
         function whenPairedWithModel(this, modelS)
-            arguments
-                this
-                modelS (1, 1) model.Structural
-            end
             if ~isempty(this.InstantZeros)
                 this.InstantZeros.whenPairedWithModel(modelS);
             end
+            this.populateSeparableNames(modelS.Meta);
+            this.addSignRestrictions(modelS);
+            this.VerifiableTests = base.identifier.VerifiableTests(this.TestStrings);
         end%
 
         function initializeSampler(this, modelS)
             %[
             arguments
                 this
-                modelS (1, 1) model.Structural
+                modelS (1, 1) base.Structural
             end
             %
             reducedFormSampler = modelS.ReducedForm.Estimator.Sampler;
@@ -58,7 +64,8 @@ classdef Verifiables < identifier.Base
             numShocks = modelS.Meta.NumShockNames;
             order = meta.Order;
             hasIntercept = meta.HasIntercept;
-            longYXZ = modelS.getLongYXZ();
+            longYX = modelS.getLongYX();
+            [longY, longX] = longYX{:};
             %
             [testFunc, occurrence] = this.VerifiableTests.buildTestEnvironment(modelS.Meta);
             has = struct();
@@ -66,8 +73,11 @@ classdef Verifiables < identifier.Base
                 has.(n) = isfield(occurrence, n);
             end
             %
+            % Initialize the InstantZeros object without a warning
+            this.InstantZeros.deinitialize();
             this.InstantZeros.initialize(modelS);
             candidator = this.InstantZeros.getCandidator();
+            %
             %
             function sample = samplerS()
                 % Loop until a valid sample-candidate is found
@@ -78,7 +88,7 @@ classdef Verifiables < identifier.Base
                     if has.SHKEST
                         historyDraw = historyDrawer(sample);
                         residuals = system.calculateResiduals( ...
-                            historyDraw.A, historyDraw.C, longYXZ ...
+                            historyDraw.A, historyDraw.C, longY, longX ...
                             , hasIntercept=hasIntercept ...
                             , order=meta.Order ...
                         );
@@ -121,8 +131,9 @@ classdef Verifiables < identifier.Base
                         if all(success)
                             return
                         end
-                        numSuccess = nnz(success);
                         %
+                        % Try flipping signs of shocks one by one
+                        numSuccess = nnz(success);
                         for i = 1 : numShocks
                             %
                             % Store copies of the current state for a possible
@@ -153,11 +164,17 @@ classdef Verifiables < identifier.Base
                             if all(success)
                                 return
                             end
+                            %
                             numSuccess = nnz(success);
+                            %
                             % Keep the flipped sign only if it improves the number of
                             % successful tests; otherwise, revert to the
                             % original sign in the i-th shock
-                            if numSuccess <= numSuccess0
+                            if numSuccess > numSuccess0
+                                % Keep the flipped sign if improvement
+                                % Do nothing
+                            else
+                                % Revert to the original sign if no improvement
                                 numSuccess = numSuccess0;
                                 sample.D = D0;
                                 propertyValues = propertyValues0;
@@ -171,24 +188,26 @@ classdef Verifiables < identifier.Base
             %]
         end%
 
-        function addInstantZeros(this, options)
-            if ~isempty(options.InstantZeros)
-                this.InstantZeros = options.InstantZeros;
+        function addInstantZeros(this, inputs)
+            if ~isempty(inputs.InstantZeros)
+                this.InstantZeros = inputs.InstantZeros;
                 return
             end
-            if ~isempty(options.InstantZerosTable)
-                this.InstantZeros = identifier.InstantZeros(options.InstantZerosTable);
+            if ~isempty(inputs.InstantZerosTable)
+                this.InstantZeros = base.identifier.InstantZeros(inputs.InstantZerosTable);
                 return
             end
         end%
 
-        function addTestStrings = addSignRestrictions(this, options)
-            tbl = options.SignRestrictionsTable;
+        function testStrings = addSignRestrictions(this, model)
+            tbl = this.IneqRestrictTable;
             if isempty(tbl)
-                addTestStrings = string.empty(0, 1);
                 return
             end
-            addTestStrings = identifier.SignRestrictions.toVerifiableTestStrings(tbl);
+            tablex.validateSignRestrictions(tbl, model=model);
+            addTestStrings = base.identifier.testStringsFromIneqRestrictTable(tbl, model);
+            addTestStrings = reshape(unique(string(addTestStrings), "stable"), [], 1);
+            this.TestStrings = [this.TestStrings; addTestStrings];
         end%
 
     end

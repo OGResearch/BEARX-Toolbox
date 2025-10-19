@@ -1,5 +1,5 @@
 
-classdef Exact < identifier.custom.Base
+classdef Exact < base.identifier.custom.Base
 
     properties (Constant)
         CALLABLE_PREAMBLE = "@(state)"
@@ -7,7 +7,7 @@ classdef Exact < identifier.custom.Base
 
     methods (Static)
         function output = replaceCallable(input)
-            output = "identifier.custom.exact" + input + "(state, ";
+            output = "base.identifier.custom.exact" + input + "(state, ";
         end%
     end
 

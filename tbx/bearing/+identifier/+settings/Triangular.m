@@ -1,5 +1,5 @@
 
-classdef (CaseInsensitiveProperties=true) Triangular < identifier.Cholesky
+classdef (CaseInsensitiveProperties=true) Triangular < base.identifier.Cholesky
 
 end
 

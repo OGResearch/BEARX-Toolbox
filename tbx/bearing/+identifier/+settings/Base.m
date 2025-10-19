@@ -1,5 +1,5 @@
 
-% identifier.settings.Base  Common indentification scheme settings
+% base.identifier.settings.Base  Common indentification scheme settings
 
 classdef (CaseInsensitiveProperties=true) Base < settings.Base
 

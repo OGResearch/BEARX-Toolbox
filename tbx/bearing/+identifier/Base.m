@@ -1,7 +1,8 @@
 
-% identifier.Base  Base class for identification schemes
+% base.Identifier  Abstract Identifier class for identification schemes
 
-classdef (Abstract) Base < handle
+classdef (Abstract) Identifier ...
+    < matlab.mixin.Copyable
 
     properties
         % Sampler  Handle to the reduced-form sample generating function
@@ -36,6 +37,7 @@ classdef (Abstract) Base < handle
 
 
     methods (Abstract)
+        varargout = whenPairedWithModel(this, varargin)
         varargout = initializeSampler(this, varargin)
     end
 
@@ -44,29 +46,31 @@ classdef (Abstract) Base < handle
         function varargout = initialize(this, modelS)
             arguments
                 this
-                modelS (1, 1) model.Structural
+                modelS (1, 1) base.Structural
             end
+            %
             if this.BeenInitialized
-                warning("This identifier has already been initialized; skipping initialization.");
+                warning("The identifier has already been initialized.");
                 return
             end
-            meta = modelS.Meta;
-            this.populateSeparableNames(meta);
+            %
+            meta = modelS.getMeta();
             this.beforeInitializeSampler(modelS);
             this.initializeSampler(modelS);
             this.afterInitializeSampler(modelS);
         end%
 
-        function populateSeparableNames(this, meta)
-            arguments
-                this
-                meta (1, 1) model.Meta
-            end
-            this.SeparableEndogenousNames = meta.getSeparableEndogenousNames();
-            this.SeparableShockNames = meta.getSeparableShockNames();
+        function deinitialize(this)
+            this.BeenInitialized = false;
+            this.SampleCounter = uint64(0);
+            this.CandidateCounter = uint64(0);
+            this.Sampler = [];
+            this.Candidator = [];
         end%
 
-        function whenPairedWithModel(this, modelS)
+        function populateSeparableNames(this, meta)
+            this.SeparableEndogenousNames = meta.SeparableEndogenousNames;
+            this.SeparableShockNames = meta.SeparableShockNames;
         end%
 
         function beforeInitializeSampler(this, modelS)
@@ -79,7 +83,7 @@ classdef (Abstract) Base < handle
 
     methods
         function out = get.ShortClassName(this)
-            out = extractAfter(class(this), "identifier.");
+            out = extractAfter(class(this), "base.identifier.");
         end%
     end
 

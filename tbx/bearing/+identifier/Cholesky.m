@@ -1,12 +1,12 @@
 
 classdef Cholesky ...
-    < identifier.Base ...
-    & identifier.InstantMixin
+    < base.Identifier ...
+    & base.identifier.InstantMixin
 
-    properties
-        Order (1, :) string
-        OrderIndex (1, :) double
-        BackorderIndex (1, :) double
+    properties (SetAccess=protected)
+        Ordering (1, :) string
+        OrderingIndex (1, :) double
+        BackorderingIndex (1, :) double
     end
 
 
@@ -16,23 +16,23 @@ classdef Cholesky ...
 
 
     methods
-        function beforeInitializeSampler(this, modelS)
-            arguments
-                this
-                modelS (1, 1) model.Structural
-            end
+        function whenPairedWithModel(this, modelS)
             meta = modelS.Meta;
-            this.resolveOrder(meta);
+            this.populateSeparableNames(meta);
+            this.resolveOrdering(meta);
         end%
 
         function this = Cholesky(options)
             arguments
-                options.Order (1, :) string = string.empty(1, 0)
+                options.Ordering (1, :) string = string.empty(1, 0)
             end
-            if numel(options.Order) ~= numel(unique(options.Order))
-                error("Duplicate names found in the Cholesky order.");
+            if isequal(options.Ordering, "")
+                options.Ordering = string.empty(1, 0);
             end
-            this.Order = options.Order;
+            if numel(options.Ordering) ~= numel(unique(options.Ordering))
+                error("Duplicate names found in the Cholesky ordering.");
+            end
+            this.Ordering = options.Ordering;
         end%
 
         function choleskator = getCholeskator(this)
@@ -40,8 +40,8 @@ classdef Cholesky ...
                 P = chol(Sigma);
             end%
             %
-            orderIndex = this.OrderIndex;
-            backorderIndex = this.BackorderIndex;
+            orderIndex = this.OrderingIndex;
+            backorderIndex = this.BackorderingIndex;
             function P = choleskatorWithReordering(Sigma)
                 P = chol(Sigma(orderIndex, orderIndex));
                 P = P(:, backorderIndex);
@@ -58,26 +58,26 @@ classdef Cholesky ...
             candidator = @(P) P;
         end%
 
-        function resolveOrder(this, meta)
-            this.OrderIndex = double.empty(1, 0);
-            this.BackorderIndex = double.empty(1, 0);
-            if isempty(this.Order)
+        function resolveOrdering(this, meta)
+            this.OrderingIndex = double.empty(1, 0);
+            this.BackorderingIndex = double.empty(1, 0);
+            if isempty(this.Ordering)
                 return
             end
-            endogenousNames = meta.getSeparableEndogenousNames();
+            endogenousNames = meta.SeparableEndogenousNames;
             dict = textual.createDictionary(endogenousNames);
-            endogenousNamesReordered = [this.Order, setdiff(endogenousNames, this.Order, "stable")];
-            order = [];
+            endogenousNamesReordered = [this.Ordering, setdiff(endogenousNames, this.Ordering, "stable")];
+            ordering = [];
             for n = endogenousNamesReordered
-                order(end+1) = dict.(n);
+                ordering(end+1) = dict.(n);
             end
-            [~, backOrder] = sort(order);
-            this.OrderIndex = order;
-            this.BackorderIndex = backOrder;
+            [~, backordering] = sort(ordering);
+            this.OrderingIndex = ordering;
+            this.BackorderingIndex = backordering;
         end%
 
         function out = get.HasReordering(this)
-            out = ~isempty(this.Order);
+            out = ~isempty(this.Ordering);
         end%
     end
 

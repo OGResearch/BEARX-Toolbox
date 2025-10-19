@@ -1,5 +1,5 @@
 
-classdef (CaseInsensitiveProperties=true) Cholesky < identifier.settings.Base
+classdef (CaseInsensitiveProperties=true) Cholesky < base.identifier.settings.Base
 
 end
 

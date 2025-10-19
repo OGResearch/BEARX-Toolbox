@@ -1,5 +1,5 @@
 
-classdef Verifiable < identifier.custom.Base
+classdef Verifiable < base.identifier.custom.Base
 
     properties (Constant)
         CALLABLE_PREAMBLE = "@(state)"
@@ -7,7 +7,7 @@ classdef Verifiable < identifier.custom.Base
 
     methods (Static)
         function output = replaceCallable(input)
-            output = "identifier.custom.verify" + input + "(state, ";
+            output = "base.identifier.custom.verify" + input + "(state, ";
         end%
     end
 

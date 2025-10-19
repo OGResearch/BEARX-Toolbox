@@ -1,5 +1,5 @@
 
-classdef (CaseInsensitiveProperties=true) Custom < identifier.settings.Base
+classdef (CaseInsensitiveProperties=true) Custom < base.identifier.settings.Base
 
     properties
         DiscardReducedFormAfter (1, 1) double = Inf

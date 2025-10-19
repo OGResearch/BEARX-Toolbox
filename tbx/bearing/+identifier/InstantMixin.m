@@ -12,32 +12,44 @@ classdef (Abstract) InstantMixin < handle
             %[
             arguments
                 this
-                modelS (1, 1) model.Structural
+                modelS (1, 1) base.Structural
             end
-            %
+
             meta = modelS.Meta;
             estimator = modelS.ReducedForm.Estimator;
-            samplerR = estimator.Sampler;
-            numUnits = meta.getNumUnits();
-            hasCrossUnitVariationInSigma = estimator.HasCrossUnitVariationInSigma;
+            redSampler = estimator.Sampler;
+            numSeparableUnits = meta.NumSeparableUnits;
+
+            % TODO: Refactor
+            try
+                hasCrossUnitVariationInSigma = estimator.HasCrossUnitVariationInSigma;
+            catch
+                hasCrossUnitVariationInSigma = false;
+            end
+
             identificationDrawer = estimator.IdentificationDrawer;
             choleskator = this.getCholeskator();
             candidator = this.getCandidator();
-            %
-            %
-            function sample = structuralSampler()
-                sample = samplerR();
+
+
+            function sample = structSampler()
+                sample = redSampler();
                 draw = identificationDrawer(sample);
                 % u = e*D or e = u/D
                 % Sigma = D'*D
                 % TODO: Refactor and get rid of an if statement
+
                 if hasCrossUnitVariationInSigma
                     Sigma = draw.Sigma;
                     Sigma = (Sigma + pagetranspose(Sigma)) / 2;
-                    D = cell(1, numUnits);
-                    for i = 1 : numUnits
-                        P = choleskator(Sigma(:,:,i));
-                        D{i} = candidator(P);
+                    D = cell(1, numSeparableUnits);
+                    for unit = 1 : numSeparableUnits
+                        if unit > 1 && isequal(Sigma(:,:,unit), Sigma(:,:,1))
+                            D{unit} = D{1};
+                            continue
+                        end
+                        P = choleskator(Sigma(:,:,unit));
+                        D{unit} = candidator(P);
                     end
                     D = cat(3, D{:});
                 else
@@ -45,15 +57,18 @@ classdef (Abstract) InstantMixin < handle
                     Sigma = (Sigma + transpose(Sigma)) / 2;
                     P = choleskator(Sigma);
                     D = candidator(P);
-                    D = repmat(D, 1, 1, numUnits);
+                    if numSeparableUnits > 1
+                        D = repmat(D, 1, 1, numSeparableUnits);
+                    end
                 end
+
                 sample.IdentificationDraw = draw;
                 sample.D = D;
                 this.CandidateCounter = this.CandidateCounter + 1;
             end%
             %
             %
-            this.Sampler = @structuralSampler;
+            this.Sampler = @structSampler;
             %]
         end%
     end

@@ -15,7 +15,7 @@ classdef Indexes < handle
     methods
         function this = Indexes(meta)
             arguments
-                meta (1, 1) model.Meta
+                meta (1, 1) base.Meta
             end
             %
             this.EndogenousNames = textual.createDictionary(meta.EndogenousNames);

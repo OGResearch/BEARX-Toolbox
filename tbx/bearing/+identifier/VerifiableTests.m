@@ -2,7 +2,8 @@
 % VerifiableTests  Container for verifiable test functions
 %
 
-classdef VerifiableTests < handle
+classdef VerifiableTests ...
+    < handle
 
     properties (Constant)
         TEST_FUNC_ARG_NAME = "x"
@@ -25,6 +26,8 @@ classdef VerifiableTests < handle
             testStrings = this.resolveNames(testStrings, meta);
             testStrings = this.resolveDates(testStrings, meta);
             [testStrings, occurrence] = this.resolvePropertyReferences(testStrings);
+            %
+            % Long circuit test function - needed for sign flipping
             funcString = "@(" + this.TEST_FUNC_ARG_NAME + ")[" + join(testStrings, "; ") + "]";
             func = str2func(funcString);
         end%
@@ -32,7 +35,7 @@ classdef VerifiableTests < handle
         function status = evaluateAll(this, verifiableProperties)
             arguments
                 this
-                verifiableProperties (1, 1) identifier.VerifiableProperties
+                verifiableProperties (1, 1) base.identifier.VerifiableProperties
             end
             status = this.TestFunctionAll(verifiableProperties);
         end%
@@ -41,7 +44,7 @@ classdef VerifiableTests < handle
         function status = evaluateShortCircuit(this, verifiableProperties)
             arguments
                 this
-                verifiableProperties (1, 1) identifier.VerifiableProperties
+                verifiableProperties (1, 1) base.identifier.VerifiableProperties
             end
             status = false(1, 1);
             status(1) = this.TestFunctionShortCircuit(verifiableProperties);
@@ -81,13 +84,16 @@ classdef VerifiableTests < handle
         end%
 
         function [testStrings, occurrence] = resolvePropertyReferences(this, testStrings)
-            occurrence = initializeOccurrence();
+            occurrence = initializeOccurrenceStruct();
+            argName = this.TEST_FUNC_ARG_NAME;
+            %
             function y = replaceProperty(x)
                 % Remove the leading dollar sign, e.g. $SHKRESP -> SHKRESP
                 propertyName = string(x(2:end));
                 occurrence.(propertyName) = {};
-                y = this.TEST_FUNC_ARG_NAME + "." + propertyName;
+                y = argName + "." + propertyName;
             end%
+            %
             replacePropertyFunc = @replaceProperty;
             testStrings = regexprep(testStrings, "\$\w+", "${replacePropertyFunc($0)}");
             %
@@ -99,7 +105,7 @@ classdef VerifiableTests < handle
 end
 
 
-function occurrence = initializeOccurrence()
+function occurrence = initializeOccurrenceStruct()
     occurrence = struct();
     occurrence.SHKRESP = false;
     occurrence.SHKEST = false;

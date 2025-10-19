@@ -1,11 +1,6 @@
 
 function checkEndogenousAndShocksInTable(tbl, meta)
 
-    arguments
-        tbl (:, :) table
-        meta (1, 1) base.Meta
-    end
-
     compareLists = @isequal;
 
     tableEndogenousHeadings = textual.stringify(tbl.Properties.RowNames);

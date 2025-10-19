@@ -1,7 +1,7 @@
 
-% base.Identifier  Abstract Identifier class for identification schemes
+% identifier.Base  Abstract Identifier class for identification schemes
 
-classdef (Abstract) Identifier ...
+classdef (Abstract) Base ...
     < matlab.mixin.Copyable
 
     properties
@@ -44,11 +44,6 @@ classdef (Abstract) Identifier ...
 
     methods
         function varargout = initialize(this, modelS)
-            arguments
-                this
-                modelS (1, 1) base.Structural
-            end
-            %
             if this.BeenInitialized
                 warning("The identifier has already been initialized.");
                 return
@@ -83,7 +78,7 @@ classdef (Abstract) Identifier ...
 
     methods
         function out = get.ShortClassName(this)
-            out = extractAfter(class(this), "base.identifier.");
+            out = extractAfter(class(this), "identifier.");
         end%
     end
 

@@ -1,6 +1,6 @@
 
 classdef IneqRestrict ...
-    < base.identifier.Verifiables
+    < identifier.Verifiables
 
     methods
         function this = IneqRestrict(options)
@@ -8,7 +8,7 @@ classdef IneqRestrict ...
                 options.FileName (1, :) string = ""
             end
             table = tablex.readIneqRestrict(options.FileName);
-            this@base.identifier.Verifiables( ...
+            this@identifier.Verifiables( ...
                 IneqRestrictTable=table ...
             );
         end%

@@ -10,11 +10,6 @@ classdef (Abstract) InstantMixin < handle
     methods
         function initializeSampler(this, modelS)
             %[
-            arguments
-                this
-                modelS (1, 1) base.Structural
-            end
-
             meta = modelS.Meta;
             estimator = modelS.ReducedForm.Estimator;
             redSampler = estimator.Sampler;

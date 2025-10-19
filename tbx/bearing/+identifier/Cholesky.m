@@ -1,7 +1,7 @@
 
 classdef Cholesky ...
-    < base.Identifier ...
-    & base.identifier.InstantMixin
+    < identifier.Base ...
+    & identifier.InstantMixin
 
     properties (SetAccess=protected)
         Ordering (1, :) string

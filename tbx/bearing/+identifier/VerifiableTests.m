@@ -35,7 +35,7 @@ classdef VerifiableTests ...
         function status = evaluateAll(this, verifiableProperties)
             arguments
                 this
-                verifiableProperties (1, 1) base.identifier.VerifiableProperties
+                verifiableProperties (1, 1) identifier.VerifiableProperties
             end
             status = this.TestFunctionAll(verifiableProperties);
         end%
@@ -44,7 +44,7 @@ classdef VerifiableTests ...
         function status = evaluateShortCircuit(this, verifiableProperties)
             arguments
                 this
-                verifiableProperties (1, 1) base.identifier.VerifiableProperties
+                verifiableProperties (1, 1) identifier.VerifiableProperties
             end
             status = false(1, 1);
             status(1) = this.TestFunctionShortCircuit(verifiableProperties);

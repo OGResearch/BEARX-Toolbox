@@ -1,6 +1,6 @@
 
 classdef Verifiables ...
-    < base.Identifier
+    < identifier.Base
 
     properties (Constant)
         DEFAULT_MAX_CANDIDATES = 100
@@ -11,11 +11,11 @@ classdef Verifiables ...
     properties (SetAccess = protected)
         TestStrings (:, 1) string
         VerifiableTests
-        InstantZeros = base.identifier.InstantZeros()
+        InstantZeros = identifier.InstantZeros()
         IneqRestrictTable (:, :) table
         %
-        MaxCandidates (1, 1) double {mustBePositive} = base.identifier.Verifiables.DEFAULT_MAX_CANDIDATES
-        TryFlipSigns (1, 1) logical = base.identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
+        MaxCandidates (1, 1) double {mustBePositive} = identifier.Verifiables.DEFAULT_MAX_CANDIDATES
+        TryFlipSigns (1, 1) logical = identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
     end
 
 
@@ -28,9 +28,9 @@ classdef Verifiables ...
                 inputs.InstantZeros = []
                 inputs.InstantZerosTable = []
                 %
-                options.MaxCandidates (1, 1) double = base.identifier.Verifiables.DEFAULT_MAX_CANDIDATES
-                options.TryFlipSigns (1, 1) logical = base.identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
-                % options.ShortCircuit (1, 1) logical = base.identifier.VerifiableTests.DEFAULT_SHORT_CIRCUIT
+                options.MaxCandidates (1, 1) double = identifier.Verifiables.DEFAULT_MAX_CANDIDATES
+                options.TryFlipSigns (1, 1) logical = identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
+                % options.ShortCircuit (1, 1) logical = identifier.VerifiableTests.DEFAULT_SHORT_CIRCUIT
             end
             %
             this.TestStrings = testStrings;
@@ -47,16 +47,11 @@ classdef Verifiables ...
             end
             this.populateSeparableNames(modelS.Meta);
             this.addSignRestrictions(modelS);
-            this.VerifiableTests = base.identifier.VerifiableTests(this.TestStrings);
+            this.VerifiableTests = identifier.VerifiableTests(this.TestStrings);
         end%
 
         function initializeSampler(this, modelS)
             %[
-            arguments
-                this
-                modelS (1, 1) base.Structural
-            end
-            %
             reducedFormSampler = modelS.ReducedForm.Estimator.Sampler;
             identificationDrawer = modelS.ReducedForm.Estimator.IdentificationDrawer;
             historyDrawer = modelS.ReducedForm.Estimator.HistoryDrawer;
@@ -194,7 +189,7 @@ classdef Verifiables ...
                 return
             end
             if ~isempty(inputs.InstantZerosTable)
-                this.InstantZeros = base.identifier.InstantZeros(inputs.InstantZerosTable);
+                this.InstantZeros = identifier.InstantZeros(inputs.InstantZerosTable);
                 return
             end
         end%
@@ -205,7 +200,7 @@ classdef Verifiables ...
                 return
             end
             tablex.validateSignRestrictions(tbl, model=model);
-            addTestStrings = base.identifier.testStringsFromIneqRestrictTable(tbl, model);
+            addTestStrings = identifier.testStringsFromIneqRestrictTable(tbl, model);
             addTestStrings = reshape(unique(string(addTestStrings), "stable"), [], 1);
             this.TestStrings = [this.TestStrings; addTestStrings];
         end%

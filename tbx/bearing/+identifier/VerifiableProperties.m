@@ -2,9 +2,9 @@
 classdef VerifiableProperties < handle
 
     properties
-        Model base.PresampleMixin
+        Model
         LongYXZ (1, :) cell
-        Indexes base.identifier.Indexes
+        Indexes identifier.Indexes
 
         HistoryDraw
         IdentificationDraw
@@ -28,12 +28,9 @@ classdef VerifiableProperties < handle
 
     methods
         function this = VerifiableProperties(modelS)
-            arguments
-                modelS (1, 1) base.PresampleMixin
-            end
             this.Model = modelS;
             this.LongYXZ = this.Model.getLongYXZ();
-            this.Indexes = base.identifier.Indexes(this.Meta);
+            this.Indexes = identifier.Indexes(this.Meta);
         end%
 
         function initialize4S(this, sample)

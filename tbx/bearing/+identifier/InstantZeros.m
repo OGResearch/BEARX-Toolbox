@@ -1,7 +1,7 @@
 
 classdef InstantZeros ...
-    < base.Identifier ...
-    & base.identifier.InstantMixin
+    < identifier.Base ...
+    & identifier.InstantMixin
 
     properties
         RestrictionsTable = []
@@ -57,9 +57,9 @@ classdef InstantZeros ...
         function candidator = getCandidator(this)
             if this.NumRestrictions > 0
                 R = this.RestrictionsMatrix;
-                candidator = @(P) base.identifier.candidateFromFactorConstrained(P, R);
+                candidator = @(P) identifier.candidateFromFactorConstrained(P, R);
             else
-                candidator = @base.identifier.candidateFromFactorUnconstrained;
+                candidator = @identifier.candidateFromFactorUnconstrained;
             end
         end%
 
@@ -81,15 +81,11 @@ classdef InstantZeros ...
 
     methods (Static)
         function checkTable(restrictionsTable, meta)
-            arguments
-                restrictionsTable (:, :) table
-                meta (1, 1) base.Meta
-            end
             if isempty(restrictionsTable)
                 return
             end
             %
-            base.identifier.checkEndogenousAndShocksInTable(restrictionsTable, meta);
+            identifier.checkEndogenousAndShocksInTable(restrictionsTable, meta);
             %
             % Table entries must be either 0 or NaN
             R = restrictionsTable{:, :};

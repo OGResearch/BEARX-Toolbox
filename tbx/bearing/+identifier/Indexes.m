@@ -14,10 +14,6 @@ classdef Indexes < handle
 
     methods
         function this = Indexes(meta)
-            arguments
-                meta (1, 1) base.Meta
-            end
-            %
             this.EndogenousNames = textual.createDictionary(meta.EndogenousNames);
             this.EndogenousConcepts = textual.createDictionary(meta.EndogenousConcepts);
             this.ExogenousNames = textual.createDictionary(meta.ExogenousNames);

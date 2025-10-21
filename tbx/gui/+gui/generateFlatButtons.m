@@ -18,10 +18,8 @@ function htmlForm = generateFlatButtons(jsonForm, currentSelection, action, opti
     SELECTION_NAME = "selection";
 
     submitButton = gui.generateSubmitButton();
-    reminder = gui.generateReminderParagraph();
 
     htmlForm = string.empty(1, 0);
-    htmlForm(end+1) = reminder;
     htmlForm(end+1) = "<form action='matlab:{ACTION}'>";
 
     htmlForm(end+1) = submitButton;

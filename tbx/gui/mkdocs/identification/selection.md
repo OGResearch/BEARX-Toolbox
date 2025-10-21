@@ -5,7 +5,7 @@ responses or conditional forecasts).
 
 Currently selected identification scheme: `?CURRENT_SELECTION?`
 
----
+--8<-- "mkdocs/rememberToSubmit.md"
 
 ?FORM?
 

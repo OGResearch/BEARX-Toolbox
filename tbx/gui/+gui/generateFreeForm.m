@@ -25,7 +25,6 @@ function outputString = generateFreeForm(inputStruct, options)
 
     mtf = gui.MatlabToForm;
 
-    reminder = gui.generateReminderParagraph();
     submitButton = gui.generateSubmitButton();
 
     fieldNames = options.getFields(inputStruct);
@@ -33,8 +32,6 @@ function outputString = generateFreeForm(inputStruct, options)
     needsHeader = strlength(options.header) > 0;
 
     html = string.empty(1, 0);
-
-    html(end+1) = reminder;
 
     if needsHeader
         html(end+1) = "<h2>" + options.header + "</h2>";

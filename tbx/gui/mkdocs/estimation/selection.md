@@ -6,7 +6,9 @@ identification scheme, and setting up executable tasks.
 
 Currently selected estimator: `?CURRENT_SELECTION?`
 
----
+
+--8<-- "mkdocs/rememberToSubmit.md"
+
 
 ?FORM?
 

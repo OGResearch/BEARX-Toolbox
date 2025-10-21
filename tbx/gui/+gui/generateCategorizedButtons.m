@@ -24,11 +24,9 @@ function htmlForm = generateCategorizedButtons(jsonForm, currentSelection, categ
         currentSelection = string.empty(1, 0);
     end
 
-    reminder = gui.generateReminderParagraph();
     submitButton = gui.generateSubmitButton();
 
     htmlForm = string.empty(1, 0);
-    htmlForm(end+1) = reminder;
     htmlForm(end+1) = "<form action='matlab:" + action + " '>";
     htmlForm(end+1) = submitButton;
 

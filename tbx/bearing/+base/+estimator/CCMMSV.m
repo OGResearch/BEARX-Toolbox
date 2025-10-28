@@ -3,7 +3,7 @@
 % standard SV model,model nr 2 in the CCMM paper
 
 classdef CCMMSV ...
-    < estimator.Base
+    < base.Estimator
 
     properties
         Settings = base.estimator.settings.CCMMSVSettings()

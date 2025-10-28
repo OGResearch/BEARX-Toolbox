@@ -3,7 +3,7 @@
 % SV model with outliers and fat tail ("t") distributed shocks, most generic model nr 3 in the CCMM paper
 
 classdef CCMMSVOT ...
-    < estimator.Base
+    < base.Estimator
 
     properties
         Settings = base.estimator.settings.CCMMSVOT()

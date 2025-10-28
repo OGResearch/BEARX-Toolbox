@@ -1,9 +1,9 @@
 
 classdef MeanAdjusted ...
-    < meanadj.Estimator
+    < mean.Estimator
 
     properties
-        Settings = meanadj.estimator.settings.MeanAdjusted()
+        Settings = mean.estimator.settings.MeanAdjusted()
     end
 
 

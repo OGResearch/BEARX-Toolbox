@@ -16,8 +16,17 @@ classdef (CaseInsensitiveProperties=true) SumCoefficients < dummies.Base
 
     methods
 
-        function this = SumCoefficients(options)
+        function this = SumCoefficients(varargin)
+            if nargin == 0
+                return
+            end
+            this.update(varargin{:});
+        end%
+
+
+        function update(this, options)
             arguments
+                this
                 options.Lambda (1, 1) double = 0.1
             end
             this.Lambda = options.Lambda;

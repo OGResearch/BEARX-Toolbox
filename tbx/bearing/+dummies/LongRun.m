@@ -1,5 +1,6 @@
 
-classdef (CaseInsensitiveProperties=true) LongRun < dummies.Base
+classdef (CaseInsensitiveProperties=true) LongRun ...
+    < dummies.Base
 
     properties
         Lambda (1, 1) double = 1 %lambda8 in BEAR5, long run prior tightness
@@ -9,11 +10,19 @@ classdef (CaseInsensitiveProperties=true) LongRun < dummies.Base
 
     methods
 
-        function this = LongRun(this, options)
+        function this = LongRun(varargin)
+            if nargin == 0
+                return
+            end
+            this.update(varargin{:});
+        end%
+
+
+        function update(this, options)
             arguments
-                this (1, 1) dummies.LongRun
-                options.Constraints (:, :)
+                this
                 options.Lambda (1, 1) double = 1
+                options.Constraints (:, :)
             end
             this.Lambda = options.Lambda;
             this.Constraints = options.Constraints;

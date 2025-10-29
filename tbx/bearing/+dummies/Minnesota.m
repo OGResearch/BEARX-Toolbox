@@ -13,8 +13,17 @@ classdef (CaseInsensitiveProperties=true) Minnesota ...
 
     methods
 
-        function this = Minnesota(this, options)
+        function this = Minnesota(varargin)
+            if nargin == 0
+                return
+            end
+            this.update(varargin{:});
+        end%
+
+
+        function update(this, options)
             arguments
+                this
                 options.Lambda (1, 1) double = 0.1
                 options.LagDecay (1, 1) double = 1
                 options.Autoregression (:, :) double = 0.8
@@ -42,7 +51,6 @@ classdef (CaseInsensitiveProperties=true) Minnesota ...
             if isscalar(this.Autoregression)
                 this.Autoregression = repmat(this.Autoregression, numY, 1);
             end
-
 
             order = meta.Order;
             const = meta.HasIntercept;

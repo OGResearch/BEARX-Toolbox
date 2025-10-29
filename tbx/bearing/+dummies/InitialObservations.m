@@ -8,9 +8,17 @@ classdef (CaseInsensitiveProperties=true) InitialObservations < dummies.Base
 
     methods
 
-        function this = InitialObservations(this, options)
+        function this = InitialObservations(varargin)
+            if nargin == 0
+                return
+            end
+            this.update(varargin{:});
+        end%
+
+
+        function update(this, options)
             arguments
-                this (1, 1) InitialObservations
+                this
                 options.Lambda (1, 1) double = 1e-3
             end
             this.Lambda = options.Lambda;

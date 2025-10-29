@@ -1,5 +1,5 @@
 
-classdef (CaseInsensitiveProperties=true) Base
+classdef (CaseInsensitiveProperties=true) Base ...
     < matlab.mixin.Copyable
 
     methods (Abstract)

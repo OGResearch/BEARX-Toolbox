@@ -1,15 +1,14 @@
 
 classdef Threshold ...
-    < base.Estimator
+    < threshold.Estimator
 
     properties
-        Settings = base.estimator.settings.Threshold()
+        Settings = threshold.estimator.settings.Threshold()
     end
 
 
     properties (Constant)
         Description = "VAR with threshold-based regime switching"
-        Category = "Time-varying estimators"
         HasCrossUnits = false
         CanBeIdentified = false
         CanHaveDummies = true
@@ -51,7 +50,7 @@ classdef Threshold ...
             end
 
             %Find the threshold variable
-            match = find(meta.EndogenousNames == opt.thresholdVarName);
+            thInd = find(meta.EndogenousNames == opt.thresholdVarName);
             thVar = Y(:, thInd);
             meanThreshold = mean(thVar);
 

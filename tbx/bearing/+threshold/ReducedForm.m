@@ -1,5 +1,5 @@
 
-classdef ReducedForm < baseWithDummies.ReducedForm
+classdef ReducedForm < base.ReducedForm
 
     methods
 

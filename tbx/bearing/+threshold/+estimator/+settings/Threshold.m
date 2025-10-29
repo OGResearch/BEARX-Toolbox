@@ -1,6 +1,6 @@
 
 classdef (CaseInsensitiveProperties=true) Threshold ...
-    < base.estimator.Settings
+    < threshold.estimator.Settings
 
     properties
         % Controls the prior variance of the threshold

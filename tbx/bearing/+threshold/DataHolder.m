@@ -1,5 +1,5 @@
 
-classdef DataHolder < baseWithDummies.DataHolder
+classdef DataHolder < base.DataHolder
 
 
 end

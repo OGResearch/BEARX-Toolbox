@@ -82,24 +82,16 @@ classdef Minnesota ...
                 this.SampleCounter = this.SampleCounter + 1;
             end%
 
-            numY = meta.NumEndogenousNames;
-            order = meta.Order;
-            numL = numY * order;
+            % numY = meta.NumEndogenousNames;
+            % order = meta.Order;
+            % numL = numY * order;
+            % 
+            % function A = retriever(sample, t)
+            %     B = reshape(sample.beta, [], numY);
+            %     A = B(1:numL, :);
+            % end%
 
-            function A = retriever(sample, t)
-                B = reshape(sample.beta, [], numY);
-                A = B(1:numL, :);
-            end%
-
-            this.Sampler = estimator.wrapInStabilityCheck( ...
-                sampler=@sampler, ...
-                retriever=@retriever, ...
-                threshold=this.Settings.StabilityThreshold, ...
-                numY=numY, ...
-                order=order, ...
-                numPeriodsToCheck=1, ...
-                maxNumAttempts=this.Settings.MaxNumUnstableAttempts ...
-            );
+            this.Sampler = @sampler;
 
             %===============================================================================
 

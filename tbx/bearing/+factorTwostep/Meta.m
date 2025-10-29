@@ -31,79 +31,69 @@ classdef Meta < base.Meta
     end
 
 
-    methods
-        
+    methods        
     
         function this = update(this, options)
 
-        arguments
+            arguments
+                this
+                options.endogenousNames (1, :) string {mustBeNonempty}
+                options.estimationSpan (1, :) datetime {mustBeNonempty}
+        
+                options.exogenousNames (1, :) string = string.empty(1, 0)
+                options.order (1, 1) double {mustBePositive, mustBeInteger} = 1
+                options.intercept (1, 1) logical = true
+                options.shockConcepts (1, :) string = string.empty(1, 0)
+                options.shockNames (1, :) string = string.empty(1, 0)
+                options.identificationHorizon (1, 1) double {mustBeNonnegative, mustBeInteger} = 0
+        
+                options.reducibleNames (1, :) string = string.empty(1, 0)
+                options.reducibleBlocks (1, :) string = string.empty(1, 0)
+                options.blockType (1,1) string {mustBeMember(options.blockType, ["blocks", "slowfast"])} = "blocks"
+                options.numFactors struct = struct()
+            end%
 
-            options.endogenousConcepts (1, :) string {mustBeNonempty}
-            options.estimationSpan (1, :) datetime {mustBeNonempty}
+            this.EndogenousConcepts = options.endogenousNames;
+            this.ShortSpan = datex.span(options.estimationSpan(1), options.estimationSpan(end));
+            if isempty(this.ShortSpan)
+                error("Estimation span must be non-empty");
+            end
+            this.ExogenousNames = options.exogenousNames;
+            this.ShockConcepts = options.shockNames;
+            this.HasIntercept = options.intercept;
+            this.Order = options.order;
+            this.IdentificationHorizon = options.identificationHorizon;
     
-            options.exogenousNames (1, :) string = string.empty(1, 0)
-            options.units (1, :) string = ""
-            options.order (1, 1) double {mustBePositive, mustBeInteger} = 1
-            options.intercept (1, 1) logical = true
-            options.shockConcepts (1, :) string = string.empty(1, 0)
-            options.shocks (1, :) string = string.empty(1, 0)
-            options.identificationHorizon (1, 1) double {mustBeNonnegative, mustBeInteger} = 0
-    
-            options.reducibleNames (1, :) string = string.empty(1, 0)
-            options.reducibleBlocks (1, :) string = string.empty(1, 0)
-            options.blockType (1,1) string {mustBeMember(options.blockType, ["blocks", "slowfast"])} = "blocks"
-            options.numFactors struct = struct()
-        end%
-
-            this@base.Meta.update( ...
-                'endogenousConcepts', options.endogenousConcepts, ...
-                'estimationSpan', options.estimationSpan, ...
-                'exogenousNames', options.exogenousNames, ...
-                'order', options.order, ...
-                'intercept', options.intercept, ...
-                'shockConcepts', options.shockConcepts, ...
-                'shocks', options.shocks, ...
-                'identificationHorizon', options.identificationHorizon ...
-            );
-
             this.ReducibleNames = options.reducibleNames;
             this.ReducibleBlocks = options.reducibleBlocks;
             this.BlockType = options.blockType; 
             this.NumFactors = options.numFactors;
-
-            this.populateShockConcepts(options.shockConcepts);         
+    
+            this.populatePseudoDependents();
+            this.populateSeparablePseudoDependents();
             this.catchDuplicateNames();
 
-
         end%
 
 
-        function ResidualNames = getResidualNames(this)
-
-                ResidualNames = meta.concatenate(this.ResidualPrefix, [this.FactorNames, this.EndogenousNames]);
-                
-        end%
-
-
-        function populateShockConcepts(this, shockConcepts)
-
-            if ~isempty(shockConcepts)
-                this.ShockConcepts = shockConcepts;
-            else
-                this.ShockConcepts = meta.autogenerateShockConcepts(this.NumEndogenousConcepts + ...
-                    this.NumFactorNames);
+        function populatePseudoDependents(this)
+            this.NumUnits = 1;
+            %
+            this.EndogenousNames = this.EndogenousConcepts;
+            %
+            this.ResidualConcepts = [this.FactorNames this.EndogenousConcepts] + this.SEPARATOR + this.ResidualSuffix;
+            this.ResidualNames = this.ResidualConcepts;
+            %
+            if isempty(this.ShockConcepts) || isequal(this.ShockConcepts, "") || all(ismissing(this.ShockConcepts))
+                this.ShockConcepts = this.EndogenousConcepts + this.SEPARATOR + this.ShockSuffix;
             end
-            
-            if this.NumShockNames ~= this.NumEndogenousNames + this.NumFactorNames
-                error("Number of shock names must match number of endogenous variables, including factors");
-            end
-        
+            this.ShockNames = this.ShockConcepts;
         end%
     
 
     end
 
-    methods (Access=protected)
+    methods (Access=protected)x0
 
         function catchDuplicateNames(this)
             allNames = [ ...

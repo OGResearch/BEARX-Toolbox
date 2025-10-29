@@ -43,7 +43,6 @@ classdef Meta < base.Meta
                 options.exogenousNames (1, :) string = string.empty(1, 0)
                 options.order (1, 1) double {mustBePositive, mustBeInteger} = 1
                 options.intercept (1, 1) logical = true
-                options.shockConcepts (1, :) string = string.empty(1, 0)
                 options.shockNames (1, :) string = string.empty(1, 0)
                 options.identificationHorizon (1, 1) double {mustBeNonnegative, mustBeInteger} = 0
         
@@ -93,7 +92,7 @@ classdef Meta < base.Meta
 
     end
 
-    methods (Access=protected)x0
+    methods (Access=protected)
 
         function catchDuplicateNames(this)
             allNames = [ ...

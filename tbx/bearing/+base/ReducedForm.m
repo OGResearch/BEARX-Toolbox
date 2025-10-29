@@ -212,6 +212,7 @@ classdef ReducedForm ...
                 sample = this.Presampled{i};
                 [shortY{i}, shortU{i}, initY{i}, shortX{i}] = forecaster(sample);
             end
+
             %
             [varargout{1:nargout}] = tabulator(shortY, shortU, initY, shortX);
         end%

@@ -3,7 +3,7 @@
 % SV model with outliers, model nr 3 in the CCMM paper
 
 classdef CCMMSVO ...
-    < estimator.Base
+    < base.Estimator
 
     properties
         Settings = base.estimator.settings.CCMMSVO()

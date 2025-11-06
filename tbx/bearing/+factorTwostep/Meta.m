@@ -79,12 +79,13 @@ classdef Meta < base.Meta
             this.NumUnits = 1;
             %
             this.EndogenousNames = this.EndogenousConcepts;
+            this.PseudoEndogenousNames = [this.FactorNames this.EndogenousNames];
             %
-            this.ResidualConcepts = [this.FactorNames this.EndogenousConcepts] + this.SEPARATOR + this.ResidualSuffix;
+            this.ResidualConcepts = this.PseudoEndogenousNames + this.SEPARATOR + this.ResidualSuffix;
             this.ResidualNames = this.ResidualConcepts;
             %
             if isempty(this.ShockConcepts) || isequal(this.ShockConcepts, "") || all(ismissing(this.ShockConcepts))
-                this.ShockConcepts = this.EndogenousConcepts + this.SEPARATOR + this.ShockSuffix;
+                this.ShockConcepts = this.PseudoEndogenousNames + this.SEPARATOR + this.ShockSuffix;
             end
             this.ShockNames = this.ShockConcepts;
         end%

@@ -55,7 +55,7 @@ classdef (Abstract) Estimator ...
                 draw = struct();
                 draw.A = wrap(A);
                 draw.C = wrap(C);
-                draw.L = wrap(L);
+                % draw.L = wrap(L);
                 draw.Sigma = sample.sigma;
                 % draw.LD = reshape(sample.LD, [], numY);      
             end%

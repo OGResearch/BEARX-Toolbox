@@ -6,7 +6,7 @@ function shocksCF = createShocksCF(meta, planTbx, fcastSpan)
         return
     end
 
-    planArray = planTbx{fcastSpan, meta.EndogenousNames};
+    planArray = planTbx{fcastSpan, meta.PseudoEndogenousNames};
     shocksCF = cell(size(planArray));
     dict = textual.createDictionary(meta.ShockNames);
 

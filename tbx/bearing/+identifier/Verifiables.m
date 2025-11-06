@@ -9,13 +9,13 @@ classdef Verifiables ...
 
 
     properties (SetAccess = protected)
-        TestStrings (:, 1) string
         VerifiableTests
         InstantZeros = identifier.InstantZeros()
         IneqRestrictTable (:, :) table
         %
         MaxCandidates (1, 1) double {mustBePositive} = identifier.Verifiables.DEFAULT_MAX_CANDIDATES
         TryFlipSigns (1, 1) logical = identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
+        TestStrings (:, 1) string = string.empty(0, 1)
     end
 
 
@@ -30,10 +30,15 @@ classdef Verifiables ...
                 %
                 options.MaxCandidates (1, 1) double = identifier.Verifiables.DEFAULT_MAX_CANDIDATES
                 options.TryFlipSigns (1, 1) logical = identifier.Verifiables.DEFAULT_TRY_FLIP_SIGNS
+                options.FileName (1, 1) string = ""
                 % options.ShortCircuit (1, 1) logical = identifier.VerifiableTests.DEFAULT_SHORT_CIRCUIT
             end
             %
-            this.TestStrings = testStrings;
+            if options.FileName ~= ""
+                this.TestStrings = identifier.testStringsFromMarkdown(options.FileName);
+            else
+                this.TestStrings = testStrings;
+            end
             this.MaxCandidates = options.MaxCandidates;
             this.TryFlipSigns = options.TryFlipSigns;
             this.IneqRestrictTable = inputs.IneqRestrictTable;

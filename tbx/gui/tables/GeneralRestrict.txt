@@ -1,9 +1,0 @@
-%
-% Enter one generalized restriction per line, combining the following format system properties:
-%
-% *
-%
-% Use a percent sign (%) to indicate comments that are ignored.
-% Use blank lines to add visual aid.
-%
-

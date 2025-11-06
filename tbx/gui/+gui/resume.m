@@ -79,7 +79,7 @@ function resume()
         fullfile(".", "html", "identification", "zeros.html"), "?PATH?", wrapPath("InstantZeros.xlsx")
         fullfile(".", "html", "identification", "inequality.html"), "?PATH?", wrapPath("IneqRestrict.xlsx")
         fullfile(".", "html", "dummies", "longrun.html"), "?PATH?", wrapPath("LongRunDummies.xlsx")
-        fullfile(".", "html", "identification", "generalRestrict.html"), "?PATH?", "matlab: edit(fullfile('tables', 'GeneraldRestrict.txt'))"
+        fullfile(".", "html", "identification", "generalRestrict.html"), "?PATH?", "matlab: edit(fullfile('tables', 'GeneralRestrict.md'))"
     };
     for i = 1 : height(dispatcher)
         htmlPath = dispatcher{i, 1};

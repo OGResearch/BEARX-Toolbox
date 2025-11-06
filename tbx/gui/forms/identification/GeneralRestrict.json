@@ -1,0 +1,19 @@
+
+{
+    "FileName": {
+        "value": "tables/GeneralRestrict.md",
+        "type": "string",
+        "label": "Path to the general restrictions markdown file"
+    },
+    "MaxCandidates": {
+        "value": 100,
+        "type": "number",
+        "label": "Maximum number of candidate draws for each reduced-form sample"
+    },
+    "TryFlipSigns": {
+        "value": true,
+        "type": "logical",
+        "label": "Try to flip signs of shocks to satisfy restrictions"
+    }
+}
+

@@ -4,6 +4,11 @@
     "type": "names",
     "label": "Names of endogenous variables"
   },
+  "ThresholdName": {
+    "value": "",
+    "type": "name",
+    "label": "Name of the threshold indicator variable"
+  },
   "ExogenousNames": {
     "value": "",
     "type": "names",
@@ -33,11 +38,6 @@
     "value": 4,
     "type": "number",
     "label": "Number of periods for shock responses"
-  },
-  "ThresholdVarName:: {
-    "value": "",
-    "type": "names",
-    "label": "Variable serving as the threshold indicator for regime identification"
   }
 }
 

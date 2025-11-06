@@ -16,7 +16,10 @@ classdef ReducedForm < base.ReducedForm
                 options.Order (1, 1) double {mustBeInteger, mustBePositive}
             end
 
+            meta = this.Meta;
+
             draw = this.Estimator.UnconditionalDrawer(sample, forecastStartIndex, forecastHorizon);
+
             shortU1 = system.generateResiduals( ...
                 draw.Sigma1 ...
                 , stochasticResiduals=options.StochasticResiduals ...
@@ -27,33 +30,26 @@ classdef ReducedForm < base.ReducedForm
                 , stochasticResiduals=options.StochasticResiduals ...
             );
 
-
             order = options.Order;
-       
+
             [longY, longX] = longYX{:};
             initY = this.getInitY(longY, order, sample, forecastStartIndex);
             shortX = longX(order+1:end, :);
-
-            meta = this.Meta;
-            match = meta.EndogenousNames == meta.ThresholdVarName;
-            thresholdIndex = find(match);
 
             %
             % Run forecast
             %
             [shortY, shortU, initY, shortX] = system.forecastTH( ...
                 draw.A1, draw.A2, draw.C1, draw.C2, initY, shortX, shortU1, shortU2 ...
-                , delay = draw.delay ...
-                , threshold = draw.threshold ...
-                , thresholdIndex = thresholdIndex ...
-                , hasIntercept = options.HasIntercept ...
+                , delay=draw.delay ...
+                , threshold=draw.threshold ...
+                , thresholdIndex=meta.ThresholdNameIndex ...
+                , hasIntercept=options.HasIntercept ...
             );
 
         end%
 
     end
-
-
 
 end
 

@@ -13,6 +13,10 @@ function code = assemble(options)
 
     snippets = [snippets; scripter.codeDummies()];
 
+    snippets = [snippets; scripter.codeMeta()];
+
+    snippets = [snippets; scripter.codeInputData()];
+
     snippets = [snippets; scripter.codeReducedFormModel()];
 
 

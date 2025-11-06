@@ -34,7 +34,6 @@ classdef Threshold ...
 
             opt.const = meta.HasIntercept;
             opt.p = meta.Order;
-            opt.thresholdVarName = meta.ThresholdVarName;
 
             if opt.maxDelay > opt.p
                opt.maxDelay = opt.p;
@@ -50,7 +49,7 @@ classdef Threshold ...
             end
 
             %Find the threshold variable
-            thInd = find(meta.EndogenousNames == opt.thresholdVarName);
+            thInd = meta.ThresholdNameIndex;
             thVar = Y(:, thInd);
             meanThreshold = mean(thVar);
 

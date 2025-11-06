@@ -18,7 +18,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     CONTRIB_DIM = 3;
 
     meta = this.Meta;
-    numY = meta.NumEndogenousNames;
+    numY = meta.NumPseudoEndogenousNames;
     order = meta.Order;
     numL = numY * order;
     shortFcastSpan = datex.ensureSpan(fcastSpan);
@@ -26,9 +26,8 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     longFcastSpan = datex.longSpanFromShortSpan(shortFcastSpan, meta.Order);
     fcastStartIndex = datex.diff(fcastStart, meta.ShortStart) + 1;
     fcastHorizon = numel(shortFcastSpan);
-    initSpan = datex.initSpanFromShortSpan(shortFcastSpan, meta.Order);
-    initYX = this.getSomeYX(initSpan);
-    initY = initYX{1};
+    longYX = this.getSomeYX(longFcastSpan);
+    [longY, longX] = longYX{:};
 
     if lower(options.ExogenousFrom) == lower("inputData")
         fcastX = this.getSomeX(shortFcastSpan);
@@ -76,6 +75,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     progressBar = progress.Bar(progressMessage, numPresampled*numSeparableUnits);
     for i = 1 : numPresampled
         sample = this.Presampled{i};
+        initY = this.ReducedForm.getInitY(longY, internalOptions.order, sample, fcastStartIndex);
         draw = this.ConditionalDrawer(sample, fcastStartIndex, fcastHorizon);
         EXTRA_DIM = 3;
         for unit = 1 : numSeparableUnits
@@ -134,7 +134,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     fcastY = cat(VARIANT_DIM, fcastY{:});
     fcastE = cat(VARIANT_DIM, fcastE{:});
 
-    outNames = [meta.EndogenousNames, meta.ShockNames];
+    outNames = [meta.PseudoEndogenousNames, meta.ShockNames];
     outData = [fcastY, fcastE];
     outSpan = shortFcastSpan;
     if options.IncludeInitial

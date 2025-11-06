@@ -45,6 +45,7 @@ classdef Meta < base.Meta
             this.NumUnits = numel(this.Units);
             %
             this.EndogenousNames = textual.crossList(this.SEPARATOR, this.Units, this.EndogenousConcepts);
+            this.PseudoEndogenousNames = this.EndogenousNames;
             %
             this.ResidualConcepts = this.EndogenousConcepts + this.SEPARATOR + this.ResidualSuffix;
             this.ResidualNames = textual.crossList(this.SEPARATOR, this.Units, this.ResidualConcepts);

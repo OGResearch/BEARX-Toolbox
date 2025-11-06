@@ -48,6 +48,7 @@ classdef Meta < matlab.mixin.Copyable
         NumSeparableUnits
         %
         EndogenousNames
+        PseudoEndogenousNames
         SeparableEndogenousNames
         %
         ResidualConcepts
@@ -72,6 +73,7 @@ classdef Meta < matlab.mixin.Copyable
         %
         NumEndogenousConcepts
         NumEndogenousNames
+        NumPseudoEndogenousNames
         NumSeparableEndogenousNames
         %
         NumResidualNames
@@ -145,6 +147,7 @@ classdef Meta < matlab.mixin.Copyable
             this.NumUnits = 1;
             %
             this.EndogenousNames = this.EndogenousConcepts;
+            this.PseudoEndogenousNames = this.EndogenousNames;
             %
             this.ResidualConcepts = this.EndogenousConcepts + this.SEPARATOR + this.ResidualSuffix;
             this.ResidualNames = this.ResidualConcepts;
@@ -261,6 +264,10 @@ classdef Meta < matlab.mixin.Copyable
 
         function out = get.NumEndogenousNames(this)
             out = numel(this.EndogenousNames);
+        end%
+
+        function out = get.NumPseudoEndogenousNames(this)
+            out = numel(this.PseudoEndogenousNames);
         end%
 
         function out = get.NumSeparableEndogenousNames(this)

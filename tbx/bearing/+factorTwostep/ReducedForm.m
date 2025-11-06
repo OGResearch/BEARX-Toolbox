@@ -21,7 +21,7 @@ classdef ReducedForm ...
     end
 
 
-    methods (Access = protected)
+    methods (Access = public)
 
         function initY = getInitY(this, ~, order, sample, startindex)
             initY = sample.FY(startindex:order+startindex-1,:);
@@ -31,15 +31,6 @@ classdef ReducedForm ...
             longY = sample.FY;
         end%
 
-        function forecastNames = getForecastNames(this)
-            meta = this.Meta;
-            forecastNames = [ ...
-                meta.FactorNames, ...
-                meta.EndogenousNames, ...
-                meta.ResidualNames, ...
-                meta.ExogenousNames ...
-            ];
-        end%
 
     end
 

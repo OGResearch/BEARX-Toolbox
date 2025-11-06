@@ -1,7 +1,7 @@
 
 function conditionsCF = createConditionsCF(meta, planTbx, dataTbx, fcastSpan)
 
-    endogenousNames = meta.EndogenousNames;
+    endogenousNames = meta.PseudoEndogenousNames;
     dataArray = dataTbx{fcastSpan, endogenousNames};
     conditionsCF = num2cell(dataArray);
 

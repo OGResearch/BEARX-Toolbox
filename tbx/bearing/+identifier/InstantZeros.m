@@ -4,8 +4,8 @@ classdef InstantZeros ...
     & identifier.InstantMixin
 
     properties
-        RestrictionsTable = []
-        RestrictionsMatrix (:, :) double = []
+        Table table = table.empty()
+        Matrix (:, :) double = []
     end
 
 
@@ -18,36 +18,36 @@ classdef InstantZeros ...
         function this = InstantZeros(options)
             arguments
                 options.FileName (1, 1) string = ""
-                options.Table table = []
+                options.Table table = table.empty()
                 options.Matrix (:, :) double = []
             end
             %
             if options.FileName ~= ""
-                this.RestrictionsTable = tablex.readtable(options.FileName);
+                this.Table = tablex.readtable(options.FileName);
                 return
             end
             %
             if ~isempty(options.Table)
-                this.RestrictionsTable = options.Table;
+                this.Table = options.Table;
                 return
             end
             %
             if ~isempty(options.Matrix)
-                this.RestrictionsMatrix = options.Matrix;
+                this.Matrix = options.Matrix;
                 return
             end
         end%
 
         function populateRestrictionsMatrix(this)
-            if isempty(this.RestrictionsTable)
+            if isempty(this.Table)
                 return
             end
-            R = this.RestrictionsTable{this.SeparableEndogenousNames, this.SeparableShockNames};
+            R = this.Table{this.SeparableEndogenousNames, this.SeparableShockNames};
             %
             % Transpose the restriction matrix so that the rows correspond to
             % shocks and columns to endogenous variables; this is consistent
             % with the row-oriented VAR system representation in BEAR
-            this.RestrictionsMatrix = transpose(R);
+            this.Matrix = transpose(R);
         end%
 
         function choleskator = getCholeskator(this)
@@ -56,7 +56,7 @@ classdef InstantZeros ...
 
         function candidator = getCandidator(this)
             if this.NumRestrictions > 0
-                R = this.RestrictionsMatrix;
+                R = this.Matrix;
                 candidator = @(P) identifier.candidateFromFactorConstrained(P, R);
             else
                 candidator = @identifier.candidateFromFactorUnconstrained;
@@ -66,7 +66,7 @@ classdef InstantZeros ...
         function whenPairedWithModel(this, modelS)
             meta = modelS.Meta;
             this.populateSeparableNames(meta);
-            this.checkTable(this.RestrictionsTable, meta);
+            this.checkTable(this.Table, meta);
             this.populateRestrictionsMatrix();
         end%
     end
@@ -74,7 +74,7 @@ classdef InstantZeros ...
 
     methods
         function n = get.NumRestrictions(this)
-            n = nnz(~isnan(this.RestrictionsMatrix));
+            n = nnz(~isnan(this.Matrix));
         end%
     end
 

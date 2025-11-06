@@ -1,7 +1,13 @@
 
-function periods = span(inTable)
+function out = span(inTable)
+
+    arguments
+        inTable timetable
+    end
+
     startPeriod = tablex.startPeriod(inTable);
     endPeriod = tablex.endPeriod(inTable);
-    periods = datex.span(startPeriod, endPeriod);
+    out = datex.span(startPeriod, endPeriod);
+
 end%
 

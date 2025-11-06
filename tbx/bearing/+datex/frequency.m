@@ -1,5 +1,5 @@
 %
-% FREQUENCY  Get the tim frequency of a datetime object
+% FREQUENCY  Get the time frequency of a datetime object
 %
 % Syntax
 % -------

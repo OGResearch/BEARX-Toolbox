@@ -1,9 +1,10 @@
 
-function outTable = merge(firstTable, secondTable)
+function outTable = merge(firstTable, secondTable, options)
 
     arguments
         firstTable timetable
         secondTable timetable
+        options.strategy (1, 1) string {mustBeMember(options.strategy, ["overlay", "replace", "discard", "error"])} = "overlay"
     end
 
     if height(secondTable) == 0
@@ -16,43 +17,86 @@ function outTable = merge(firstTable, secondTable)
         return
     end
 
-    firstNames = string(firstTable.Properties.VariableNames);
-    secondNames = string(secondTable.Properties.VariableNames);
-    allNames = unique([firstNames, secondNames], "stable");
+    firstFreq = tablex.frequency(firstTable);
+    secondFreq = tablex.frequency(secondTable);
+    if firstFreq ~= secondFreq
+        error("Cannot merge timetables with different time frequencies: %s and %s.", firstFreq, secondFreq);
+    end
 
-    [firstSpan, secondSpan, allSpan] = resolveSpans_(firstTable, secondTable);
+    firstNames = tablex.names(firstTable);
+    secondNames = tablex.names(secondTable);
+    mergedNames = unique([firstNames, secondNames], "stable");
 
-    numFirstPeriods = numel(firstSpan);
-    numSecondPeriods = numel(secondSpan);
+    [mergedSpan, secondSpanIndex] = resolveSpans_(firstTable, secondTable);
+    numPeriods = numel(mergedSpan);
+    errorNames = string.empty(1, 0);
 
-    firstData = tablex.retrieveDataAsCellArray(firstTable, firstNames, firstSpan, variant=":");
-    secondData = tablex.retrieveDataAsCellArray(secondTable, secondNames, secondSpan, variant=":");
+    function out = overlay_(firstVariable, secondVariable, ~)
+        numFirstVariants = size(firstVariable, 2);
+        numSecondVariants = size(secondVariable, 2);
+        if numFirstVariants == 1 && numSecondVariants > 1
+            firstVariable = repmat(firstVariable, 1, numSecondVariants);
+        elseif numFirstVariants > 1 && numSecondVariants == 1
+            secondVariable = repmat(secondVariable, 1, numFirstVariants);
+        end
+        out = firstVariable;
+        out(secondSpanIndex, :) = secondVariable(secondSpanIndex, :);
+    end%
 
-    allData = cell(1, numel(allNames));
+    function out = replace_(firstVariable, secondVariable, ~)
+        out = secondVariable;
+    end%
 
-    for name = allNames
+    function out = discard_(firstVariable, secondVariable, ~)
+        out = firstVariable;
+    end%
+
+    function out = error_(~, ~, name)
+        errorNames(1, end+1) = name; %#ok<AGROW>
+        out = [];
+    end%
+
+    dispatch = struct( ...
+        overlay=@overlay_, ...
+        replace=@replace_, ...
+        discard=@discard_, ...
+        error=@error_ ...
+    );
+    strategyFunc = dispatch.(options.strategy);
+
+    % numFirstPeriods = numel(firstSpan);
+    % numSecondPeriods = numel(secondSpan);
+
+    firstData = tablex.retrieveDataAsCellArray(firstTable, firstNames, mergedSpan, variant=":");
+    secondData = tablex.retrieveDataAsCellArray(secondTable, secondNames, mergedSpan, variant=":");
+
+    mergedData = cell(1, numel(mergedNames));
+
+    for name = mergedNames
         nameInFirst = find(name == firstNames, 1);
         nameInSecond = find(name == secondNames, 1);
-        nameInAll = find(name == allNames, 1);
+        nameInAll = find(name == mergedNames, 1);
         if ~isempty(nameInFirst) && isempty(nameInSecond)
-            numVariants = size(firstData{1, nameInFirst}, 2);
-            allData{1, nameInAll} = [firstData{1, nameInFirst}; nan(numSecondPeriods, numVariants)];
+            firstVariable = firstData{1, nameInFirst};
+            mergedData{1, nameInAll} = firstVariable;
         elseif isempty(nameInFirst) && ~isempty(nameInSecond)
-            numVariants = size(secondData{1, nameInSecond}, 2);
-            allData{1, nameInAll} = [nan(numFirstPeriods, numVariants); secondData{1, nameInSecond}];
+            secondVariable = secondData{1, nameInSecond};
+            mergedData{1, nameInAll} = secondVariable;
         else
-            numFirstVariants = size(firstData{1, nameInFirst}, 2);
-            numSecondVariants = size(secondData{1, nameInSecond}, 2);
-            if numFirstVariants == 1 && numSecondVariants > 1
-                firstData{1, nameInFirst} = repmat(firstData{1, nameInFirst}, 1, numSecondVariants);
-            elseif numFirstVariants > 1 && numSecondVariants == 1
-                secondData{1, nameInSecond} = repmat(secondData{1, nameInSecond}, 1, numFirstVariants);
-            end
-            allData{1, nameInAll} = [firstData{1, nameInFirst}; secondData{1, nameInSecond}];
+            firstVariable = firstData{1, nameInFirst};
+            secondVariable = secondData{1, nameInSecond};
+            mergedData{1, nameInAll} = strategyFunc(firstVariable, secondVariable, name);
         end
     end
-    outTable = tablex.fromCellArray(allData, allNames, allSpan);
 
+    if ~isempty(errorNames)
+        error( ...
+            "Cannot merge timetables because the following variables exist in both timetables: %s." ...
+            , join(errorNames, " ") ...
+        );
+    end
+
+    outTable = tablex.fromCellArray(mergedData, mergedNames, mergedSpan);
     try
         higherDimNames = tablex.getHigherDims(firstTable);
         outTable = tablex.setHigherDims(outTable, higherDimNames);
@@ -61,28 +105,37 @@ function outTable = merge(firstTable, secondTable)
 end%
 
 
-function [firstSpan, secondSpan, allSpan] = resolveSpans_(firstTable, secondTable)
+function [mergedSpan, secondSpanIndex] = resolveSpans_(firstTable, secondTable)
 
     firstSpan = tablex.span(firstTable);
     secondSpan = tablex.span(secondTable);
-
     fh = datex.Backend.getFrequencyHandlerFromDatetime(firstSpan(1));
+
     firstStartPeriod = firstSpan(1);
     secondStartPeriod = secondSpan(1);
-    firstEndPeriod = datex.shift(secondStartPeriod, -1);
-    secondEndPeriod = secondSpan(end);
-    firstSpan = datex.span(firstStartPeriod, firstEndPeriod);
 
-    firstNames = string(firstTable.Properties.VariableNames);
-    secondNames = string(secondTable.Properties.VariableNames);
+    firstEndPeriod = firstSpan(end);
+    secondEndPeriod = secondSpan(end);
+
+    firstSpan = datex.span(firstStartPeriod, firstEndPeriod);
 
     if firstStartPeriod < secondStartPeriod
         allStartPeriod = firstStartPeriod;
     else
         allStartPeriod = secondStartPeriod;
     end
-    allEndPeriod = secondEndPeriod;
-    allSpan = datex.span(allStartPeriod, allEndPeriod);
+
+    if firstEndPeriod > secondEndPeriod
+        allEndPeriod = firstEndPeriod;
+    else
+        allEndPeriod = secondEndPeriod;
+    end
+
+    mergedSpan = datex.span(allStartPeriod, allEndPeriod);
+
+    secondStartIndex = datex.diff(secondStartPeriod, allStartPeriod) + 1;
+    secondEndIndex = datex.diff(secondEndPeriod, allStartPeriod) + 1;
+    secondSpanIndex = secondStartIndex : secondEndIndex;
 
 end%
 

@@ -1,11 +1,10 @@
 
-% NormalWishart
+% Normal-Wishart
+% prior =21 and 22 in BEAR5
 
 classdef NormalWishart ...
     < base.Estimator ...
     & base.estimator.PlainDrawersMixin
-
-% prior =21 and 22 in BEAR5
 
     properties
         Settings = base.estimator.settings.NormalWishart()

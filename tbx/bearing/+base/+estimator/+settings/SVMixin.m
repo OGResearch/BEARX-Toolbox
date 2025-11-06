@@ -1,6 +1,5 @@
 
-classdef (CaseInsensitiveProperties=true) SVMixin ...
-    < handle
+classdef (CaseInsensitiveProperties=true) SVMixin
 
     properties
         % AR coefficient on residual variance
@@ -17,3 +16,4 @@ classdef (CaseInsensitiveProperties=true) SVMixin ...
     end
 
 end
+

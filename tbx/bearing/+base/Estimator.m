@@ -47,7 +47,7 @@ classdef (Abstract) Estimator ...
             if nargin == 0
                 return
             end
-            this.Settings.update(varargin{:});
+            this.Settings = this.Settings.update(varargin{:});
         end%
 
         function initialize(this, meta, longYX, dummiesYLX)

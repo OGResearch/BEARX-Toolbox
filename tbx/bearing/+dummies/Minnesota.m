@@ -3,11 +3,20 @@ classdef (CaseInsensitiveProperties=true) Minnesota ...
     < dummies.Base
 
     properties
-        Lambda (1, 1) double = 0.1 % lambda1, overall tightness
-        LagDecay (1, 1) double = 1 % lambda3, leg decay
+        % Lambda  Tightness of the overall Minnesota prior
+        Lambda (1, 1) double = 0.1 % lambda1
+
+        % LagDecay  Decay factor for lagged coefficients
+        LagDecay (1, 1) double = 1 % lambda3
+
+        % Autoregression  Autoregressive coefficients for each endogenous variable
         Autoregression (:, :) double = 0.8 % ar
-        ExogenousLambda (:, :) double = 100 % lambda4, exogenous tightness
+
+        % Exogenous  True or false for including exogenous variables in dummy observations
         Exogenous (:, :) logical = false %priorexogenous
+
+        % ExogenousLambda  Tightness of exogenous dummy observations
+        ExogenousLambda (:, :) double = 100 % lambda4, exogenous tightness
     end
 
 

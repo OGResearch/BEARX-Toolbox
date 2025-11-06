@@ -6,7 +6,7 @@ classdef CCMMSV ...
     < base.Estimator
 
     properties
-        Settings = base.estimator.settings.CCMMSVSettings()
+        Settings = base.estimator.settings.CCMMSV()
     end
 
 

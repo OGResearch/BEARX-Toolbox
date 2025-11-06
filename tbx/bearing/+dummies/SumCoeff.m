@@ -1,7 +1,9 @@
 
-classdef (CaseInsensitiveProperties=true) SumCoefficients < dummies.Base
+classdef (CaseInsensitiveProperties=true) SumCoeff ...
+    < dummies.Base
 
     properties
+        % Lambda  Overall tightness of prior dummies
         Lambda (1, 1) double = 0.1 %lambda6 in BEAR5, su-of-coefficients tightness
     end
 
@@ -16,7 +18,7 @@ classdef (CaseInsensitiveProperties=true) SumCoefficients < dummies.Base
 
     methods
 
-        function this = SumCoefficients(varargin)
+        function this = SumCoeff(varargin)
             if nargin == 0
                 return
             end

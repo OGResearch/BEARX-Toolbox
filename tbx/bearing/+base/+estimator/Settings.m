@@ -1,7 +1,5 @@
 
-
-classdef (Abstract, CaseInsensitiveProperties=true) Settings ...
-    < handle
+classdef (Abstract, CaseInsensitiveProperties=true) Settings
 
     properties
         % Number of burn-in draws
@@ -52,7 +50,7 @@ classdef (Abstract, CaseInsensitiveProperties=true) Settings ...
 
 
     methods
-        function update(this, meta, varargin)
+        function this = update(this, meta, varargin)
             for i = 1 : 2 : numel(varargin)
                 this.(varargin{i}) = varargin{i+1};
             end

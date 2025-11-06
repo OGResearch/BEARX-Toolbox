@@ -1,7 +1,7 @@
 
-function outNames = names(table)
+function out = names(table)
 
-    outNames = reshape(string(table.Properties.VariableNames), 1, []);
+    out = reshape(string(table.Properties.VariableNames), 1, []);
 
 end%
 

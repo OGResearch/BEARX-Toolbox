@@ -1,8 +1,0 @@
-{
-    "Lambda": {
-        "value": 0.1,
-        "type": "number",
-        "description": "Tightness of the dummy observations"
-    }
-}
-

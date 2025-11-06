@@ -1,14 +1,16 @@
 
-classdef (CaseInsensitiveProperties=true) InitialObservations < dummies.Base
+classdef (CaseInsensitiveProperties=true) InitialObs ...
+    < dummies.Base
 
     properties
-        Lambda (1, 1) double = 1e-3 %lambda7 in BEAR7, initial observation tightness
+        % Lambda  Tightness of prior dummies
+        Lambda (1, 1) double = 1e-3 %lambda7
     end
 
 
     methods
 
-        function this = InitialObservations(varargin)
+        function this = InitialObs(varargin)
             if nargin == 0
                 return
             end

@@ -1,5 +1,5 @@
 
-classdef OnestepMixin < handle
+classdef OnestepMixin
 
     properties
         % Loading Variance

@@ -1,3 +1,4 @@
+
 classdef Regular < datex.FrequencyHandler
 
     methods
@@ -18,11 +19,15 @@ classdef Regular < datex.FrequencyHandler
         function dt = datetimeFromYepe(this, year, per)
             arguments
                 this
-                year (1, 1) double
-                per (1, 1) double = 1
+                year (1, :) double
+                per (1, :) double = 1
             end
-            serial = serialFromYepe(this, year, per);
-            dt = datetimeFromSerial(this, serial);
+            %
+            serial = this.serialFromYepe(year, per);
+            dt = [];
+            for i = reshape(serial, 1, [])
+                dt = [dt, this.datetimeFromSerial(i)]; %#ok<AGROW>
+            end
         end%
 
         function dt = datetimeFromSerial(this, serial)
@@ -38,6 +43,11 @@ classdef Regular < datex.FrequencyHandler
 
         function serial = serialFromYepe(this, year, per)
             serial = round(year * this.Frequency + per - 1);
+        end%
+
+        function [year, per] = yepeFromDatetime(this, dt)
+            year = dt.Year;
+            per = this.perFromMonth(dt.Month);
         end%
 
         function [year, per] = yepeFromSerial(this, serial)
@@ -57,6 +67,16 @@ classdef Regular < datex.FrequencyHandler
 
         function month = monthFromPer(this, per, position)
             month = round((per - 1) * (12 / this.Frequency) + 1);
+        end%
+
+        function decimal = decimalFromYepe(this, year, per)
+            offset = 1 ./ (2 * this.Frequency);
+            decimal = year + (per - 1) ./ this.Frequency + offset;
+        end%
+
+        function decimal = decimal(this, dt)
+            [year, per] = this.yepeFromDatetime(dt);
+            decimal = this.decimalFromYepe(year, per);
         end%
     end
 

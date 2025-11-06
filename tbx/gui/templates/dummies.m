@@ -1,11 +1,11 @@
 
 %% Create ?TYPE? prior dummy observations 
 
-% Create a ?TYPE? prior dummy observations object
+% Create ?TYPE? prior dummy observations object
 ?VARIABLE_NAME? = dummies.?TYPE?( ...
     ?SETTINGS?
 );
 
-% Include the dummies in the cell array for the reduced-form model
+% Include the dummies in the cell array for use in the reduced-form model
 dummyObjects{end+1} = ?VARIABLE_NAME?;
 

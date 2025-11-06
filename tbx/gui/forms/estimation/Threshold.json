@@ -7,7 +7,7 @@
   },
   "MaxDelay": {
     "label": "Controls the maxium delay allowed for the threshold variable for regime identification",
-    "type": "string",
+    "type": "number",
     "value": 4,
     "details": ""
   },

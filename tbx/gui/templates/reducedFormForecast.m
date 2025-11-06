@@ -16,5 +16,5 @@ printTable(redForecastPercentilesTbl);
 outputPath__ = fullfile(outputFolder, "redForecastPercentiles");
 ?SAVE_MAT?save(outputPath__ + ".mat", "redForecastPercentilesTbl");
 ?SAVE_CSV?tablex.writetimetable(redForecastPercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(redForecastPercentilesTbl, outputPath__ + ".xls");
+?SAVE_XLS?tablex.writetimetable(redForecastPercentilesTbl, outputPath__ + ".xlsx");
 

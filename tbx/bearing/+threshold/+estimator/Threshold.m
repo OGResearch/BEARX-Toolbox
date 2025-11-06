@@ -87,7 +87,6 @@ classdef Threshold ...
             end%
             %===============================================================================
 
-
             % function A = retriever(sample, t)
             %     B = reshape(sample.beta{t}, [], numEn);
             %     A = B(1:numARows, :);

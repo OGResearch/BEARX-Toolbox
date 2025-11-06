@@ -1,6 +1,6 @@
-%% Automatically generated BEAR Toolbox script 
+%% Automatically generated BEARX Toolbox script 
 %
-% This script was generated based on the user input from the BEAR Toolbox
+% This script was generated based on the user input from the BEARX Toolbox
 % Graphical User Interface. Feel free to edit and adapt it furthere to your
 % needs.
 %
@@ -40,7 +40,7 @@ if ~isfolder(outputFolder)
 end
 
 
-%% Set up print functions
+%% Set up print functions 
 
 printInfo = ?PRINT_INFO?;
 printTable = ?PRINT_TABLE?;

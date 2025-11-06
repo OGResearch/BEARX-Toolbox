@@ -15,5 +15,5 @@ printTable(responsePercentilesTbl);
 outputPath__ = fullfile(outputFolder, "responsePercentiles");
 ?SAVE_MAT?save(outputPath__ + ".mat", "responsePercentilesTbl");
 ?SAVE_CSV?tablex.writetimetable(responsePercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(responsePercentilesTbl, outputPath__ + ".xls");
+?SAVE_XLS?tablex.writetimetable(responsePercentilesTbl, outputPath__ + ".xlsx");
 

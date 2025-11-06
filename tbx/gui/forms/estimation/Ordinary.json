@@ -1,6 +1,12 @@
 {
+  "FixedBeta": {
+    "label": "Keep coefficients fixed when sampling from posterior",
+    "type": "logical",
+    "value": false,
+    "details": ""
+  },
   "FixedSigma": {
-    "label": "Keep Sigma fixed during sampling from posterior",
+    "label": "Keep Sigma fixed when sampling from posterior",
     "type": "logical",
     "value": false,
     "details": ""

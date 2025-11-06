@@ -29,7 +29,7 @@ printTable(condForecastPercentilesTbl);
 outputPath__ = fullfile(outputFolder, "condForecastPercentiles");
 ?SAVE_MAT?save(outputPath__ + ".mat", "condForecastPercentilesTbl");
 ?SAVE_CSV?tablex.writetimetable(condForecastPercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(condForecastPercentilesTbl, outputPath__ + ".xls");
+?SAVE_XLS?tablex.writetimetable(condForecastPercentilesTbl, outputPath__ + ".xlsx");
 
 if ~isempty(condForecastContribsTbl)
     % Condense the results to percentiles
@@ -41,6 +41,6 @@ if ~isempty(condForecastContribsTbl)
     outputPath__ = fullfile(outputFolder, "condForecastContribsPercentiles");
     ?SAVE_MAT?save(outputPath__ + ".mat", "condForecastContribsPercentilesTbl");
     ?SAVE_CSV?tablex.writetimetable(condForecastContribsPercentilesTbl, outputPath__ + ".csv");
-    ?SAVE_XLS?tablex.writetimetable(condForecastContribsPercentilesTbl, outputPath__ + ".xls");
+    ?SAVE_XLS?tablex.writetimetable(condForecastContribsPercentilesTbl, outputPath__ + ".xlsx");
 end
 

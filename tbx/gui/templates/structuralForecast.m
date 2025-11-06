@@ -17,7 +17,7 @@ printTable(structForecastPercentilesTbl);
 outputPath__ = fullfile(outputFolder, "structForecastPercentiles");
 ?SAVE_MAT?save(outputPath__ + ".mat", "structForecastPercentilesTbl");
 ?SAVE_CSV?tablex.writetimetable(structForecastPercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(structForecastPercentilesTbl, outputPath__ + ".xls");
+?SAVE_XLS?tablex.writetimetable(structForecastPercentilesTbl, outputPath__ + ".xlsx");
 
 if ~isempty(structForecastContribsTbl)
     % Condense the forecast contributions to percentiles
@@ -29,6 +29,6 @@ if ~isempty(structForecastContribsTbl)
     outputPath__ = fullfile(outputFolder, "structForecastContribsPercentiles");
     ?SAVE_MAT?save(outputPath__ + ".mat", "structForecastContribsPercentilesTbl");
     ?SAVE_CSV?tablex.writetimetable(structForecastContribsPercentilesTbl, outputPath__ + ".csv");
-    ?SAVE_XLS?tablex.writetimetable(structForecastContribsPercentilesTbl, outputPath__ + ".xls");
+    ?SAVE_XLS?tablex.writetimetable(structForecastContribsPercentilesTbl, outputPath__ + ".xlsx");
 end
 

@@ -16,7 +16,7 @@ function formType = getFormType(type, dim)
         case "datetime"
             formType = "date";
         otherwise
-            formType = "string";
+            error("Unknown type for estimator settings forms: " + type);
     end
 
     % Check dimension

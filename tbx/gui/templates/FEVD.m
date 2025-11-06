@@ -15,5 +15,5 @@ printTable(fevdPercentilesTbl);
 outputPath__ = fullfile(outputFolder, "fevdPercentiles");
 ?SAVE_MAT?save(outputPath__ + ".mat", "fevdPercentilesTbl");
 ?SAVE_CSV?tablex.writetimetable(fevdPercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(fevdPercentilesTbl, outputPath__ + ".xls");
+?SAVE_XLS?tablex.writetimetable(fevdPercentilesTbl, outputPath__ + ".xlsx");
 

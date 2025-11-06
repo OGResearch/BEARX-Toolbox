@@ -135,14 +135,6 @@
       "RandomInertiaSV"
     ]
   },
-  "Threshold": {
-    "category": "Time-varying estimators",
-    "value": false,
-    "target": [
-      "estimation",
-      "Threshold"
-    ]
-  },
   "DynamicCrossPanel": {
     "category": "Panel estimators with cross-unit dependence",
     "value": false,
@@ -181,6 +173,14 @@
     "target": [
       "estimation",
       "NormalWishartPanel"
+    ]
+  },
+  "Threshold": {
+    "category": "Specialized estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "Threshold"
     ]
   }
 }

@@ -16,10 +16,10 @@
   "NormalWishart": "base",
   "Ordinary": "base",
   "RandomInertiaSV": "base",
-  "Threshold": "base",
   "DynamicCrossPanel": "cross",
   "StaticCrossPanel": "cross",
   "HierarchicalPanel": "separable",
   "MeanOLSPanel": "separable",
-  "NormalWishartPanel": "separable"
+  "NormalWishartPanel": "separable",
+  "Threshold": "threshold"
 }

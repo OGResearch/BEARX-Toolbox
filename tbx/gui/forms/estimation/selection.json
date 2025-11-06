@@ -1,4 +1,44 @@
 {
+  "BetaTV": {
+    "category": "Time-varying estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "BetaTV"
+    ]
+  },
+  "CCMMSV": {
+    "category": "Time-varying estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "CCMMSV"
+    ]
+  },
+  "CCMMSVO": {
+    "category": "Time-varying estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "CCMMSVO"
+    ]
+  },
+  "CCMMSVOT": {
+    "category": "Time-varying estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "CCMMSVOT"
+    ]
+  },
+  "CarrieroSV": {
+    "category": "Time-varying estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "CarrieroSV"
+    ]
+  },
   "CogleySargentSV": {
     "category": "Time-varying estimators",
     "value": false,
@@ -77,6 +117,14 @@
     "target": [
       "estimation",
       "NormalWishart"
+    ]
+  },
+  "Ordinary": {
+    "category": "Plain estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "Ordinary"
     ]
   },
   "RandomInertiaSV": {

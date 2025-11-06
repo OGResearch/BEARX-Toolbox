@@ -30,6 +30,10 @@ function resume()
 
     % Dummy observations tab
     gui.populateDummiesSelectionHTML();
+    gui.populateVanillaFormHTML({"dummies", "Minnesota"});
+    gui.populateVanillaFormHTML({"dummies", "InitialObs"});
+    gui.populateVanillaFormHTML({"dummies", "SumCoeff"});
+    gui.populateVanillaFormHTML({"dummies", "LongRun"});
 
     % Structural identification tab
     gui.populateIdentificationSelectionHTML();
@@ -74,6 +78,7 @@ function resume()
     dispatcher = {
         fullfile(".", "html", "identification", "zeros.html"), "?PATH?", wrapPath("InstantZeros.xlsx")
         fullfile(".", "html", "identification", "inequality.html"), "?PATH?", wrapPath("IneqRestrict.xlsx")
+        fullfile(".", "html", "dummies", "longrun.html"), "?PATH?", wrapPath("LongRunDummies.xlsx")
         fullfile(".", "html", "identification", "generalRestrict.html"), "?PATH?", "matlab: edit(fullfile('tables', 'GeneraldRestrict.txt'))"
     };
     for i = 1 : height(dispatcher)

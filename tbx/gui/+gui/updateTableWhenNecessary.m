@@ -10,10 +10,8 @@ function updateTableWhenNecessary(options)
     end
 
     guiFolder = gui_getFolder();
-    guiTablesFolder = fullfile(guiFolder, "tables");
-    customTablesFolder = fullfile(".", "tables");
-    sourceFile = fullfile(guiTablesFolder, options.FileName);
-    targetFile = fullfile(customTablesFolder, options.FileName);
+    sourceFile = fullfile(guiFolder, options.FileName);
+    targetFile = fullfile(".", options.FileName);
 
     if ~needsUpdate_(targetFile, options.RowNames, options.ColumnNames)
         disp("No need to update " + targetFile);

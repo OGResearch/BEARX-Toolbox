@@ -1,6 +1,6 @@
 
 nav:
-    - Task selection: selection.md
+    - Selection of tasks: selection.md
     - Prerequisites: prerequisites.md
     - Reduced-form estimation: estimation.md
     - Structural estimation: identification.md

@@ -1,22 +1,22 @@
 {
     "Minnesota":  {
         "value": false,
-        "label": "Minnesota prior dummy observations",
+        "label": "Minnesota",
         "target": ["dummies", "minnesota"]
     },
-    "Initial":  {
+    "InitialObs":  {
         "value": false,
-        "label": "Initial prior dummy observations",
-        "target": ["dummies", "initial"]
+        "label": "Initial observations",
+        "target": ["dummies", "initialObs"]
     },
     "SumCoeff":  {
         "value": false,
-        "label": "Sum of coefficients prior dummy observations",
+        "label": "Sum of coefficients",
         "target": ["dummies", "sumcoeff"]
     },
     "LongRun":  {
         "value": false,
-        "label": "Long-run prior dummy observations",
+        "label": "Long-run constraints",
         "target": ["dummies", "longrun"]
     }
 }

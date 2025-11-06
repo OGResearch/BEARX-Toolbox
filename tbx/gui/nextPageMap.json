@@ -4,11 +4,7 @@
         "zeros": ["tasks", "selection"]
     },
     "tasks": {
-        "selection": ["tasks", "prerequisites"],
-        "prerequisites": ["tasks", "selection"],
-        "redForecast": ["tasks", "selection"],
-        "structForecast": ["tasks", "selection"],
-        "conditional": ["tasks", "conditional"]
+        "selection": ["tasks", "prerequisites"]
     }
 }
 

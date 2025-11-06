@@ -5,44 +5,51 @@ function code = assemble(options)
         options.saveToFile (1, 1) string = ""
     end
 
-    taskSelection = gui.getCurrentTaskSelection();
+    % Estimation
 
     snippets = string.empty(0, 1);
 
     snippets = [snippets; scripter.codePreamble()];
 
+    snippets = [snippets; scripter.codeDummies()];
+
     snippets = [snippets; scripter.codeReducedFormModel()];
 
-    if taskSelection.ReducedFormEstimation
+
+    % Tasks
+
+    tasks = gui.getCurrentTasks();
+
+    if ismember("ReducedFormEstimation", tasks)
         snippets = [snippets; scripter.codeReducedFormEstimation()];
     end
 
-    if taskSelection.StructuralEstimation
+    if ismember("StructuralEstimation", tasks)
         snippets = [snippets; scripter.codeIdentifier()];
         snippets = [snippets; scripter.codeStructuralEstimation()];
     end
 
-    if taskSelection.ReducedFormForecast
+    if ismember("ReducedFormForecast", tasks)
         snippets = [snippets; scripter.codeReducedFormForecast()];
     end
 
-    if taskSelection.StructuralForecast
+    if ismember("StructuralForecast", tasks)
         snippets = [snippets; scripter.codeStructuralForecast()];
     end
 
-    if taskSelection.ConditionalForecast
+    if ismember("ConditionalForecast", tasks)
         snippets = [snippets; scripter.codeConditionalForecast()];
     end
 
-    if taskSelection.ShockResponses
+    if ismember("ShockResponses", tasks)
         snippets = [snippets; scripter.codeShockResponses()];
     end
 
-    if taskSelection.FEVD
+    if ismember("FEVD", tasks)
         snippets = [snippets; scripter.codeFEVD()];
     end
 
-    if taskSelection.ShockContributions
+    if ismember("ShockContributions", tasks)
         snippets = [snippets; scripter.codeShockContributions()];
     end
 

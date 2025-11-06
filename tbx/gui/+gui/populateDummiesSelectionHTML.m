@@ -18,7 +18,7 @@ function targetFile = populateDummiesSelectionHTML()
 
     currentModule = gui.getCurrentModule();
     if currentModule == ""
-        htmlForm = "<p>You need to choose a reduced-form estimator first</p>";
+        htmlForm = "<p>You need to choose a reduced-form estimator first to see a selection form</p>";
         copyCustomHTML_(htmlForm);
         return
     end

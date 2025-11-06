@@ -49,5 +49,5 @@ printObject = ?PRINT_OBJECT?;
 
 %% Prepare empty array of dummies 
 
-dummies = {};
+dummyObjects = {};
 

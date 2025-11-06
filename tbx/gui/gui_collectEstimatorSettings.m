@@ -5,7 +5,7 @@ function gui_collectEstimatorSettings(submission)
         submission (1, 1) string
     end
 
-    TARGET_PAGE = {"html", "meta", "settings.html"};
+    TARGET_PAGE = {"html", "data", "source.html"};
 
     currentEstimator = gui.getCurrentEstimator();
 

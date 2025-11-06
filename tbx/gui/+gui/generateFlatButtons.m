@@ -20,6 +20,7 @@ function htmlForm = generateFlatButtons(jsonForm, currentSelection, action, opti
     submitButton = gui.generateSubmitButton();
 
     htmlForm = string.empty(1, 0);
+    htmlForm(end+1) = "<br/>";
     htmlForm(end+1) = "<form action='matlab:{ACTION}'>";
 
     htmlForm(end+1) = submitButton;
@@ -38,6 +39,7 @@ function htmlForm = generateFlatButtons(jsonForm, currentSelection, action, opti
     htmlForm(end+1) = "<br/>";
     htmlForm(end+1) = submitButton;
     htmlForm(end+1) = "</form>";
+    htmlForm(end+1) = "<br/>";
 
     htmlForm = join(htmlForm, newline());
 

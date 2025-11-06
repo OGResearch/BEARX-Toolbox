@@ -12,6 +12,7 @@ function gui_collectEstimatorSelection(submission)
     submission = gui.resolveRawFormSubmission(submission);
     newSelection = submission.selection;
     selectionForm = gui.updateSelection(FORM_PATH, newSelection);
+    gui.populateEstimatorSelectionHTML();
 
     % Determine and save the new module
     moduleMapping = gui.readFormsFile({"module", "mapping"});

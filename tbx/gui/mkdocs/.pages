@@ -4,8 +4,8 @@ nav:
         - Welcome to BEAR GUI: index.md
         - Details of the GUI: details.md
         - Your notes: notes.md
-    - Input data: data
     - Reduced-form estimation: estimation
+    - Input data: data
     - Meta information: meta
     - Dummy observations: dummies
     - Structural identification: identification

@@ -18,7 +18,7 @@ function selected = querySelection(options)
         if ~isequal(form.(n).value, true)
             continue
         end
-        selected(end+1) = n; %#ok<AGROW>
+        selected(end+1) = string(n); %#ok<AGROW>
     end
 
     if ~isempty(options.count)

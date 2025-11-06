@@ -33,7 +33,7 @@
 %
 %}}}
 
-function varargout = fromCSV(varargin)
+function varargout = fromCsv(varargin)
 
     [varargout{1:nargout}] = tablex.fromFile( ...
         varargin{:} ...

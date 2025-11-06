@@ -1,9 +1,10 @@
 
 function updateIneqRestrictTable(meta)
 
-    INEQUALITY_XLSX = "IneqRestrict.xlsx";
+    FORM = {"identification", "IneqRestrict"};
     TITLE = "Inequality (sign) restrictions";
 
+    form = gui.readFormsFile(FORM);
     meta = gui.getCurrentMetaObj();
     endogenousNames = meta.EndogenousNames;
     shockNames = meta.SeparableShockNames;
@@ -11,7 +12,7 @@ function updateIneqRestrictTable(meta)
     gui.updateTableWhenNecessary( ...
         rowNames=endogenousNames, ...
         columnNames=shockNames, ...
-        fileName=INEQUALITY_XLSX, ...
+        fileName=string(form.FileName.value), ...
         title=TITLE ...
     );
 

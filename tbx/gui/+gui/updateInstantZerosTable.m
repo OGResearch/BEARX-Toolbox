@@ -1,9 +1,10 @@
 
 function updateInstantZerosTable()
 
-    INSTANT_ZEROS_XLSX = "InstantZeros.xlsx";
+    FORM_PATH = {"identification", "InstantZeros"};
     TITLE = "Instant exact zero restrictions";
 
+    form = gui.readFormsFile(FORM_PATH);
     meta = gui.getCurrentMetaObj();
     endogenousNames = meta.EndogenousNames;
     shockNames = meta.SeparableShockNames;
@@ -11,7 +12,7 @@ function updateInstantZerosTable()
     gui.updateTableWhenNecessary( ...
         rowNames=endogenousNames, ...
         columnNames=shockNames, ...
-        fileName=INSTANT_ZEROS_XLSX, ...
+        fileName=string(form.FileName.value), ...
         title=TITLE ...
     );
 

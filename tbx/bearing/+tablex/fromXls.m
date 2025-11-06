@@ -33,7 +33,7 @@
 %
 %}}}
 
-function varargout = fromXLS(varargin)
+function varargout = fromXls(varargin)
 
     [varargout{1:nargout}] = tablex.fromFile( ...
         varargin{:} ...

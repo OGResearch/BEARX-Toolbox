@@ -27,6 +27,7 @@ function htmlForm = generateCategorizedButtons(jsonForm, currentSelection, categ
     submitButton = gui.generateSubmitButton();
 
     htmlForm = string.empty(1, 0);
+    htmlForm(end+1) = "<br/>";
     htmlForm(end+1) = "<form action='matlab:" + action + " '>";
     htmlForm(end+1) = submitButton;
 
@@ -62,6 +63,7 @@ function htmlForm = generateCategorizedButtons(jsonForm, currentSelection, categ
     htmlForm(end+1) = "<br/>";
     htmlForm(end+1) = submitButton;
     htmlForm(end+1) = "</form>";
+    htmlForm(end+1) = "<br/>";
 
     htmlForm = join(htmlForm, newline());
 

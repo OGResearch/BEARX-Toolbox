@@ -5,7 +5,9 @@ function code = assemble(options)
         options.saveToFile (1, 1) string = ""
     end
 
-    % Estimation
+    % Preparation and estimation
+
+    isMixedFrequency = gui.isMixedFrequency();
 
     snippets = string.empty(0, 1);
 
@@ -16,6 +18,12 @@ function code = assemble(options)
     snippets = [snippets; scripter.codeMeta()];
 
     snippets = [snippets; scripter.codeInputData()];
+
+    if isMixedFrequency
+        snippets = [snippets; scripter.codeLowFrequencyInputData()];
+    end
+
+    snippets = [snippets; scripter.codeDataHolder()];
 
     snippets = [snippets; scripter.codeReducedFormModel()];
 

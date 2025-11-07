@@ -5,3 +5,5 @@ ident = identifier.?IDENTIFIER?( ...
     ?SETTINGS?
 );
 
+printObject(ident);
+

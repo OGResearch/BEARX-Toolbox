@@ -1,17 +1,15 @@
 
-% Mixed-frequency VAR
-
 classdef MixedFrequency ...
     < base.Estimator
 
     properties
-        Settings = base.estimator.settings.MixedFrequency()
+        Settings = mixed.estimator.settings.MixedFrequency()
     end
 
 
     properties (Constant)
         Description = "Mixed-frequency VAR"
-        Category = "Plain estimators"
+        Category = "Specialized estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         CanHaveDummies = false
@@ -34,19 +32,21 @@ classdef MixedFrequency ...
             numLags = meta.Order;
 
             % Find the last row where not all elements are NaN
-            lastDataRow = find(any(~isnan(longY), 2), 1, 'last');
-            H = size(longY,1) - lastDataRow;
+            lastDataRow = find(any(~isnan(longY), 2), 1, "last");
+            H = size(longY, 1) - lastDataRow;
 
-            lambda1 = this.Settings.MfLambda1;
-            lambda2 = this.Settings.MfLambda2;
-            lambda3 = this.Settings.MfLambda3;
-            lambda4 = this.Settings.MfLambda4;
-            lambda5 = this.Settings.MfLambda5;
-            hyp = [lambda1, lambda2, lambda3, lambda4, lambda5];
-            Nm = 10; % meta.NumberOfMonthlyData;
-            Nq = meta.NumEndogenousNames - Nm;
+            hyp = [ ...
+                this.Settings.MixedLambda1, ...
+                this.Settings.MixedLambda2, ...
+                this.Settings.MixedLambda3, ...
+                this.Settings.MixedLambda4, ...
+                this.Settings.MixedLambda5, ...
+            ];
 
-            YYY = longY(1:lastDataRow,:);
+            Nm = meta.NumHighFrequencyNames;
+            Nq = meta.NumLowFrequencyNames;
+
+            YYY = longY(1:lastDataRow, :);
 
             % nsim = mf_setup.It;% number of draws from Posterior Density
             % nburn = mf_setup.Bu;

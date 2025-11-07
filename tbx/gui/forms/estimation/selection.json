@@ -95,14 +95,6 @@
       "Minnesota"
     ]
   },
-  "MixedFrequency": {
-    "category": "Plain estimators",
-    "value": false,
-    "target": [
-      "estimation",
-      "MixedFrequency"
-    ]
-  },
   "NormalDiffuse": {
     "category": "Plain estimators",
     "value": false,
@@ -181,6 +173,14 @@
     "target": [
       "estimation",
       "Threshold"
+    ]
+  },
+  "MixedFrequency": {
+    "category": "Specialized estimators",
+    "value": false,
+    "target": [
+      "estimation",
+      "MixedFrequency"
     ]
   }
 }

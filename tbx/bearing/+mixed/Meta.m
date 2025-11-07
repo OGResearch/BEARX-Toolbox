@@ -27,6 +27,7 @@ classdef Meta ...
             this.NumHighFrequencyNames = numel(options.highFrequencyNames);
             this.NumLowFrequencyNames = numel(options.lowFrequencyNames);
             options.endogenousNames = [options.highFrequencyNames, options.lowFrequencyNames];
+            %
             options = rmfield(options, ["highFrequencyNames", "lowFrequencyNames"]);
             args = namedargs2cell(options);
             update@base.Meta(this, args{:});

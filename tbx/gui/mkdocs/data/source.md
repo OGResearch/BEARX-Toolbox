@@ -1,23 +1,21 @@
 
 ### Input data file
 
-[:material-cursor-default-click: Select input data file](matlab:gui_selectInputDataFile)<br/>
+[:material-cursor-default-click: Select input data file](matlab:gui_selectInputDataFile FilePath)<br/>
 
 ?FILE?
 
 ---
 
-### Input file for low-frequency data
+### Input file with low-frequency data
 
-[:material-cursor-default-click: Select input file for low-frequency data](matlab:gui_selectLowFreqInputDataFile)<br/>
+[:material-cursor-default-click: Select input file with low-frequency data](matlab:gui_selectInputDataFile LowFrequencyFilePath)<br/>
 
-?LOW_FREQ_FILE?
+?LOW_FILE?
 
 ---
 
-### Date span of time series available
+### Time series available
 
-?SPAN?
-
-?LIST?
+?INFO?
 

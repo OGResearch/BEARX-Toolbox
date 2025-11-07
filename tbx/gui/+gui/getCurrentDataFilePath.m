@@ -1,16 +1,16 @@
 
-function dataFilePath = getCurrentDataFilePath()
+function filePath = getCurrentDataFilePath(field)
 
     dataSource = gui.getCurrentDataSource();
-    dataFilePath = string(dataSource.FilePath.value);
+    filePath = string(dataSource.(field).value);
 
-    if ~isscalar(dataFilePath)
-        dataFilePath = "";
+    if ~isscalar(filePath)
+        filePath = "";
         return
     end
 
-    if ismissing(dataFilePath)
-        dataFilePath = "";
+    if ismissing(filePath)
+        filePath = "";
         return
     end
 

@@ -1,18 +1,18 @@
 {
   "VarThreshold": {
-    "label": "Controls the prior variance of the threshold",
+    "label": "Prior variance of the threshold",
     "type": "number",
     "value": 10,
     "details": ""
   },
   "MaxDelay": {
-    "label": "Controls the maxium delay allowed for the threshold variable for regime identification",
+    "label": "Maxium delay allowed for the threshold variable for regime identification",
     "type": "number",
     "value": 4,
     "details": ""
   },
   "ThresholdPropStd": {
-    "label": "Controls the proposal standard deviation of the MH algoruthm of the threshold draws",
+    "label": "Proposal standard deviation of the MH algoruthm of the threshold draws",
     "type": "number",
     "value": 0.031622776601683791,
     "details": ""

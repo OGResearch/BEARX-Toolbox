@@ -1,5 +1,5 @@
 
-function gui_selectInputDataFile()
+function gui_selectInputDataFile(field)
 
     % Read the existing form
     FORM_PATH = {"data", "source"};
@@ -14,7 +14,8 @@ function gui_selectInputDataFile()
         return
     end
     filePath = string(fullfile(inputDataFilePath, inputDataFileName));
-    submission = struct(FilePath=filePath);
+    submission = struct();
+    submission.(field) = filePath;
     jsonForm = gui.updateValuesFromSubmission(jsonForm, submission);
 
     % Write the updated form back to the JSON file

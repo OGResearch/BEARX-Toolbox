@@ -1,6 +1,6 @@
 {
     "FilePath": {
-        "label": "Path to the input data file in Excel or CSV format",
+        "label": "Path to the input data file (XLSX, CSV, or MAT)",
         "type": "filename",
         "value": "",
         "show": true
@@ -15,6 +15,12 @@
         "label": "(MAT files only) Name of the table containing the data",
         "type": "string",
         "value": "inputDataTbl",
+        "show": true
+    },
+    "LowFrequencyFilePath": {
+        "label": "Path to the file with low-frequency input data (XLSX, CSV, or MAT)",
+        "type": "filename",
+        "value": "",
         "show": true
     },
     "Transformations": {

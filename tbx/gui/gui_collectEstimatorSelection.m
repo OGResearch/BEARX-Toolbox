@@ -19,6 +19,9 @@ function gui_collectEstimatorSelection(submission)
     newModule = moduleMapping.(newSelection);
     gui.writeFormsFile(newModule, {"module", "selection"});
 
+    % Prepare data source page
+    gui.populateDataSourceHTML();
+
     % Prepare meta settings page
     gui.populateMetaSettingsHTML();
 

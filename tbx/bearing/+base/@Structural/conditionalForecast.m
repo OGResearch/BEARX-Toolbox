@@ -96,7 +96,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
             if numSeparableUnits == 1
                 unitBeta = draw.beta;
             else
-                unitBeta = meta.extractUnitFromCellArray(draw.beta, unit, dim=EXTRA_DIM);
+                unitBeta = system.extractUnitFromCellArray(draw.beta, unit, EXTRA_DIM);
             end
             %
             %

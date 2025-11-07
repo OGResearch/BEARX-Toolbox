@@ -21,5 +21,20 @@
   "MeanOLSPanel": "separable",
   "NormalWishartPanel": "separable",
   "Threshold": "threshold",
-  "MixedFrequency": "mixed"
+  "MixedFrequency": "mixed",
+  "FlatFAVAROnestep": "factorOnestep",
+  "IndNormalWishartFAVAROnestep": "factorOnestep",
+  "MinnesotaFAVAROnestep": "factorOnestep",
+  "NormalDiffuseFAVAROnestep": "factorOnestep",
+  "NormalWishartFAVAROnestep": "factorOnestep",
+  "BetaTVFAVAR": "factorTwostep",
+  "CarrieroSVFAVAR": "factorTwostep",
+  "CogleySargentSVFAVAR": "factorTwostep",
+  "FlatFAVARTwostep": "factorTwostep",
+  "GeneralTVFAVAR": "factorTwostep",
+  "IndNormalWishartFAVARTwostep": "factorTwostep",
+  "MinnesotaFAVARTwostep": "factorTwostep",
+  "NormalDiffuseFAVARTwostep": "factorTwostep",
+  "NormalWishartFAVARTwostep": "factorTwostep",
+  "RandomInertiaSVFAVAR": "factorTwostep"
 }

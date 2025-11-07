@@ -12,18 +12,18 @@ classdef Meta < factorTwostep.Meta
             arguments
                 this
                 options.endogenousNames (1, :) string {mustBeNonempty}
-                options.estimationSpan (1, :) datetime {mustBeNonempty}
-        
+                options.estimationSpan (1, :) {mustBeNonempty}
+
                 options.exogenousNames (1, :) string = string.empty(1, 0)
                 options.order (1, 1) double {mustBePositive, mustBeInteger} = 1
                 options.intercept (1, 1) logical = true
                 options.shockNames (1, :) string = string.empty(1, 0)
                 options.identificationHorizon (1, 1) double {mustBeNonnegative, mustBeInteger} = 0
-        
+
                 options.reducibleNames (1, :) string = string.empty(1, 0)
                 options.numFactors (1,1) double {mustBePositive, mustBeInteger} = 1
             end
-            
+
             % Fixed values
             fixedBlockName = this.FIXED_BLOCK_NAME;
             fixedBlockType = this.FIXED_BLOCK_TYPE;
@@ -32,13 +32,13 @@ classdef Meta < factorTwostep.Meta
             numFactorsStruct = struct(fixedBlockName, options.numFactors);
 
             this.ReducibleNames = options.reducibleNames;
-            this.ReducibleBlocks = repmat(fixedBlockName, size(options.reducibleNames));             
+            this.ReducibleBlocks = repmat(fixedBlockName, size(options.reducibleNames));
             this.BlockType = fixedBlockType;
             this.NumFactors = numFactorsStruct;
 
             options = rmfield(options, ["reducibleNames","numFactors"]);
             args = namedargs2cell(options);
-            update@base.Meta(this, args{:});    
+            update@base.Meta(this, args{:});
 
 
         end

@@ -11,8 +11,8 @@ classdef (Abstract) Estimator ...
                 longZ ...
             );
         end%
-        
-        
+
+
         function createDrawers(this, meta)
             %[
             arguments
@@ -43,8 +43,8 @@ classdef (Abstract) Estimator ...
                 beta = sample.beta;
                 wrap = @(x) repmat({x}, horizon, 1);
                 draw = struct();
-                draw.beta = wrap(beta);               
-            end%            
+                draw.beta = wrap(beta);
+            end%
             %
             function draw = identificationDrawer(sample)
                 horizon = identificationHorizon;
@@ -57,7 +57,7 @@ classdef (Abstract) Estimator ...
                 draw.C = wrap(C);
                 % draw.L = wrap(L);
                 draw.Sigma = sample.sigma;
-                % draw.LD = reshape(sample.LD, [], numY);      
+                % draw.LD = reshape(sample.LD, [], numY);
             end%
             %
             this.HistoryDrawer = @(sample) drawer(sample, estimationHorizon);
@@ -67,9 +67,9 @@ classdef (Abstract) Estimator ...
             %
             %]
         end%
-        
+
     end
-        
+
 
 end
 

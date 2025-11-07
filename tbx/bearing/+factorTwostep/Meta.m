@@ -7,7 +7,7 @@ classdef Meta < base.Meta
     properties (SetAccess=protected)
         %
         % ReducibleNames  Names of reducible variables in factor models
-        ReducibleNames (1, :) string 
+        ReducibleNames (1, :) string
 
         % ReducibleBlocks  Names of blocks the corresponding reducibles
         % belong to
@@ -17,13 +17,13 @@ classdef Meta < base.Meta
         BlockType (1,:) string
 
         % NumFactors  Number of factors to be formed from reducibles
-        NumFactors struct 
+        NumFactors struct
 
     end
 
 
     properties (Dependent)
-    
+
         FactorNames
         NumFactorNames
         NumReducibleNames
@@ -31,21 +31,21 @@ classdef Meta < base.Meta
     end
 
 
-    methods        
-    
+    methods
+
         function this = update(this, options)
 
             arguments
                 this
                 options.endogenousNames (1, :) string {mustBeNonempty}
-                options.estimationSpan (1, :) datetime {mustBeNonempty}
-        
+                options.estimationSpan (1, :) {mustBeNonempty}
+
                 options.exogenousNames (1, :) string = string.empty(1, 0)
                 options.order (1, 1) double {mustBePositive, mustBeInteger} = 1
                 options.intercept (1, 1) logical = true
                 options.shockNames (1, :) string = string.empty(1, 0)
                 options.identificationHorizon (1, 1) double {mustBeNonnegative, mustBeInteger} = 0
-        
+
                 options.reducibleNames (1, :) string = string.empty(1, 0)
                 options.reducibleBlocks (1, :) string = string.empty(1, 0)
                 options.blockType (1,1) string {mustBeMember(options.blockType, ["blocks", "slowfast"])} = "blocks"
@@ -54,7 +54,7 @@ classdef Meta < base.Meta
 
             this.ReducibleNames = options.reducibleNames;
             this.ReducibleBlocks = options.reducibleBlocks;
-            this.BlockType = options.blockType; 
+            this.BlockType = options.blockType;
             this.NumFactors = options.numFactors;
 
             options = rmfield(options, ["reducibleNames","reducibleBlocks","blockType","numFactors"]);
@@ -68,7 +68,7 @@ classdef Meta < base.Meta
             this.NumUnits = 1;
             %
             this.EndogenousNames = this.EndogenousConcepts;
-            this.PseudoEndogenousNames = [this.FactorNames this.EndogenousNames];
+            this.PseudoEndogenousNames = [this.FactorNames, this.EndogenousNames];
             %
             this.ResidualConcepts = this.PseudoEndogenousNames + this.SEPARATOR + this.ResidualSuffix;
             this.ResidualNames = this.ResidualConcepts;
@@ -78,7 +78,7 @@ classdef Meta < base.Meta
             end
             this.ShockNames = this.ShockConcepts;
         end%
-    
+
 
     end
 

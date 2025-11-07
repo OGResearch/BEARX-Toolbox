@@ -14,7 +14,7 @@ classdef FlatFAVARTwostep ...
 
     properties (Constant)
         Description = "Two-step FAVAR with Flat prior"
-        Category = "Plain FAVAR estimators"
+        Category = "Two-step plain FAVAR estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

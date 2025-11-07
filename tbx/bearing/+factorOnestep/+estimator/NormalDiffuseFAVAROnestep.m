@@ -11,7 +11,7 @@ classdef NormalDiffuseFAVAROnestep ...
     
     properties (Constant)
         Description = "One-step FAVAR with Normal-Diffuse prior"
-        Category = "Plain FAVAR estimators"
+        Category = "One-step plain FAVAR estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = true

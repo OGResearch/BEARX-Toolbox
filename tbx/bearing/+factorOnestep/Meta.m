@@ -16,7 +16,7 @@ classdef Meta < factorTwostep.Meta
 
                 options.exogenousNames (1, :) string = string.empty(1, 0)
                 options.order (1, 1) double {mustBePositive, mustBeInteger} = 1
-                options.intercept (1, 1) logical = true
+                options.intercept (1, 1) logical = false
                 options.shockNames (1, :) string = string.empty(1, 0)
                 options.identificationHorizon (1, 1) double {mustBeNonnegative, mustBeInteger} = 0
 

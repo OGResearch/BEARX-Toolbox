@@ -52,25 +52,14 @@ classdef Meta < base.Meta
                 options.numFactors struct = struct()
             end%
 
-            this.EndogenousConcepts = options.endogenousNames;
-            this.ShortSpan = datex.span(options.estimationSpan(1), options.estimationSpan(end));
-            if isempty(this.ShortSpan)
-                error("Estimation span must be non-empty");
-            end
-            this.ExogenousNames = options.exogenousNames;
-            this.ShockConcepts = options.shockNames;
-            this.HasIntercept = options.intercept;
-            this.Order = options.order;
-            this.IdentificationHorizon = options.identificationHorizon;
-    
             this.ReducibleNames = options.reducibleNames;
             this.ReducibleBlocks = options.reducibleBlocks;
             this.BlockType = options.blockType; 
             this.NumFactors = options.numFactors;
-    
-            this.populatePseudoDependents();
-            this.populateSeparablePseudoDependents();
-            this.catchDuplicateNames();
+
+            options = rmfield(options, ["reducibleNames","reducibleBlocks","blockType","numFactors"]);
+            args = namedargs2cell(options);
+            update@base.Meta(this, args{:});
 
         end%
 

@@ -43,7 +43,7 @@ classdef ReducedForm ...
     end
 
 
-    methods (Access=protected)
+    methods (Access=public)
 
         function outData = assembleOutData(this, initY, initU, ~, shortY, shortU, ~)
             if isempty(initY)

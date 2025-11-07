@@ -31,26 +31,16 @@ classdef Meta < factorTwostep.Meta
             % Convert scalar integer into struct required by superclass
             numFactorsStruct = struct(fixedBlockName, options.numFactors);
 
-            this.EndogenousConcepts = options.endogenousNames;
-            this.ShortSpan = datex.span(options.estimationSpan(1), options.estimationSpan(end));
-            if isempty(this.ShortSpan)
-                error("Estimation span must be non-empty");
-            end
-            this.ExogenousNames = options.exogenousNames;
-            this.ShockConcepts = options.shockNames;
-            this.HasIntercept = options.intercept;
-            this.Order = options.order;
-            this.IdentificationHorizon = options.identificationHorizon;
-    
             this.ReducibleNames = options.reducibleNames;
             this.ReducibleBlocks = repmat(fixedBlockName, size(options.reducibleNames));             
             this.BlockType = fixedBlockType;
             this.NumFactors = numFactorsStruct;
-            
-            this.populatePseudoDependents();
-            this.populateSeparablePseudoDependents();
-            this.catchDuplicateNames();
-          
+
+            options = rmfield(options, ["reducibleNames","numFactors"]);
+            args = namedargs2cell(options);
+            update@base.Meta(this, args{:});    
+
+
         end
     end
 end

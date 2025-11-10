@@ -113,7 +113,7 @@ classdef MeanOLSPanel ...
 
             function draw = conditionalDrawer(sample, startingIndex, forecastHorizon)
                 draw = struct();
-                draw.beta = wrap(sample.beta, forecastHorizon);
+                draw.beta = wrap(repmat(sample.beta, 1, 1, numCountries), forecastHorizon);
             end%
 
             this.IdentificationDrawer = @identificationDrawer;

@@ -28,6 +28,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     fcastHorizon = numel(shortFcastSpan);
     longYX = this.getSomeYX(longFcastSpan);
     [longY, longX] = longYX{:};
+    
 
     if lower(options.ExogenousFrom) == lower("inputData")
         fcastX = this.getSomeX(shortFcastSpan);
@@ -72,12 +73,14 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
         contribs = cell(1, numPresampled);
     end
 
+    initY_all = cell(1, numPresampled);
     progressBar = progress.Bar(progressMessage, numPresampled*numSeparableUnits);
+
     for i = 1 : numPresampled
         sample = this.Presampled{i};
-        initY = this.ReducedForm.getInitY(longY, internalOptions.order, sample, fcastStartIndex);
         draw = this.ConditionalDrawer(sample, fcastStartIndex, fcastHorizon);
-        EXTRA_DIM = 3;
+        EXTRA_DIM = 3; 
+        initY_sample = [];
         for unit = 1 : numSeparableUnits
             if ~isempty(cfconds)
                 internalOptions.cfconds = cfconds(:, :, unit);
@@ -91,8 +94,12 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
             if ~isempty(cfblocks)
                 internalOptions.cfblocks = cfblocks(:, :, unit);
             end
-            unitInitY = initY(:, :, unit);
+
+            unitLongY = system.extractUnitFromNumericArray(longY, unit, EXTRA_DIM);
+            unitInitY = this.ReducedForm.getInitY(unitLongY, order, sample, fcastStartIndex);
+            
             unitD = sample.D(:, :, unit);
+
             if numSeparableUnits == 1
                 unitBeta = draw.beta;
             else
@@ -113,6 +120,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
             %
             fcastY{i} = [fcastY{i}, unitY];
             fcastE{i} = [fcastE{i}, unitE];
+            initY_sample = [initY_sample, unitInitY]; 
 
             if options.Contributions
                 unitA = cell(1, fcastHorizon);
@@ -128,6 +136,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
 
             progressBar.increment();
         end
+        initY_all{i} = initY_sample;
     end
 
     % Concatenate the individual variants
@@ -139,7 +148,8 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     outSpan = shortFcastSpan;
     if options.IncludeInitial
         outSpan = longFcastSpan;
-        initData = [repmat(initY(:, :), 1, 1, numPresampled), zeros(order, numY, numPresampled)];
+        initY_concat = cat(VARIANT_DIM, initY_all{:});
+        initData = [initY_concat zeros(order, numY, numPresampled)];
         outData = [initData; outData];
     end
 

@@ -26,12 +26,10 @@ classdef InstantZeros ...
                 this.Table = tablex.readtable(options.FileName);
                 return
             end
-            %
             if ~isempty(options.Table)
                 this.Table = options.Table;
                 return
             end
-            %
             if ~isempty(options.Matrix)
                 this.Matrix = options.Matrix;
                 return

@@ -1,8 +1,11 @@
 
-function returnFromCommandWindow()
+function returnFromCommandWindow(targetPage)
 
-    TARGET_PAGE = {"html", "script", "execution.html"};
-    targetPage = fullfile(".", TARGET_PAGE{:});
+    if nargin < 1
+        TARGET_PAGE = {"html", "script", "execution.html"};
+        targetPage = fullfile(".", TARGET_PAGE{:});
+    end
+
     bottomLine = "<a href=""matlab:web('?HTML?')"">Click here to return to the GUI</a>";
     bottomLine = replace(bottomLine, "?HTML?", targetPage);
 

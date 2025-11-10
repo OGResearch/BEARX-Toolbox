@@ -1,5 +1,5 @@
 
-%% Add low-frequency data 
+%% Add low-frequency data
 
 % Find out the base frequency of the model
 baseFrequency = tablex.frequency(inputTbl);

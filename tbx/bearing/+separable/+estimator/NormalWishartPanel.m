@@ -120,8 +120,7 @@ classdef NormalWishartPanel ...
 
             function draw = conditionalDrawer(sample, startIndex, forecastHorizon)
                 draw = struct();
-                numUnits = meta.NumSeparableUnits;
-                draw.beta = wrap(repmat(sample.beta, 1, numUnits), forecastHorizon);
+                draw.beta = wrap(repmat(sample.beta, 1, 1, numCountries), forecastHorizon);
             end%
 
             this.IdentificationDrawer = @identificationDrawer;

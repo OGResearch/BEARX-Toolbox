@@ -13,7 +13,9 @@ function code = assemble(options)
 
     snippets = [snippets; scripter.codePreamble()];
 
-    snippets = [snippets; scripter.codeDummies()];
+    if gui.canHaveDummies()
+        snippets = [snippets; scripter.codeDummies()];
+    end
 
     snippets = [snippets; scripter.codeMeta()];
 

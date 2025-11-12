@@ -43,8 +43,8 @@ classdef CCMMSVOT ...
             opt.freqO = this.Settings.OutlierFreq;
             opt.PriorYears = this.Settings.PriorObsYears;
 
-            opt.lbDofQ = this.Settings.QDoFLowerBound; %3
-            opt.ubDofQ = this.Settings.QDoFUpperBound; %40
+            opt.lbDofQ = this.Settings.DoFLowerBound; %3
+            opt.ubDofQ = this.Settings.DoFUpperBound; %40
 
             opt.scalePhi = this.Settings.HeteroskedasticityScale;
 

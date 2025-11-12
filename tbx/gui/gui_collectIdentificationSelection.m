@@ -17,7 +17,7 @@ function gui_collectIdentificationSelection(submission)
 
     % Move on the corresponding identification page
     targetPath = fullfile(".", "html", targetPath{:}) + ".html";
-    web(targetPath);
+    gui.web(targetPath);
 
 end%
 

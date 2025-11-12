@@ -9,10 +9,10 @@ function raw = resolveRawFormSubmission(submission)
     SEPARATOR = "&";
     ASSIGNMENT = "=";
 
-    submission = erase(submission, LEAD_CHAR);
-    entries = reshape(string(split(submission, SEPARATOR)), 1, []);
-
     raw = struct();
+    submission = strip(erase(submission, LEAD_CHAR));
+    entries = reshape(string(split(submission, SEPARATOR)), 1, []);
+    
     for n = entries
         pair = split(n, ASSIGNMENT);
         key = strip(pair(1));

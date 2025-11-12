@@ -6,7 +6,7 @@ baseFrequency = tablex.frequency(inputTbl);
 
 % Load the input table with low-frequency data
 lowFrequencyInputTbl = tablex.fromFile(?INPUT_DATA_PATH?);
-printTable(lowFrequencyInputTbl);
+?PRINT_TABLE?display(lowFrequencyInputTbl);
 
 % Convert the low-frequency data to base-frequency data
 lowFrequencyInputTbl = tablex.upsample( ...
@@ -14,7 +14,7 @@ lowFrequencyInputTbl = tablex.upsample( ...
     baseFrequency, ...
     method="last" ...
 );
-printTable(lowFrequencyInputTbl);
+?PRINT_TABLE?display(lowFrequencyInputTbl);
 
 % Add the low-frequency data to the main input table. Use stratege="error" to
 % throw an error if there are any duplicate names.
@@ -23,5 +23,5 @@ inputTbl = tablex.merge( ...
     lowFrequencyInputTbl, ...
     strategy="error" ...
 );
-printTable(inputTbl);
+?PRINT_TABLE?display(inputTbl);
 

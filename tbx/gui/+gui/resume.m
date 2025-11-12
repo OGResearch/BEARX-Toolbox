@@ -38,6 +38,9 @@ function resume()
     % Structural identification tab
     gui.populateIdentificationSelectionHTML();
     gui.populateVanillaFormHTML({"identification", "cholesky"});
+    gui.populateVanillaFormHTML({"identification", "InstantZeros"});
+    gui.populateVanillaFormHTML({"identification", "IneqRestrict"});
+    gui.populateVanillaFormHTML({"identification", "GeneralRestrict"});
 
     % Tasks to execute tab
     gui.populateTasksSelectionHTML();
@@ -76,10 +79,10 @@ function resume()
     currentFolder = pwd();
     wrapPath = @(n) fullfile(currentFolder, "tables", n);
     dispatcher = {
-        fullfile(".", "html", "identification", "zeros.html"), "?PATH?", wrapPath("InstantZeros.xlsx")
-        fullfile(".", "html", "identification", "inequality.html"), "?PATH?", wrapPath("IneqRestrict.xlsx")
+        fullfile(".", "html", "identification", "InstantZeros.html"), "?PATH?", wrapPath("InstantZeros.xlsx")
+        fullfile(".", "html", "identification", "IneqRestrict.html"), "?PATH?", wrapPath("IneqRestrict.xlsx")
         fullfile(".", "html", "dummies", "longrun.html"), "?PATH?", wrapPath("LongRunDummies.xlsx")
-        fullfile(".", "html", "identification", "generalRestrict.html"), "?PATH?", "matlab: edit(fullfile('tables', 'GeneralRestrict.md'))"
+        fullfile(".", "html", "identification", "GeneralRestrict.html"), "?PATH?", "matlab: edit(fullfile('tables', 'GeneralRestrict.md'))"
     };
     for i = 1 : height(dispatcher)
         htmlPath = dispatcher{i, 1};
@@ -94,7 +97,7 @@ function resume()
     %
     customHTMLFolder = fullfile(".", "html");
     indexPath = fullfile(customHTMLFolder, 'index.html');
-    web(indexPath);
+    gui.web(indexPath);
 
 end%
 

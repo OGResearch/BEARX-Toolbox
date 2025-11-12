@@ -1,5 +1,9 @@
 
-function D = candidateFromFactorConstrained(P, R)
+function D = candidateFromFactorConstrained(P, R, randFunc)
+
+    if nargin < 3
+        randFunc = @randn;
+    end
 
     n = size(P, 1);
 
@@ -12,7 +16,7 @@ function D = candidateFromFactorConstrained(P, R)
     Qt = nan(n, n);
 
     % Pre-generate random numbers for all shocks
-    X = randn(n, n);
+    X = randFunc([n, n]);
 
     for i = 1 : n
         inx = Rt(:, i) == 0;

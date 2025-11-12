@@ -6,7 +6,7 @@ function returnFromCommandWindow(targetPage)
         targetPage = fullfile(".", TARGET_PAGE{:});
     end
 
-    bottomLine = "<a href=""matlab:web('?HTML?')"">Click here to return to the GUI</a>";
+    bottomLine = "<a href=""matlab:gui.web('?HTML?')"">Click here to return to the GUI</a>";
     bottomLine = replace(bottomLine, "?HTML?", targetPage);
 
     disp(" ");

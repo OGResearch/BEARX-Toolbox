@@ -24,7 +24,7 @@ function gui_collectEstimatorSettings(submission)
 
     % Move on to the meta settings page
     targetPage = fullfile(TARGET_PAGE{:});
-    web(targetPage);
+    gui.web(targetPage);
 
 end%
 

@@ -15,7 +15,7 @@
         "label": "Use exogenous variables from conditioning data table"
     },
     "IncludeInitial": {
-        "value": false,
+        "value": true,
         "type": "logical",
         "label": "Include initial conditions in output table"
     },
@@ -30,7 +30,7 @@
         "label": "Save output table as an Excel file"
     },
     "SaveCSV": {
-        "value": true,
+        "value": false,
         "type": "logical",
         "label": "Save output table as a CSV file"
     },
@@ -42,7 +42,12 @@
     "DrawCharts": {
         "value": false,
         "type": "logical",
-        "label": "Draw and save charts as PDF files"
+        "label": "Draw output as charts on the screen"
+    },
+    "SavePDF": {
+        "value": false,
+        "type": "logical",
+        "label": "Save charts as a PDF file"
     }
 }
 

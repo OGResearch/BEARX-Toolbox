@@ -11,36 +11,9 @@ function code = codePreamble()
     place.MODULE = string(module);
     place.PERCENTILES = mts.numbers(settings.Percentiles.value);
     place.OUTPUT_FOLDER = mts.string(settings.OutputFolder.value);
-    place = setupPrintFunctions_(place, settings);
 
     code = scripter.readTemplate("preamble");
     code = scripter.replaceInCode(code, place);
 
-end%
-
-
-function place = setupPrintFunctions_(place, settings)
-    %[
-    printFunction = "@display; % @(x) []";
-    silentFunction = "@(x) []; % @display";
-    %
-    if settings.PrintInfo.value
-        place.PRINT_INFO = printFunction;
-    else
-        place.PRINT_INFO = silentFunction;
-    end
-    %
-    if settings.PrintTables.value
-        place.PRINT_TABLE = printFunction;
-    else
-        place.PRINT_TABLE = silentFunction;
-    end
-    %
-    if settings.PrintObjects.value
-        place.PRINT_OBJECT = printFunction;
-    else
-        place.PRINT_OBJECT = silentFunction;
-    end
-    %]
 end%
 

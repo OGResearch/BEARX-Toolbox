@@ -11,7 +11,7 @@ function gui_collectNotes(submission)
     gui.writeNotesFile(newNotes, path);
 
     targetPage = gui.populateNotesHTML(section);
-    web(targetPage);
+    gui.web(targetPage);
 
 end%
 

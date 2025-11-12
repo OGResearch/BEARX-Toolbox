@@ -13,7 +13,7 @@
     "TryFlipSigns": {
         "value": true,
         "type": "logical",
-        "label": "Try to flip signs of shocks to satisfy restrictions"
+        "label": "Try flipping signs of shocks to satisfy restrictions"
     }
 }
 

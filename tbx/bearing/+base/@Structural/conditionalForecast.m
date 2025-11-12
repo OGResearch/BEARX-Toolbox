@@ -15,7 +15,6 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     end
 
     VARIANT_DIM = 3;
-    CONTRIB_DIM = 3;
 
     meta = this.Meta;
     numY = meta.NumPseudoEndogenousNames;
@@ -27,8 +26,8 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     fcastStartIndex = datex.diff(fcastStart, meta.ShortStart) + 1;
     fcastHorizon = numel(shortFcastSpan);
     longYX = this.getSomeYX(longFcastSpan);
-    [longY, longX] = longYX{:};
-    
+    [longY, ~] = longYX{:};
+
 
     if lower(options.ExogenousFrom) == lower("inputData")
         fcastX = this.getSomeX(shortFcastSpan);
@@ -37,6 +36,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     else
         error("Invalid source of exogenous data: %s.", options.ExogenousFrom);
     end
+    numX = size(fcastX, 2);
 
     cfconds = conditional.createConditionsCF(meta, options.Plan, options.Conditions, shortFcastSpan);
     cfshocks = conditional.createShocksCF(meta, options.Plan, shortFcastSpan);
@@ -73,14 +73,14 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
         contribs = cell(1, numPresampled);
     end
 
-    initY_all = cell(1, numPresampled);
+    initY = cell(1, numPresampled);
     progressBar = progress.Bar(progressMessage, numPresampled*numSeparableUnits);
 
     for i = 1 : numPresampled
         sample = this.Presampled{i};
         draw = this.ConditionalDrawer(sample, fcastStartIndex, fcastHorizon);
-        EXTRA_DIM = 3; 
-        initY_sample = [];
+        EXTRA_DIM = 3;
+        sampleInitY = [];
         for unit = 1 : numSeparableUnits
             if ~isempty(cfconds)
                 internalOptions.cfconds = cfconds(:, :, unit);
@@ -97,7 +97,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
 
             unitLongY = system.extractUnitFromNumericArray(longY, unit, EXTRA_DIM);
             unitInitY = this.ReducedForm.getInitY(unitLongY, order, sample, fcastStartIndex);
-            
+
             unitD = sample.D(:, :, unit);
 
             if numSeparableUnits == 1
@@ -120,7 +120,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
             %
             fcastY{i} = [fcastY{i}, unitY];
             fcastE{i} = [fcastE{i}, unitE];
-            initY_sample = [initY_sample, unitInitY]; 
+            sampleInitY = [sampleInitY, unitInitY];
 
             if options.Contributions
                 unitA = cell(1, fcastHorizon);
@@ -136,20 +136,24 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
 
             progressBar.increment();
         end
-        initY_all{i} = initY_sample;
+        initY{i} = sampleInitY;
     end
 
     % Concatenate the individual variants
     fcastY = cat(VARIANT_DIM, fcastY{:});
     fcastE = cat(VARIANT_DIM, fcastE{:});
+    fcastX = repmat(fcastX, 1, 1, size(fcastY, VARIANT_DIM));
 
-    outNames = [meta.PseudoEndogenousNames, meta.ShockNames];
-    outData = [fcastY, fcastE];
+    outNames = [meta.PseudoEndogenousNames, meta.ShockNames, meta.ExogenousNames];
+    outData = [fcastY, fcastE, fcastX];
     outSpan = shortFcastSpan;
     if options.IncludeInitial
         outSpan = longFcastSpan;
-        initY_concat = cat(VARIANT_DIM, initY_all{:});
-        initData = [initY_concat zeros(order, numY, numPresampled)];
+        initData = [ ...
+            cat(VARIANT_DIM, initY{:}) ...
+            , zeros(order, numY, numPresampled) ...
+            , nan(order, numX, numPresampled) ...
+        ];
         outData = [initData; outData];
     end
 

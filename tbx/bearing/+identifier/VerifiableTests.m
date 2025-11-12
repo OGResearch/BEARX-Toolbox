@@ -54,8 +54,8 @@ classdef VerifiableTests ...
     methods
         function testStrings = resolveNames(this, testStrings, meta)
             dict = struct();
-            dict = textual.createDictionary(meta.ShockNames, dict);
-            dict = textual.createDictionary(meta.EndogenousNames, dict);
+            dict = textual.createDictionary(meta.SeparableShockNames, dict);
+            dict = textual.createDictionary(meta.SeparableEndogenousNames, dict);
             function y = replaceName(x)
                 % Remove the leading and trailing single quotes
                 modelName = x(2:end-1);

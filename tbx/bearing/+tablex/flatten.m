@@ -21,7 +21,7 @@ function flatTable = flatten(table, options)
     span = tablex.span(table);
     names = textual.stringify(table.Properties.VariableNames);
     numNames = numel(names);
-    flatNames = textual.crossList(options.Separator, names, higherDims{:});
+    flatNames = tablex.flattenNames(names, higherDims{:});
 
     numFlatNames = numel(flatNames);
     flatData = cell(1, numFlatNames);

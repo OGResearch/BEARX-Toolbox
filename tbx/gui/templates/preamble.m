@@ -1,14 +1,14 @@
-%% Automatically generated BEARX Toolbox script 
+%% Automatically generated BEARX Toolbox script
 %
 % This script was generated based on the user input from the BEARX Toolbox
-% Graphical User Interface. Feel free to edit and adapt it furthere to your
+% Graphical User Interface. Feel free to edit and adapt it further to your
 % needs.
 %
 % Generated ?TIMESTAMP?
 %
 
 
-%% Clear workspace 
+%% Clear workspace
 
 % Clear all variables
 clear
@@ -23,16 +23,22 @@ rehash path
 import ?MODULE?.*
 
 
-%% Define convenience functions for future use 
+%% Define percentile function for summarizing the results
 
 % User choice of percentiles
 percentiles = ?PERCENTILES?;
 
-% Create a percentiles function used to condense and report results
-prctilesFunc = @(x) prctile(x, percentiles, 2);
+% Create a percentiles function used to condense and report some results
+percentilesFunc = @(x) prctile(x, percentiles, 2);
+
+% Create a median function used to condense and report some results
+medianFunc = @(x) median(x, 2);
+
+% Create a legend for the percentiles
+percentilesLegend = compose("%d%%", percentiles);
 
 
-%% Prepare output folder 
+%% Prepare the output folder
 
 outputFolder = fullfile(".", ?OUTPUT_FOLDER?);
 if ~isfolder(outputFolder)
@@ -40,14 +46,7 @@ if ~isfolder(outputFolder)
 end
 
 
-%% Set up print functions 
-
-printInfo = ?PRINT_INFO?;
-printTable = ?PRINT_TABLE?;
-printObject = ?PRINT_OBJECT?;
-
-
-%% Prepare empty array of dummies 
+%% Prepare an empty array of dummies
 
 dummyObjects = {};
 

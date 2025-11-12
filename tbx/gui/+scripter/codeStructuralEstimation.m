@@ -15,3 +15,4 @@ function code = codeStructuralEstimation()
     code = scripter.replaceInCode(code, place);
 
 end%
+

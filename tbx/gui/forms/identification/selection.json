@@ -12,17 +12,17 @@
     "InstantZeros":  {
         "value": false,
         "label": "Instant zero restrictions on instantaneous impact",
-        "target": ["identification", "zeros"]
+        "target": ["identification", "InstantZeros"]
     },
     "IneqRestrict":  {
         "value": false,
         "label": "Inequality (sign) restrictions on shock responses",
-        "target": ["identification", "inequality"]
+        "target": ["identification", "IneqRestrict"]
     },
     "GeneralRestrict":  {
         "value": false,
         "label": "Generalized restrictions on system properties",
-        "target": ["identification", "generalRestrict"]
+        "target": ["identification", "GeneralRestrict"]
     }
 }
 

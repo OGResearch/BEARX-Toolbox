@@ -36,7 +36,7 @@ function gui_collectMetaSettings(submission)
 
     % Move on to the structural identification selection page
     nextPage = fullfile(".", "html", NEXT_PAGE{:}) + ".html";
-    web(nextPage);
+    gui.web(nextPage);
 
 end%
 

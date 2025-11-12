@@ -1,7 +1,11 @@
 
-function D = candidateFromFactorUnconstrained(P)
+function D = candidateFromFactorUnconstrained(P, randFunc)
 
-    X = randn(size(P));
+    if nargin < 3
+        randFunc = @randn;
+    end
+
+    X = randFunc(size(P));
     [Q, R] = qr(X);
     Q = Q * diag(diag(sign(R)));
     D = Q * P;

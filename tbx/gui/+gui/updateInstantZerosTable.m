@@ -6,7 +6,7 @@ function updateInstantZerosTable()
 
     form = gui.readFormsFile(FORM_PATH);
     meta = gui.getCurrentMetaObj();
-    endogenousNames = meta.EndogenousNames;
+    endogenousNames = meta.SeparableEndogenousNames;
     shockNames = meta.SeparableShockNames;
 
     gui.updateTableWhenNecessary( ...

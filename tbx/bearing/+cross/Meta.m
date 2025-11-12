@@ -1,5 +1,6 @@
 
-classdef Meta < base.Meta
+classdef Meta ...
+    < base.Meta
 
     properties (SetAccess=protected)
         Units (1, :) string = string.empty(1, 0)
@@ -62,6 +63,21 @@ classdef Meta < base.Meta
             this.SeparableEndogenousNames = this.EndogenousNames;
             this.SeparableResidualNames = this.ResidualNames;
             this.SeparableShockNames = this.ShockNames;
+        end%
+    end
+
+
+    methods % Chart groups
+        function out = getResponseChartGroups(this)
+            out = cell.empty(1, 0);
+            sep = this.SEPARATOR;
+            for endogenousUnit = this.Units
+                endogenousNames = endogenousUnit + sep + this.EndogenousConcepts;
+                for shockUnit = this.Units
+                    shockNames = shockUnit + sep + this.ShockConcepts;
+                    out{end+1} = tablex.flattenNames(endogenousNames, shockNames); %#ok<AGROW>
+                end
+            end
         end%
     end
 

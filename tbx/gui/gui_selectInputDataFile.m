@@ -22,7 +22,7 @@ function gui_selectInputDataFile(field)
     gui.writeFormsFile(jsonForm, FORM_PATH);
 
     targetPage = gui.populateDataSourceHTML();
-    web(targetPage);
+    gui.web(targetPage);
 
 end%
 

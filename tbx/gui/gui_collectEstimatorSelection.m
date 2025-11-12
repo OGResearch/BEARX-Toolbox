@@ -37,7 +37,7 @@ function gui_collectEstimatorSelection(submission)
 
     % Move on to the meta settings page
     nextPath = fullfile(".", "html", NEXT_PATH{:}) + ".html";
-    web(nextPath);
+    gui.web(nextPath);
 
 end%
 

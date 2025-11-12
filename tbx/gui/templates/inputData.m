@@ -3,5 +3,5 @@
 
 % Load the input data table
 inputTbl = tablex.fromFile(?INPUT_DATA_PATH?);
-printTable(inputTbl);
+?PRINT_TABLE?display(inputTbl);
 

@@ -5,5 +5,5 @@ ident = identifier.?IDENTIFIER?( ...
     ?SETTINGS?
 );
 
-printObject(ident);
+?PRINT_OBJECT?display(ident);
 

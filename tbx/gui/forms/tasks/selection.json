@@ -25,7 +25,7 @@
     },
     "ShockContributions": {
         "value": false,
-        "label": "Calculate contributions of structural shocks"
+        "label": "Calculate structural shock contributions to historical paths"
     },
     "FEVD": {
         "value": false,

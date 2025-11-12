@@ -9,12 +9,25 @@ redForecastTbl = redModel.forecast( ...
 );
 
 % Condense the forecast to percentiles
-redForecastPercentilesTbl = tablex.apply(redForecastTbl, prctilesFunc);
-printTable(redForecastPercentilesTbl);
+redForecastPercentilesTbl = tablex.apply(redForecastTbl, percentilesFunc);
+?PRINT_TABLE?display(redForecastPercentilesTbl);
 
-% Save the percentiles of the forecast
-outputPath__ = fullfile(outputFolder, "redForecastPercentiles");
-?SAVE_MAT?save(outputPath__ + ".mat", "redForecastPercentilesTbl");
-?SAVE_CSV?tablex.writetimetable(redForecastPercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(redForecastPercentilesTbl, outputPath__ + ".xlsx");
+% Define the output path for saving the results
+outputPath = fullfile(outputFolder, "redForecastPercentiles");
+
+% Save the forecast results as percentiles as MAT and/or CSV and/or
+% and XLS files
+?SAVE_MAT?save(outputPath + ".mat", "redForecastPercentilesTbl");
+?SAVE_CSV?tablex.writetimetable(redForecastPercentilesTbl, outputPath + ".csv");
+?SAVE_XLS?tablex.writetimetable(redForecastPercentilesTbl, outputPath + ".xlsx");
+
+% Plot the forecast results as percentiles
+?DRAW_CHARTS?figureHandles = chartpack.forecastPercentiles( ...
+?DRAW_CHARTS?    redForecastPercentilesTbl, redModel ...
+?DRAW_CHARTS?    , "figureTitle", "Reduced-form model forecast (percentiles)" ...
+?DRAW_CHARTS?    , "figureLegend", percentilesLegend ...
+?DRAW_CHARTS?);
+
+% Save the figures as a PDF
+?DRAW_CHARTS??SAVE_PDF?chartpack.printFiguresPDF(figureHandles, outputPath);
 

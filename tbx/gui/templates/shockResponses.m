@@ -1,5 +1,5 @@
 
-%% Simulate shock responses 
+%% Simulate shock responses
 
 % Simulate the responses to shocks over the shock response horizon
 responseTbl = structModel.simulateResponses( ...
@@ -7,13 +7,26 @@ responseTbl = structModel.simulateResponses( ...
 );
 
 % Condense the results to percentiles and flatten the 3D table to 2D table
-responsePercentilesTbl = tablex.apply(responseTbl, prctilesFunc);
+responsePercentilesTbl = tablex.apply(responseTbl, percentilesFunc);
 responsePercentilesTbl = tablex.flatten(responsePercentilesTbl);
-printTable(responsePercentilesTbl);
+?PRINT_TABLE?display(responsePercentilesTbl);
 
-% Save the results
-outputPath__ = fullfile(outputFolder, "responsePercentiles");
-?SAVE_MAT?save(outputPath__ + ".mat", "responsePercentilesTbl");
-?SAVE_CSV?tablex.writetimetable(responsePercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(responsePercentilesTbl, outputPath__ + ".xlsx");
+% Define the output path for saving the results
+outputPath = fullfile(outputFolder, "responsePercentiles");
+
+% Save the shock response results as percentiles as MAT and/or CSV and/or XLSX
+% files
+?SAVE_MAT?save(outputPath + ".mat", "responsePercentilesTbl");
+?SAVE_CSV?tablex.writetimetable(responsePercentilesTbl, outputPath + ".csv");
+?SAVE_XLS?tablex.writetimetable(responsePercentilesTbl, outputPath + ".xlsx");
+
+% Plot the shock response results as percentiles
+?DRAW_CHARTS?figureHandles = chartpack.responsePercentiles( ...
+?DRAW_CHARTS?    responsePercentilesTbl, structModel ...
+?DRAW_CHARTS?    , "figureTitle", "Shock response (percentiles)" ...
+?DRAW_CHARTS?    , "figureLegend", percentilesLegend ...
+?DRAW_CHARTS?);
+
+% Save the figures as a PDF
+?DRAW_CHARTS??SAVE_PDF?chartpack.printFiguresPDF(figureHandles, outputPath);
 

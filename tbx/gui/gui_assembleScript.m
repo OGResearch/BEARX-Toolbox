@@ -17,7 +17,7 @@ function gui_assembleScript()
 
     % Stay on the script execution page
     targetPage = fullfile(".", TARGET_PAGE{:});
-    web(targetPage);
+    gui.web(targetPage);
 
 end%
 

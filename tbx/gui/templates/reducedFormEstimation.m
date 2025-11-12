@@ -3,5 +3,5 @@
 
 redModel.initialize();
 info = redModel.presample(?NUM_SAMPLES?);
-printInfo(info);
+?PRINT_INFO?display(info);
 

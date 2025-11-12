@@ -67,11 +67,39 @@ function code = assemble(options)
         snippets = [snippets; scripter.codeShockContributions()];
     end
 
+    snippets = [snippets; scripter.codeCompleted()];
+
     code = join(snippets, "");
+
+    code = resolvePrinting_(code);
 
     if options.saveToFile ~= ""
         textual.write(code, options.saveToFile);
     end
 
+end%
+
+
+function code = resolvePrinting_(code)
+    prerequisites = gui.getCurrentPrerequisites();
+    %
+    if prerequisites.PrintInfo.value
+        code = replace(code, "?PRINT_INFO?", "");
+    else
+        code = replace(code, "?PRINT_INFO?", "% ");
+    end
+    %
+    if prerequisites.PrintTables.value
+        code = replace(code, "?PRINT_TABLE?", "");
+    else
+        code = replace(code, "?PRINT_TABLE?", "% ");
+    end
+    %
+    if prerequisites.PrintObjects.value
+        code = replace(code, "?PRINT_OBJECT?", "");
+    else
+        code = replace(code, "?PRINT_OBJECT?", "% ");
+    end
+    %]
 end%
 

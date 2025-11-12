@@ -25,7 +25,7 @@ function gui_collectScriptSettings(submission)
     targetPath = gui.populateScriptExecutionHTML();
 
     % Move on to the script execution page
-    web(targetPath);
+    gui.web(targetPath);
 
 end%
 

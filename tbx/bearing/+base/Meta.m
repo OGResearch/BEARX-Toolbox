@@ -59,10 +59,10 @@ classdef Meta < matlab.mixin.Copyable
         % will be created by prepending unit names to shock concepts
         ShockConcepts (1, :) string = string.empty(1, 0)
         %
-        % Names of structural shocks
+        % ShockNames  Names of structural shocks
         ShockNames
         %
-        % Names of separable structural shocks
+        % SeparableShockNames  Names of separable structural shocks
         SeparableShockNames
     end
 
@@ -296,6 +296,37 @@ classdef Meta < matlab.mixin.Copyable
 
         function out = get.NumSeparableShockNames(this)
             out = numel(this.SeparableShockNames);
+        end%
+    end
+
+
+    methods % Chart groups
+        function out = getForecastChartGroups(this)
+            out = { ...
+                this.EndogenousNames, ...
+                this.ResidualNames, ...
+                this.ExogenousNames, ...
+            };
+        end%
+
+        function out = getConditionalForecastChartGroups(this)
+            out = { ...
+                this.EndogenousNames, ...
+                this.ShockNames, ...
+                this.ExogenousNames, ...
+            };
+        end%
+
+        function out = getResponseChartGroups(this)
+            out = { ...
+                tablex.flattenNames(this.EndogenousNames, this.ShockNames), ...
+            };
+        end%
+
+        function out = getContributionsChartGroups(this)
+            out = { ...
+                this.EndogenousNames, ...
+            };
         end%
     end
 

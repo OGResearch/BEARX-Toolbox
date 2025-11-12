@@ -8,7 +8,7 @@ function gui_collectConditionalSettings(submission)
     gui.updateConditioningPlanTable();
 
     htmlPath = fullfile(".", "html", "tasks", "conditional.html");
-    web(htmlPath);
+    gui.web(htmlPath);
 
 end%
 

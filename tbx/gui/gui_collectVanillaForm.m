@@ -31,7 +31,7 @@ function gui_collectVanillaForm(varargin)
     if ~exist(nextPagePath, "file")
         error("Target HTML file does not exist: " + nextPagePath);
     end
-    web(nextPagePath);
+    gui.web(nextPagePath);
 
 end%
 

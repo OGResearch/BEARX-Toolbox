@@ -7,13 +7,15 @@ fevdTbl = structModel.calculateFEVD( ...
 );
 
 % Condense the results to percentiles and flatten the 3D table to 2D table
-fevdPercentilesTbl = tablex.apply(fevdTbl, prctilesFunc);
+fevdPercentilesTbl = tablex.apply(fevdTbl, percentilesFunc);
 fevdPercentilesTbl = tablex.flatten(fevdPercentilesTbl);
-printTable(fevdPercentilesTbl);
+?PRINT_TABLE?display(fevdPercentilesTbl);
 
-% Save the results
-outputPath__ = fullfile(outputFolder, "fevdPercentiles");
-?SAVE_MAT?save(outputPath__ + ".mat", "fevdPercentilesTbl");
-?SAVE_CSV?tablex.writetimetable(fevdPercentilesTbl, outputPath__ + ".csv");
-?SAVE_XLS?tablex.writetimetable(fevdPercentilesTbl, outputPath__ + ".xlsx");
+% Define the output path for saving the results
+outputPath = fullfile(outputFolder, "fevdPercentiles");
+
+% Save the results as percentiles as MAT and/or CSV and/or XLSX files
+?SAVE_MAT?save(outputPath + ".mat", "fevdPercentilesTbl");
+?SAVE_CSV?tablex.writetimetable(fevdPercentilesTbl, outputPath + ".csv");
+?SAVE_XLS?tablex.writetimetable(fevdPercentilesTbl, outputPath + ".xlsx");
 

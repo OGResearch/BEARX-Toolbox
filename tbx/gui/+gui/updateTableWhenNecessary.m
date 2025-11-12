@@ -14,12 +14,12 @@ function updateTableWhenNecessary(options)
     targetFile = fullfile(".", options.FileName);
 
     if ~needsUpdate_(targetFile, options.RowNames, options.ColumnNames)
-        disp("No need to update " + targetFile);
+        % Update not necessary because the rows and columns of the existing
+        % table are already correct
         return
     end
 
-    disp("Updating " + targetFile);
-
+    % Update the table; this will erase the existing content
     numRows = numel(options.RowNames);
     numColumns = numel(options.ColumnNames);
     content = repmat("", numRows+1, numColumns+1);

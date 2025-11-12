@@ -6,7 +6,7 @@ function updateIneqRestrictTable(meta)
 
     form = gui.readFormsFile(FORM);
     meta = gui.getCurrentMetaObj();
-    endogenousNames = meta.EndogenousNames;
+    endogenousNames = meta.SeparableEndogenousNames;
     shockNames = meta.SeparableShockNames;
 
     gui.updateTableWhenNecessary( ...

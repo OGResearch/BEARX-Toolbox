@@ -6,6 +6,8 @@ classdef InstantZeros ...
     properties
         Table table = table.empty()
         Matrix (:, :) double = []
+        RandomGenerator function_handle = @randn
+        FactorizationFunc function_handle = @chol
     end
 
 
@@ -20,6 +22,20 @@ classdef InstantZeros ...
                 options.FileName (1, 1) string = ""
                 options.Table table = table.empty()
                 options.Matrix (:, :) double = []
+                options.RandomGenerator = "randn"
+                options.FactorizationFunc = "chol"
+            end
+            %
+            if isstring(options.RandomGenerator) || ischar(options.RandomGenerator)
+                this.RandomGenerator = str2func(options.RandomGenerator);
+            else
+                this.RandomGenerator = options.RandomGenerator;
+            end 
+            %
+            if isstring(options.FactorizationFunc) || ischar(options.FactorizationFunc)
+                this.FactorizationFunc = str2func(options.FactorizationFunc);
+            else
+                this.FactorizationFunc = options.FactorizationFunc;
             end
             %
             if options.FileName ~= ""
@@ -49,15 +65,14 @@ classdef InstantZeros ...
         end%
 
         function choleskator = getCholeskator(this)
-            choleskator = @chol;
+            choleskator = this.FactorizationFunc;
         end%
 
         function candidator = getCandidator(this)
             if this.NumRestrictions > 0
-                R = this.Matrix;
-                candidator = @(P) identifier.candidateFromFactorConstrained(P, R);
+                candidator = @(P) identifier.candidateFromFactorConstrained(P, this.Matrix, this.RandomGenerator);
             else
-                candidator = @identifier.candidateFromFactorUnconstrained;
+                candidator = @(P) identifier.candidateFromFactorUnconstrained(P, this.RandomGenerator);
             end
         end%
 

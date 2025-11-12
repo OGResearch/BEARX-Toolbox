@@ -10,7 +10,7 @@
         "label": "Save output table as an Excel file"
     },
     "SaveCSV": {
-        "value": true,
+        "value": false,
         "type": "logical",
         "label": "Save output table as a CSV file"
     },
@@ -18,6 +18,16 @@
         "value": false,
         "type": "logical",
         "label": "Save output table as a MAT file"
+    },
+    "DrawCharts": {
+        "value": false,
+        "type": "logical",
+        "label": "Draw and save charts as PDF files"
+    },
+    "SavePDF": {
+        "value": false,
+        "type": "logical",
+        "label": "Save charts as a PDF file"
     }
 }
 

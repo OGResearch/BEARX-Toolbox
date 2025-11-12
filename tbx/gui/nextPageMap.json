@@ -1,7 +1,9 @@
 {
     "identification": {
         "cholesky": ["tasks", "selection"],
-        "zeros": ["tasks", "selection"]
+        "InstantZeros": ["tasks", "selection"],
+        "IneqRestrict": ["tasks", "selection"],
+        "GeneralRestrict": ["tasks", "selection"]
     },
     "tasks": {
         "selection": ["tasks", "prerequisites"]

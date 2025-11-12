@@ -19,5 +19,7 @@ function figureHandles = responsePercentiles(tt, model, varargin)
         );
         figureHandles = [figureHandles, currentFigureHandles];
     end
+    figure(figureHandles{1});
 
 end%
+

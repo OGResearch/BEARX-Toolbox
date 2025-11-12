@@ -8,10 +8,11 @@ classdef MinnesotaFAVAROnestep ...
     properties
         Settings = factorOnestep.estimator.settings.MinnesotaFAVAROnestep()
     end
-    
+
+
     properties (Constant)
         Description = "One-step FAVAR with Minnesota prior"
-        Category = "One-step plain FAVAR estimators"
+        Category = "One-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = true

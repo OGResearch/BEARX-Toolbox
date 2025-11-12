@@ -5,14 +5,15 @@
 classdef IndNormalWishartFAVARTwostep ...
     < factorTwostep.Estimator ...
     & factorTwostep.estimator.PlainFactorDrawersMixin
-    
+
     properties
         Settings = factorTwostep.estimator.settings.IndNormalWishartFAVARTwostep()
     end
 
+
     properties (Constant)
-        Description = "Two-step FAVAR with Individual Normal-Wishart prior"
-        Category = "Two-step plain FAVAR estimators"
+        Description = "Two-step FAVAR with individual Normal-Wishart prior"
+        Category = "Two-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

@@ -8,10 +8,11 @@ classdef NormalWishartFAVAROnestep ...
     properties
         Settings = factorOnestep.estimator.settings.NormalWishartFAVAROnestep()
     end
-    
+
+
     properties (Constant)
         Description = "One-step FAVAR with Normal-Wishart prior"
-        Category = "One-step plain FAVAR estimators"
+        Category = "One-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = true

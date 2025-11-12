@@ -10,8 +10,8 @@ classdef FlatFAVAROnestep ...
     end
 
     properties (Constant)
-        Description = "One-step FAVAR with Flat prior"
-        Category = "One-step plain FAVAR estimators"
+        Description = "One-step FAVAR with flat prior"
+        Category = "One-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = true

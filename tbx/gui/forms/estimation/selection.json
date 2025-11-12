@@ -184,7 +184,7 @@
     ]
   },
   "FlatFAVAROnestep": {
-    "category": "Plain FAVAR estimators",
+    "category": "One-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -192,7 +192,7 @@
     ]
   },
   "IndNormalWishartFAVAROnestep": {
-    "category": "Plain FAVAR estimators",
+    "category": "One-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -200,7 +200,7 @@
     ]
   },
   "MinnesotaFAVAROnestep": {
-    "category": "Plain FAVAR estimators",
+    "category": "One-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -208,7 +208,7 @@
     ]
   },
   "NormalDiffuseFAVAROnestep": {
-    "category": "Plain FAVAR estimators",
+    "category": "One-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -216,7 +216,7 @@
     ]
   },
   "NormalWishartFAVAROnestep": {
-    "category": "Plain FAVAR estimators",
+    "category": "One-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -224,7 +224,7 @@
     ]
   },
   "BetaTVFAVAR": {
-    "category": "Time-varying FAVAR estimators",
+    "category": "Time-varying factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -232,7 +232,7 @@
     ]
   },
   "CarrieroSVFAVAR": {
-    "category": "Time-varying FAVAR estimators",
+    "category": "Time-varying factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -240,7 +240,7 @@
     ]
   },
   "CogleySargentSVFAVAR": {
-    "category": "Time-varying FAVAR estimators",
+    "category": "Time-varying factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -248,7 +248,7 @@
     ]
   },
   "FlatFAVARTwostep": {
-    "category": "Plain FAVAR estimators",
+    "category": "Two-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -256,7 +256,7 @@
     ]
   },
   "GeneralTVFAVAR": {
-    "category": "Time-varying FAVAR estimators",
+    "category": "Time-varying factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -264,7 +264,7 @@
     ]
   },
   "IndNormalWishartFAVARTwostep": {
-    "category": "Plain FAVAR estimators",
+    "category": "Two-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -272,7 +272,7 @@
     ]
   },
   "MinnesotaFAVARTwostep": {
-    "category": "Plain FAVAR estimators",
+    "category": "Two-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -280,7 +280,7 @@
     ]
   },
   "NormalDiffuseFAVARTwostep": {
-    "category": "Plain FAVAR estimators",
+    "category": "Two-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -288,7 +288,7 @@
     ]
   },
   "NormalWishartFAVARTwostep": {
-    "category": "Plain FAVAR estimators",
+    "category": "Two-step factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",
@@ -296,7 +296,7 @@
     ]
   },
   "RandomInertiaSVFAVAR": {
-    "category": "Time-varying FAVAR estimators",
+    "category": "Time-varying factor-augmented estimators",
     "value": false,
     "target": [
       "estimation",

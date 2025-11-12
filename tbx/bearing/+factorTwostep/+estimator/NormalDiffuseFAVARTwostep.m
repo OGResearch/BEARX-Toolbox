@@ -5,14 +5,15 @@
 classdef NormalDiffuseFAVARTwostep ...
     < factorTwostep.Estimator ...
     & factorTwostep.estimator.PlainFactorDrawersMixin
-    
+
     properties
         Settings = factorTwostep.estimator.settings.NormalDiffuseFAVARTwostep()
     end
 
+
     properties (Constant)
         Description = "Two-step FAVAR with Normal-Diffuse prior"
-        Category = "Two-step plain FAVAR estimators"
+        Category = "Two-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

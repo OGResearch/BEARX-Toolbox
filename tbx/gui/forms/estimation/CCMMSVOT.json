@@ -1,11 +1,11 @@
 {
-  "QDoFLowerBound": {
+  "DoFLowerBound": {
     "label": "Lower bound of the uniform prior on degrees of freedom for inverse gamma (Q diagonal);",
     "type": "number",
     "value": 3,
     "details": ""
   },
-  "QDoFUpperBound": {
+  "DoFUpperBound": {
     "label": "Upper bound of the uniform prior on degrees of freedom for inverse gamma (Q diagonal);",
     "type": "number",
     "value": 40,

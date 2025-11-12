@@ -1,16 +1,4 @@
 {
-  "Alpha0": {
-    "label": "IG shape on residual variance",
-    "type": "number",
-    "value": 1000,
-    "details": "alpha0"
-  },
-  "Delta0": {
-    "label": "IG scale on residual variance",
-    "type": "number",
-    "value": 1,
-    "details": "delta0"
-  },
   "A0": {
     "label": "IG shape on factor variance",
     "type": "number",
@@ -29,17 +17,23 @@
     "value": 0.75,
     "details": "rho"
   },
-  "Psi": {
-    "label": "Variance of Metropolis draw",
-    "type": "number",
-    "value": 0.1,
-    "details": "psi"
-  },
   "Gamma": {
     "label": "AR coefficient on residual variance",
     "type": "number",
     "value": 0.85,
     "details": "gamma"
+  },
+  "Alpha0": {
+    "label": "IG shape on residual variance",
+    "type": "number",
+    "value": 1000,
+    "details": "alpha0"
+  },
+  "Delta0": {
+    "label": "IG scale on residual variance",
+    "type": "number",
+    "value": 1,
+    "details": "delta0"
   },
   "Burnin": {
     "label": "Number of burn-in draws",

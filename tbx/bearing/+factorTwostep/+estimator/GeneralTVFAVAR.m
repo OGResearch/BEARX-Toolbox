@@ -4,14 +4,14 @@
 
 classdef GeneralTVFAVAR ...
     < factorTwostep.Estimator
-    
+
     properties
         Settings = factorTwostep.estimator.settings.GeneralTVFAVAR()
     end
 
     properties (Constant)
         Description = "Two-step FAVAR with time-varying parameters and stochastic volatility"
-        Category = "Time-varying FAVAR estimators"
+        Category = "Time-varying factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

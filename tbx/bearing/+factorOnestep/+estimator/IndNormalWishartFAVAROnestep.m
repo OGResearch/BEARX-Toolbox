@@ -11,7 +11,7 @@ classdef IndNormalWishartFAVAROnestep ...
 
     properties (Constant)
         Description = "One-step FAVAR with independent Normal-Wishart prior"
-        Category = "One-step plain FAVAR estimators"
+        Category = "One-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = true

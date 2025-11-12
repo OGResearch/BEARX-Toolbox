@@ -5,16 +5,14 @@
 classdef RandomInertiaSVFAVAR ...
     < factorTwostep.Estimator
 
-
     properties
         Settings = factorTwostep.estimator.settings.RandomInertiaSVFAVAR()
     end
 
 
-
     properties (Constant)
         Description = "Two-step FAVAR with random-inertia stochastic volatility"
-        Category = "Time-varying FAVAR estimators"
+        Category = "Time-varying factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

@@ -5,16 +5,15 @@
 classdef FlatFAVARTwostep ...
     < factorTwostep.Estimator ...
     & factorTwostep.estimator.PlainFactorDrawersMixin
-    
+
     properties
         Settings = factorTwostep.estimator.settings.FlatFAVARTwostep()
     end
-    
-    
+
 
     properties (Constant)
-        Description = "Two-step FAVAR with Flat prior"
-        Category = "Two-step plain FAVAR estimators"
+        Description = "Two-step FAVAR with flat prior"
+        Category = "Two-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

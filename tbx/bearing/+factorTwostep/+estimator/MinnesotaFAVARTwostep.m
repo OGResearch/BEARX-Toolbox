@@ -5,15 +5,16 @@
 classdef MinnesotaFAVARTwostep ...
     < factorTwostep.Estimator ...
     & factorTwostep.estimator.PlainFactorDrawersMixin
-    
-    
+
+
     properties
         Settings = factorTwostep.estimator.settings.MinnesotaFAVARTwostep()
     end
 
+
     properties (Constant)
         Description = "Two-step FAVAR with Minnesota prior"
-        Category = "Two-step plain FAVAR estimators"
+        Category = "Two-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

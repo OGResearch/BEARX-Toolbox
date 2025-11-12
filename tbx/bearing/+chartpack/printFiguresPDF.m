@@ -36,3 +36,4 @@ function preparePaper_(figureHandle, options)
     set(figureHandle, paperPosition=[0, 0, paperSize]);
     %]
 end%
+

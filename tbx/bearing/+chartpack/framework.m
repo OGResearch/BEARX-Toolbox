@@ -14,7 +14,6 @@ function figureHandles = framework(chartFunc, tt, names, options)
         options.FigureLegend (1, :) string = string.empty(1, 0)
         options.FigureCount (1, 1) double = 1
         options.ChartSettings (1, :) cell = cell.empty(1, 0)
-        options.FocusOnFirst (1, 1) logical = true
         options.InsertEmpty (1, 1) logical = true
         options.NumFiguresSoFar (1, 1) double = 0
     end
@@ -78,10 +77,6 @@ function figureHandles = framework(chartFunc, tt, names, options)
 
     if options.FigureTitle ~= ""
         addFigureTitles(figureHandles, options.FigureTitle, options.NumFiguresSoFar);
-    end
-
-    if options.FocusOnFirst
-        figure(figureHandles{1});
     end
 
 end%

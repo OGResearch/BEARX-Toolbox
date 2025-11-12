@@ -12,7 +12,7 @@ classdef CarrieroSVFAVAR ...
 
     properties (Constant)
         Description = "Two-step FAVAR with Carriero stochastic volatility"
-        Category = "Time-varying FAVAR estimators"
+        Category = "Time-varying factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

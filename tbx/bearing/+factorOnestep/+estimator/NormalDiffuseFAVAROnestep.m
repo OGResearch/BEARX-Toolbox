@@ -8,10 +8,11 @@ classdef NormalDiffuseFAVAROnestep ...
     properties
         Settings = factorOnestep.estimator.settings.NormalDiffuseFAVAROnestep()
     end
-    
+
+
     properties (Constant)
         Description = "One-step FAVAR with Normal-Diffuse prior"
-        Category = "One-step plain FAVAR estimators"
+        Category = "One-step factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = true

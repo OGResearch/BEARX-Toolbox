@@ -11,8 +11,8 @@ classdef CogleySargentSVFAVAR ...
 
 
     properties (Constant)
-        Description = "Two-step FAVAR with Cogley-Sargent stochastic-volatility prior"
-        Category = "Time-varying FAVAR estimators"
+        Description = "Two-step FAVAR with Cogley-Sargent stochastic volatility"
+        Category = "Time-varying factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
         OneStepFactors = false

@@ -19,6 +19,7 @@ function figureHandles = conditionalForecastPercentiles(tt, model, varargin)
         );
         figureHandles = [figureHandles, currentFigureHandles]; %#ok<AGROW>
     end
+    figure(figureHandles{1});
 
 end%
 

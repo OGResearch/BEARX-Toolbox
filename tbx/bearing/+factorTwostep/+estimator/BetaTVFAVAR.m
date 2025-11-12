@@ -4,16 +4,16 @@
 
 classdef BetaTVFAVAR ...
     < factorTwostep.Estimator
-    
-    
+
+
     properties
         Settings = factorTwostep.estimator.settings.BetaTVFAVAR()
     end
-    
+
 
     properties (Constant)
         Description = "Two-step FAVAR with time-varying coefficients"
-        Category = "Time-varying FAVAR estimators"
+        Category = "Time-varying factor-augmented estimators"
         HasCrossUnits = false
         CanBeIdentified = true
     end

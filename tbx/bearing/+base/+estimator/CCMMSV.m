@@ -21,13 +21,12 @@ classdef CCMMSV ...
 
     methods
 
-        function initializeSampler(this, meta, longYX, dummiesYLX)
+        function initializeSampler(this, meta, longYX)
             %[
             arguments
                 this
                 meta
                 longYX (1, 2) cell
-                dummiesYLX (1, 2) cell
             end
 
             [longY, longX] = longYX{:};

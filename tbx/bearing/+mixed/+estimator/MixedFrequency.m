@@ -26,7 +26,7 @@ classdef MixedFrequency ...
                 longYX (1, 2) cell
             end
 
-            [longY, longX] = longYX{:};
+            [longY, ~] = longYX{:};
 
             const = meta.HasIntercept;
             numLags = meta.Order;

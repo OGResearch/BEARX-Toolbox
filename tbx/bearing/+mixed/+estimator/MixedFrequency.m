@@ -67,7 +67,8 @@ classdef MixedFrequency ...
 
             nlags_ = numLags;                  % number of lags
             T0 = nlags_;             % size of pre-sample
-            nex = meta.NumExogenousNames + const;                  % number of exogenous vars;1(=intercept only)
+            nex = meta.NumExogenousNames;% + const;                  % number of exogenous vars;1(=intercept only)
+
             p = nlags_;
             nlags = p;
 
@@ -166,7 +167,7 @@ classdef MixedFrequency ...
             Yq = YQ(T0+1:nobs+T0,:);
             Ym = YM(T0+1:nobs+T0,:);
 
-            At_draw = zeros(nobs,Nq*(p+1));
+            At_draw = zeros(nobs, Nq*(p+1));
             Pmean = [];
 
 
@@ -174,10 +175,11 @@ classdef MixedFrequency ...
 
                 j = 1; %fix to one
 
-                if this.SampleCounter>0
-                    At = At_draw(1,:)';
+                if this.SampleCounter > 0
+                    At = transpose(At_draw(1, :));
                     Pt = Pmean;
                 end
+
                 % Kalman Filter loop
                 for t = 1:nobs            % note that t=T0+t originally
 
@@ -408,10 +410,10 @@ classdef MixedFrequency ...
                 YY = [[Ym At_draw(:,1:Nq)];...
                     AT_draw(2:end,1:(Nm+Nq))];
                 % save latent states
-                for hh=1:Nq
-                    lstate(hh,1:nobs)=At_draw(:,hh);
-                    lstate(hh,nobs+1:end)=AT_draw(2:end,Nm+hh);
-                end
+                %for hh=1:Nq
+                %    lstate(hh,1:nobs)=At_draw(:,hh);
+                %    lstate(hh,nobs+1:end)=AT_draw(2:end,Nm+hh);
+                %end
 
                 nobs_ = size(YY,1)-T0;
                 spec = [nlags_ T0 nex nv nobs_];
@@ -657,3 +659,4 @@ classdef MixedFrequency ...
     end
 
 end
+

@@ -49,14 +49,15 @@ function resume()
     gui.populateVanillaFormHTML({"tasks", "identification"});
     gui.populateVanillaFormHTML({"tasks", "redForecast"});
     gui.populateVanillaFormHTML({"tasks", "structForecast"});
+    gui.populateVanillaFormHTML({"tasks", "conditional"}, "gui_collectConditionalSettings ");
     gui.populateVanillaFormHTML({"tasks", "responses"});
     gui.populateVanillaFormHTML({"tasks", "fevd"});
     gui.populateVanillaFormHTML({"tasks", "contributions"});
 
-    gui.populateConditionalSettingsHTML();
 
     % Matlab script tab
-    gui.populateScriptSettingsHTML();
+    gui.populateVanillaFormHTML({"script", "settings"});
+    % gui.populateScriptSettingsHTML();
     gui.populateScriptExecutionHTML();
     gui.populateScriptListingHTML();
 
@@ -77,12 +78,14 @@ function resume()
     % Insert the correct paths to tables in the HTML files
     %
     currentFolder = pwd();
-    wrapPath = @(n) fullfile(currentFolder, "tables", n);
+    wrapTablePath = @(n) fullfile(currentFolder, "tables", n);
     dispatcher = {
-        fullfile(".", "html", "identification", "InstantZeros.html"), "?PATH?", wrapPath("InstantZeros.xlsx")
-        fullfile(".", "html", "identification", "IneqRestrict.html"), "?PATH?", wrapPath("IneqRestrict.xlsx")
-        fullfile(".", "html", "dummies", "longrun.html"), "?PATH?", wrapPath("LongRunDummies.xlsx")
-        fullfile(".", "html", "identification", "GeneralRestrict.html"), "?PATH?", "matlab: edit(fullfile('tables', 'GeneralRestrict.md'))"
+        fullfile(".", "html", "identification", "InstantZeros.html"), "?PATH?", wrapTablePath("InstantZeros.xlsx")
+        fullfile(".", "html", "identification", "IneqRestrict.html"), "?PATH?", wrapTablePath("IneqRestrict.xlsx")
+        fullfile(".", "html", "dummies", "longrun.html"), "?PATH?", wrapTablePath("LongRunDummies.xlsx")
+        fullfile(".", "html", "identification", "GeneralRestrict.html"), "?PATH?", "matlab: gui.returnFromCommandWindow(fullfile('html', 'identification', 'GeneralRestrict.html')); edit(fullfile('tables', 'GeneralRestrict.md'))"
+        fullfile(".", "html", "tasks", "conditional.html"), "?DATA_PATH?", wrapTablePath("ConditioningData.xlsx")
+        fullfile(".", "html", "tasks", "conditional.html"), "?PLAN_PATH?", wrapTablePath("ConditioningPlan.xlsx")
     };
     for i = 1 : height(dispatcher)
         htmlPath = dispatcher{i, 1};

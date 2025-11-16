@@ -1,17 +1,21 @@
 
-function gui_collectVanillaForm(varargin)
+function gui_collectVanillaForm(folder, fileAndSubmission, action)
 
-    if nargin ~= 2
+    arguments
+        folder (1, 1) string
+        fileAndSubmission (1, 1) string
+        action (1, 1) string = ""
+    end
+
+    if ~ismember(nargin, [2, 3])
         error("Incorrect number of input arguments.");
     end
 
     SUBMISSION_LEAD = "?";
 
-    submission = SUBMISSION_LEAD + extractAfter(varargin{2}, SUBMISSION_LEAD);
-    formPath = { ...
-        string(varargin{1}), ...
-        extractBefore(string(varargin{2}), SUBMISSION_LEAD), ...
-    };
+    file = extractBefore(fileAndSubmission, SUBMISSION_LEAD);
+    submission = SUBMISSION_LEAD + extractAfter(fileAndSubmission, SUBMISSION_LEAD);
+    formPath = {folder, file};
 
     % Get information submitted by the user and cleaned up to comply with the
     % specifications
@@ -22,8 +26,8 @@ function gui_collectVanillaForm(varargin)
     % Update the settings JSON with the new values
     gui.writeFormsFile(settingsForm, formPath);
 
-    % Repopulate the HTML with the cleaned-up settings
-    gui.populateVanillaFormHTML(formPath);
+    % Repopulate the HTML with the cleaned-up settings and possibly the custom action
+    gui.populateVanillaFormHTML(formPath, action);
 
     % Move on to the next page
     nextPage = gui.determineNextPage(formPath);

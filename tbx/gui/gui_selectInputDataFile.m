@@ -9,11 +9,17 @@ function gui_selectInputDataFile(field)
     PROMPT = "Select input data file";
 
     [inputDataFileName, inputDataFilePath] = uigetfile(FILTER, PROMPT);
-
     if isequal(inputDataFileName, 0) || isequal(inputDataFilePath, 0)
         return
     end
+
+    % Construct the full file path
     filePath = string(fullfile(inputDataFilePath, inputDataFileName));
+
+    % Try to make the path relative to the current folder
+    currentFolder = pwd();
+    filePath = replace(filePath, currentFolder, ".");
+
     submission = struct();
     submission.(field) = filePath;
     jsonForm = gui.updateValuesFromSubmission(jsonForm, submission);

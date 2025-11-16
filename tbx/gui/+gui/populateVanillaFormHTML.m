@@ -13,13 +13,15 @@ function populateVanillaFormHTML(formPath, action)
         action = "gui_collectVanillaForm " + formPath{1} + " " + formPath{2} + " ";
     end
 
-    guiFolder = gui_getFolder();
-    sourcePath = fullfile(guiFolder, htmlEndPath{:});
-    targetPath = fullfile(".", htmlEndPath{:});
+    if ~endsWith(action, " ")
+        action = action + " ";
+    end
 
     form = gui.readFormsFile(formPath);
-    html = gui.generateFreeForm(form, action=action);
-    gui.copyCustomHTML(sourcePath, targetPath, "?FORM?", html);
+    htmlForm = gui.generateFreeForm(form, action=action);
+
+    targetPath = fullfile(".", htmlEndPath{:});
+    gui.updateFormWithinCustomHTML(fullfile(".", htmlEndPath{:}), htmlForm);
 
 end%
 

@@ -7,10 +7,11 @@ Configure the unconditional forecast with a reduced-form model.
 
 --8<-- "mkdocs/rememberToSubmit.md"
 
-
-?FORM?
+<!-- START FORM -->
+<!-- END FORM -->
 
 ---
+
 
 === "How to enter values of different types"
 

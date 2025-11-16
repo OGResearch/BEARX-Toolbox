@@ -1,6 +1,7 @@
 
 {
     "FileName": {
+        "show": false,
         "value": "tables/GeneralRestrict.md",
         "type": "string",
         "label": "Path to the general restrictions markdown file"

@@ -8,7 +8,9 @@ Configure the unconditional forecast with a structural model.
 --8<-- "mkdocs/rememberToSubmit.md"
 
 
-?FORM?
+<!-- START FORM -->
+<!-- END FORM -->
+
 
 ---
 

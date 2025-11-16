@@ -140,6 +140,7 @@ classdef Meta < matlab.mixin.Copyable
             this.populatePseudoDependents();
             this.populateSeparablePseudoDependents();
             this.catchDuplicateNames();
+            this.checkConsistency();
         end%
 
 
@@ -164,6 +165,13 @@ classdef Meta < matlab.mixin.Copyable
             this.SeparableEndogenousNames = this.EndogenousNames;
             this.SeparableResidualNames = this.ResidualNames;
             this.SeparableShockNames = this.ShockNames;
+        end%
+
+
+        function checkConsistency(this)
+            if this.NumEndogenousNames ~= this.NumShockNames
+                error("The number of shocks must equal the number of endogenous variables.");
+            end
         end%
 
 

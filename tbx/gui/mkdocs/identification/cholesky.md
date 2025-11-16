@@ -1,15 +1,15 @@
 
 Choose the settings for the Cholesky (triangular) identification scheme.
 
-
 --8<-- "mkdocs/readHowToInput.md"
 
 --8<-- "mkdocs/rememberToSubmit.md"
 
-
-?FORM?
+<!-- START FORM -->
+<!-- END FORM -->
 
 ---
+
 
 === "How to enter values of different types"
 

@@ -15,14 +15,8 @@ function populateRunSelectionHTML()
         , type="checkbox" ...
     );
 
-    guiFolder = gui_getFolder();
-    sourceFile = fullfile(guiFolder, HTML_END_PATH{:});
     targetFile = fullfile(".", HTML_END_PATH{:});
-
-    gui.copyCustomHTML( ...
-        sourceFile, targetFile, ...
-        "?FORM?", htmlForm ...
-    );
+    gui.updateFormWithinCustomHTML(targetFile, htmlForm);
 
 end%
 

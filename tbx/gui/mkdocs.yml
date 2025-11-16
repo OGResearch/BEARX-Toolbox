@@ -2,6 +2,7 @@ site_name: Bear Toolbox GUI
 
 theme:
     name: material
+    custom_dir: overrides
     icon:
         logo: material/teddy-bear
     font:
@@ -15,7 +16,6 @@ theme:
         - navigation.tabs
         - navigation.indexes
         - navigation.top
-        - search.suggest
         - content.code.copy
         - content.code.select
 
@@ -27,7 +27,6 @@ repo_name: european-central-bank/BEAR-toolbox-6
 use_directory_urls: false
 
 plugins:
-    - search
     - awesome-pages
 
 markdown_extensions:

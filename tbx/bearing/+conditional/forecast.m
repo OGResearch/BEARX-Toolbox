@@ -40,7 +40,11 @@ function [fcastY, fcastE] = forecast(D, beta_iter, initY, shortX, fcastHorizon, 
 
         end
 
-        fcastE = reshape(fcastE, numEndog, fcastHorizon);
+        if ~isempty(fcastE)
+            fcastE = reshape(fcastE, numEndog, fcastHorizon);
+        else
+            fcastE = zeros(numEndog, fcastHorizon);
+        end
 
         % step 5: obtain the conditional forecasts
         for indPeriod = 1:fcastHorizon

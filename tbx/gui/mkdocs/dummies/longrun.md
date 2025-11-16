@@ -7,9 +7,11 @@ long-run constraints in the table.
 --8<-- "mkdocs/rememberToSubmit.md"
 
 
-?FORM?
-
 [:material-cursor-default-click: Edit the long-run constraints table](?PATH?)
+
+<!-- START FORM -->
+<!-- END FORM -->
+
 
 ---
 

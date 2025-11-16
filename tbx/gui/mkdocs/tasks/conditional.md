@@ -7,8 +7,8 @@ tables, i.e. conditionig data and conditioning plan.
 
 --8<-- "mkdocs/rememberToSubmit.md"
 
-
-?FORM?
+<!-- START FORM -->
+<!-- END FORM -->
 
 [:material-cursor-default-click: Edit conditioning data table](?DATA_PATH?)
 

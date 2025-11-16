@@ -17,21 +17,17 @@ function targetFile = populateEstimatorSelectionHTML()
         , CALLBACK_ACTION...
     );
 
-    guiFolder = gui_getFolder();
-    sourceFile = fullfile(guiFolder, HTML_END_PATH{:});
-    targetFile = fullfile(".", HTML_END_PATH{:});
-
     if currentEstimator ~= ""
         currentSelection = currentEstimator;
+        currentSelectionLabel = jsonForm.(currentSelection).label;
     else
         currentSelection = NO_SELECTION;
+        currentSelectionLabel = "No estimator selected";
     end
 
-    gui.copyCustomHTML( ...
-        sourceFile, targetFile, ...
-        "?FORM?", htmlForm, ...
-        "?CURRENT_SELECTION?", currentSelection ...
-    );
+    targetPath = fullfile(".", HTML_END_PATH{:});
+    gui.updateFormWithinCustomHTML(targetPath, htmlForm);
+    gui.updateCurrentSelectionWithinCustomHTML(targetPath, currentSelectionLabel);
 
 end%
 

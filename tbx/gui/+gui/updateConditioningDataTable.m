@@ -17,7 +17,7 @@ function updateConditioningDataTable()
     endogenousNames = meta.EndogenousNames;
     exogenousNames = meta.ExogenousNames;
     if isempty(endogenousNames) || isequal(endogenousNames, "")
-        disp("Not updating conditioning data table because there are no endogenous names.");
+        % disp("Not updating conditioning data table because there are no endogenous names.");
         return
     end
     columnNames = [endogenousNames, exogenousNames];
@@ -25,7 +25,7 @@ function updateConditioningDataTable()
     % Read the current tasks/conditional form
     form = gui.readFormsFile(FORM_PATH);
     if isempty(form.ForecastSpan.value) || isequal(form.ForecastSpan.value, "")
-        disp("Not updating conditioning data table because forecast span is empty.");
+        % disp("Not updating conditioning data table because forecast span is empty.");
         return
     end
 

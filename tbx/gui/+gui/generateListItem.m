@@ -7,7 +7,7 @@ function html = generateListItem(name, json, isChecked)
 
     label = name;
     if isfield(json, "label") && strlength(json.label) > 0
-        label = json.label;
+        label = string(json.label);
     end
 
     checked = "";

@@ -16,14 +16,14 @@ function updateConditioningPlanTable()
     meta = gui.getCurrentMetaObj();
     endogenousNames = meta.EndogenousNames;
     if isempty(endogenousNames) || isequal(endogenousNames, "")
-        disp("Not updating conditioning plan table because there are no endogenous names.");
+        % disp("Not updating conditioning plan table because there are no endogenous names.");
         return
     end
 
     % Read the current tasks/conditional form
     form = gui.readFormsFile(FORM_PATH);
     if isempty(form.ForecastSpan.value) || isequal(form.ForecastSpan.value, "")
-        disp("Not updating conditioning plan table because forecast span is empty.");
+        % disp("Not updating conditioning plan table because forecast span is empty.");
         return
     end
 

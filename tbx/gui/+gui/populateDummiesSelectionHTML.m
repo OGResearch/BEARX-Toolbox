@@ -3,23 +3,16 @@ function targetFile = populateDummiesSelectionHTML()
 
     SELECTION_FORM_PATH = {"dummies", "selection"};
     CALLBACK_ACTION = "gui_collectDummiesSelection";
-    HTML_END_PATH = {"html", "dummies", "selection.html"};
+    TARGET_PATH = fullfile(".", "html", "dummies", "selection.html");
 
-    guiFolder = gui_getFolder();
-    sourceFile = fullfile(guiFolder, HTML_END_PATH{:});
-    targetFile = fullfile(".", HTML_END_PATH{:});
-
-    function copyCustomHTML_(htmlForm)
-        gui.copyCustomHTML( ...
-            sourceFile, targetFile ...
-            , "?FORM?", htmlForm ...
-        );
+    function updateForm_(htmlForm)
+        gui.updateFormWithinCustomHTML(TARGET_PATH, htmlForm);
     end%
 
     currentModule = gui.getCurrentModule();
     if currentModule == ""
         htmlForm = "<p>You need to choose a reduced-form estimator first to see a selection form</p>";
-        copyCustomHTML_(htmlForm);
+        updateForm_(htmlForm);
         return
     end
 
@@ -27,7 +20,7 @@ function targetFile = populateDummiesSelectionHTML()
     canHaveDummies = isequal(estimatorObj.CanHaveDummies, true);
     if ~canHaveDummies
         htmlForm = "<p>The selected reduced-form estimator does not support dummy variables</p>";
-        copyCustomHTML_(htmlForm);
+        updateForm_(htmlForm);
         return
     end
 
@@ -41,7 +34,7 @@ function targetFile = populateDummiesSelectionHTML()
         , type="checkbox" ...
     );
 
-    copyCustomHTML_(htmlForm);
+    updateForm_(htmlForm);
 
 end%
 

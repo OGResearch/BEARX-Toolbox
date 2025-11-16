@@ -67,7 +67,7 @@ classdef MixedFrequency ...
 
             nlags_ = numLags;                  % number of lags
             T0 = nlags_;             % size of pre-sample
-            nex = meta.NumExogenousNames;% + const;                  % number of exogenous vars;1(=intercept only)
+            nex = const; % meta.NumExogenousNames;% + const;                  % number of exogenous vars;1(=intercept only)
 
             p = nlags_;
             nlags = p;
@@ -170,15 +170,18 @@ classdef MixedFrequency ...
             At_draw = zeros(nobs, Nq*(p+1));
             Pmean = [];
 
+            justInitialized = true;
+
 
             function sample = sampler()
 
                 j = 1; %fix to one
 
-                if this.SampleCounter > 0
+                if ~justInitialized
                     At = transpose(At_draw(1, :));
                     Pt = Pmean;
                 end
+                justInitialized = false;
 
                 % Kalman Filter loop
                 for t = 1:nobs            % note that t=T0+t originally

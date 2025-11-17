@@ -184,7 +184,7 @@ classdef Structural ...
             % Prepare data
             longYX = this.getLongYX();
             [longY, longX] = longYX{:};
-            initY = longY(1:order, :, :);
+            % initY = longY(1:order, :, :);
             shortX = longX(order+1:end, :, :);
             %
             % Prepare history drawer
@@ -210,7 +210,8 @@ classdef Structural ...
                     unitC = system.extractUnitFromCellArray(draw.C, unit, EXTRACT_DIM);
                     unitD = sample.D(:, :, unit);
                     unitShortU = shortU(:, :, unit);
-                    unitInitY = initY(:, :, unit);
+                    unitLongY = system.extractUnitFromNumericArray(longY, unit, EXTRACT_DIM);
+                    unitInitY = this.ReducedForm.getInitY(unitLongY, order, sample, 1);
                     unitContribs = contributor(unitA, unitC, unitD, unitShortU, shortX, unitInitY);
                     contribs{i} = [contribs{i}, unitContribs];
                 end

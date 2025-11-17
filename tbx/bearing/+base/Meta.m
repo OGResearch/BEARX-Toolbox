@@ -169,7 +169,7 @@ classdef Meta < matlab.mixin.Copyable
 
 
         function checkConsistency(this)
-            if this.NumEndogenousNames ~= this.NumShockNames
+            if this.NumPseudoEndogenousNames ~= this.NumShockNames
                 error("The number of shocks must equal the number of endogenous variables.");
             end
         end%

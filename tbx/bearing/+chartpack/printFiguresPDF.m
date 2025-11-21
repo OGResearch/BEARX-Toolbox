@@ -15,6 +15,11 @@ function printFiguresPDF(figureHandles, filePath, options)
         preparePaper_(figureHandles{i}, options);
     end
 
+    filePath = string(filePath) + ".pdf";
+    if isfile(filePath)
+        delete(filePath);
+    end
+
     for i = 1 : numFigures
         exportgraphics( ...
             figureHandles{i} ...

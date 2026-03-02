@@ -14,6 +14,9 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
         options.AxesSettings (1, :) cell = {}
         options.PlotSettingsFunc (1, :) cell = {}
         options.Title = ""
+        %
+        options.TimeAxis (1, 1) string = "periods"
+        options.ReferencePeriod (1, 1) = NaN
     end
 
     if isstring(options.Variant)
@@ -25,6 +28,18 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
         periods = tablex.span(tt);
     end
 
+    if options.TimeAxis == "periods"
+        timeAxis = periods;
+        xLim = [timeAxis(1), timeAxis(end)];
+    else
+        % timeAxis = 0 : (numel(periods)-1);
+        if isequaln(options.ReferencePeriod, NaN)
+            error("ReferencePeriod must be specified when TimeAxis is 'integers'.");
+        end
+        timeAxis = 1 + datex.diff(periods, options.ReferencePeriod);
+        xLim = [timeAxis(1)-0.5, timeAxis(end)+0.5];
+    end
+
     if ~isempty(options.AxesHandle)
         axesHandle = options.AxesHandle;
     else
@@ -33,7 +48,7 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
 
     axesSettings = options.AxesSettings;
     axesSettings = [ ...
-        {"xlim", [periods(1), periods(end)]} ...
+        {"xlim", xLim} ...
         , axesSettings ...
     ];
 
@@ -47,7 +62,7 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
         dataCell{i} = dataCell{i}(:,:);
     end
 
-    plotHandles = plotFunc(axesHandle, periods, [dataCell{:}]);
+    plotHandles = plotFunc(axesHandle, timeAxis, [dataCell{:}]);
 
     if ~isempty(axesSettings)
         set(axesHandle, axesSettings{:});

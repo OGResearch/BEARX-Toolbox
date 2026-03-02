@@ -63,9 +63,16 @@ function figureHandles = framework(chartFunc, tt, names, options)
         axesHandles{figureCount}{end+1} = currentAxesHandle;
     end
 
-    if ~isempty(options.FigureLegend) && ~isempty(axesHandles)
+    if ~isempty(options.FigureLegend)
         for i = 1 : numel(axesHandles)
-            legend(axesHandles{end}{end}, options.FigureLegend, location="best");
+            if isempty(axesHandles{i})
+                continue
+            end
+            chartpack.outsideLegend( ...
+                "bottom", ...
+                axesHandles{i}{1}, ...
+                options.FigureLegend ...
+            );
         end
     end
 

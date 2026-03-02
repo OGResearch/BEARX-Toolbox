@@ -3,12 +3,17 @@ function gui_collectVanillaForm(folder, fileAndSubmission, action)
 
     arguments
         folder (1, 1) string
-        fileAndSubmission (1, 1) string
+        fileAndSubmission (1, 1) string = ""
         action (1, 1) string = ""
     end
 
     if ~ismember(nargin, [2, 3])
         error("Incorrect number of input arguments.");
+    end
+
+    if contains(fileAndSubmission, "('?")
+        fileAndSubmission = replace(fileAndSubmission, "('?", '?');
+        fileAndSubmission = extractBefore(fileAndSubmission, "')");
     end
 
     SUBMISSION_LEAD = "?";

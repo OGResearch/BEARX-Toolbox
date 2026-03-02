@@ -10,12 +10,12 @@ function populateVanillaFormHTML(formPath, action)
     htmlEndPath = {"html", formPath{1}, formPath{2} + ".html"};
 
     if isequal(action, "")
-        action = "gui_collectVanillaForm " + formPath{1} + " " + formPath{2} + " ";
+        action = "gui_collectVanillaForm " + formPath{1} + " " + formPath{2};
     end
 
-    if ~endsWith(action, " ")
-        action = action + " ";
-    end
+    % if ~endsWith(action, " ")
+    %     action = action + " ";
+    % end
 
     form = gui.readFormsFile(formPath);
     htmlForm = gui.generateFreeForm(form, action=action);

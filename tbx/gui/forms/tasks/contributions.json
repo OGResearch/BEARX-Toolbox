@@ -22,7 +22,7 @@
     "DrawCharts": {
         "value": false,
         "type": "logical",
-        "label": "Draw and save charts as PDF files"
+        "label": "Draw output as charts on the screen"
     },
     "SavePDF": {
         "value": false,

@@ -28,7 +28,7 @@ function htmlForm = generateCategorizedButtons(jsonForm, currentSelection, categ
 
     htmlForm = string.empty(1, 0);
     htmlForm(end+1) = "<br/>";
-    htmlForm(end+1) = "<form action='matlab:" + action + " '>";
+    htmlForm(end+1) = "<form action='matlab:{ACTION}'>";
     htmlForm(end+1) = submitButton;
 
     % Compile lists of names in each category

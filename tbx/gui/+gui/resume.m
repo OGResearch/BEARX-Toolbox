@@ -100,7 +100,7 @@ function resume()
     %
     customHTMLFolder = fullfile(".", "html");
     indexPath = fullfile(customHTMLFolder, 'index.html');
-    gui.web(indexPath);
+    x = gui.web(indexPath);
 
 end%
 

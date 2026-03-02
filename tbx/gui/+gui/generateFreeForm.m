@@ -38,7 +38,7 @@ function outputString = generateFreeForm(inputStruct, options)
     end
 
     html(end+1) = "<br/>";
-    html(end+1) = "<form action='matlab:" + options.action + " '>";
+    html(end+1) = "<form action='matlab:{ACTION}'>";
     html(end+1) = submitButton;
     html(end+1) = "<br/>";
     html(end+1) = "<br/>";
@@ -65,6 +65,8 @@ function outputString = generateFreeForm(inputStruct, options)
     html(end+1) = submitButton;
     html(end+1) = "</form>";
     html(end+1) = "<br/>";
+
+    html = replace(html, "{ACTION}", options.action);
 
     outputString = join(html, newline());
 

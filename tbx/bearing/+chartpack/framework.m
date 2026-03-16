@@ -94,7 +94,7 @@ function addFigureTitles(figureHandles, figureTitle, numFiguresSoFar)
     numFigures = numel(figureHandles);
     for i = 1 : numFigures
         if figureTitle ~= ""
-            currentFigureTitle = figureTitle + sprintf(" [%g/%g]", i, numFiguresSoFar + numFigures);
+            currentFigureTitle = figureTitle + sprintf(" [%g]", numFiguresSoFar + i);
             set(figureHandles{i}, name=currentFigureTitle);
             chartpack.figureTitle(figureHandles{i}, currentFigureTitle);
         end

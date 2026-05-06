@@ -9,11 +9,6 @@
         "type": "logical",
         "label": "Generate stochastic residuals in unconditional forecast"
     },
-    "IncludeInitial": {
-        "value": true,
-        "type": "logical",
-        "label": "Include initial conditions in output table"
-    },
     "SaveXLS": {
         "value": true,
         "type": "logical",

@@ -47,8 +47,27 @@ function code = assemble(options)
         snippets = [snippets; scripter.codeReducedFormForecast()];
     end
 
+    % Historical shock contributions are needed either when requested by the
+    % user or when contributions to the structural or conditional forecast are requested.
+    needsShockContributions = ...
+        ismember("ShockContributions", tasks) ...
+        || hasStructuralForecastContributions(tasks) ...
+        || hasConditionalForecastContributions(tasks);
+
+    if needsShockContributions
+        snippets = [snippets; scripter.calculateShockContributions()];
+    end
+
+    if ismember("ShockContributions", tasks)
+        snippets = [snippets; scripter.reportShockContributions()];
+    end
+
     if ismember("StructuralForecast", tasks)
-        snippets = [snippets; scripter.codeStructuralForecast()];
+        snippets = [snippets; scripter.structuralForecast()];
+    end
+
+    if hasStructuralForecastContributions(tasks)
+        snippets = [snippets; scripter.structuralForecastContributions()];
     end
 
     if ismember("ConditionalForecast", tasks)
@@ -60,11 +79,8 @@ function code = assemble(options)
     end
 
     if ismember("FEVD", tasks)
-        snippets = [snippets; scripter.codeFEVD()];
-    end
-
-    if ismember("ShockContributions", tasks)
-        snippets = [snippets; scripter.codeShockContributions()];
+        snippets = [snippets; scripter.absoluteFevd()];
+        snippets = [snippets; scripter.relativeFevd()];
     end
 
     snippets = [snippets; scripter.codeCompleted()];
@@ -81,25 +97,63 @@ end%
 
 
 function code = resolvePrinting_(code)
-    prerequisites = gui.getCurrentPrerequisites();
+    general = gui.getGeneralSettings();
     %
-    if prerequisites.PrintInfo.value
+    if general.PrintInfo.value
         code = replace(code, "?PRINT_INFO?", "");
     else
         code = replace(code, "?PRINT_INFO?", "% ");
     end
     %
-    if prerequisites.PrintTables.value
+    if general.PrintTables.value
         code = replace(code, "?PRINT_TABLE?", "");
     else
         code = replace(code, "?PRINT_TABLE?", "% ");
     end
     %
-    if prerequisites.PrintObjects.value
+    if general.PrintObjects.value
         code = replace(code, "?PRINT_OBJECT?", "");
     else
         code = replace(code, "?PRINT_OBJECT?", "% ");
     end
+    %]
+end%
+
+
+function flag = hasStructuralForecastContributions(tasks)
+    %[
+    if ~ismember("StructuralForecast", tasks)
+        flag = false;
+        return
+    end
+
+    TASK_FORM_PATH = {"tasks", "structForecast"};
+    taskSettings = gui.readFormsFile(TASK_FORM_PATH);
+    if ~logical(taskSettings.Contributions.value)
+        flag = false;
+        return
+    end
+
+    flag = true;
+    %]
+end%
+
+
+function flag = hasConditionalForecastContributions(tasks)
+    %[
+    if ~ismember("ConditionalForecast", tasks)
+        flag = false;
+        return
+    end
+
+    TASK_FORM_PATH = {"tasks", "conditional"};
+    taskSettings = gui.readFormsFile(TASK_FORM_PATH);
+    if ~logical(taskSettings.Contributions.value)
+        flag = false;
+        return
+    end
+
+    flag = true;
     %]
 end%
 

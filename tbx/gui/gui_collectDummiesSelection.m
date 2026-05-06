@@ -16,7 +16,7 @@ function gui_collectDummiesSelection(submission)
     gui.updateSelection(FORM_PATH, newSelection);
     gui.populateDummiesSelectionHTML();
 
-    % Move on the prerequisites page
+    % Move on the general settings page
     targetPage = fullfile(".", TARGET_PAGE{:});
     gui.web(targetPage);
 

@@ -1,5 +1,5 @@
 
-function code = codeContributions()
+function code = reportShockContributions()
 
     TASK_FORM_PATH = {"tasks", "contributions"};
     taskSettings = gui.readFormsFile(TASK_FORM_PATH);
@@ -9,12 +9,11 @@ function code = codeContributions()
 
     % Parts of the code
     place = struct();
-    place.INCLUDE_INITIAL = mts.logical(taskSettings.IncludeInitial.value);
 
     place = scripter.conditionalComments(place, taskSettings);
 
     % Create the code from the template
-    code = scripter.readTemplate("shockContributions");
+    code = scripter.readTemplate("reportShockContributions");
     code = scripter.replaceInCode(code, place);
 
 end%

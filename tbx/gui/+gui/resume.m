@@ -13,7 +13,6 @@ function resume()
     end
     copyfile(guiHTMLFolder, customHTMLFolder);
 
-
     %
     % Populate HTML files with current forms
     %
@@ -44,7 +43,7 @@ function resume()
 
     % Tasks to execute tab
     gui.populateTasksSelectionHTML();
-    gui.populateVanillaFormHTML({"tasks", "prerequisites"});
+    gui.populateVanillaFormHTML({"tasks", "general"});
     gui.populateVanillaFormHTML({"tasks", "estimation"});
     gui.populateVanillaFormHTML({"tasks", "identification"});
     gui.populateVanillaFormHTML({"tasks", "redForecast"});
@@ -80,12 +79,12 @@ function resume()
     currentFolder = pwd();
     wrapTablePath = @(n) fullfile(currentFolder, "tables", n);
     dispatcher = {
-        fullfile(".", "html", "identification", "InstantZeros.html"), "?PATH?", wrapTablePath("InstantZeros.xlsx")
-        fullfile(".", "html", "identification", "IneqRestrict.html"), "?PATH?", wrapTablePath("IneqRestrict.xlsx")
-        fullfile(".", "html", "dummies", "longrun.html"), "?PATH?", wrapTablePath("LongRunDummies.xlsx")
-        fullfile(".", "html", "identification", "GeneralRestrict.html"), "?PATH?", "matlab: gui.returnFromCommandWindow(fullfile('html', 'identification', 'GeneralRestrict.html')); edit(fullfile('tables', 'GeneralRestrict.md'))"
-        fullfile(".", "html", "tasks", "conditional.html"), "?DATA_PATH?", wrapTablePath("ConditioningData.xlsx")
-        fullfile(".", "html", "tasks", "conditional.html"), "?PLAN_PATH?", wrapTablePath("ConditioningPlan.xlsx")
+        fullfile(".", "html", "identification", "InstantZeros.html"), "?PATH?", "matlab: gui_openTable InstantZeros"
+        fullfile(".", "html", "identification", "IneqRestrict.html"), "?PATH?", "matlab: gui_openTable IneqRestrict"
+        fullfile(".", "html", "dummies", "longrun.html"), "?PATH?", "matlab: gui_openTable LongRunDummies"
+        fullfile(".", "html", "identification", "GeneralRestrict.html"), "?PATH?", "matlab: gui_editGeneralRestrict"
+        fullfile(".", "html", "tasks", "conditional.html"), "?DATA_PATH?", "matlab: gui_openTable ConditioningData"
+        fullfile(".", "html", "tasks", "conditional.html"), "?PLAN_PATH?", "matlab: gui_openTable ConditioningPlan"
     };
     for i = 1 : height(dispatcher)
         htmlPath = dispatcher{i, 1};

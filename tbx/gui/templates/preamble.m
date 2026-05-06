@@ -50,3 +50,15 @@ end
 
 dummyObjects = {};
 
+
+%% Prepare an empty array for shock contributions
+
+contribTbl = [];
+
+
+%% Prepare plot settings
+
+linePlotSettings = {
+    "lineWidth", 1.5 ...
+};
+

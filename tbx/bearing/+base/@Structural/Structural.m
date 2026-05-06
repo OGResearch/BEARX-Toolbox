@@ -175,7 +175,7 @@ classdef Structural ...
         function contribsTbl = calculateContributions(this, options)
             arguments
                 this
-                options.IncludeInitial (1, 1) logical = true
+                options.IncludeInitial (1, 1) logical = false
             end
             %
             % Retrieve necessary meta information

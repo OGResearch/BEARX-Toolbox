@@ -6,7 +6,7 @@
         "GeneralRestrict": ["tasks", "selection"]
     },
     "tasks": {
-        "selection": ["tasks", "prerequisites"]
+        "selection": ["tasks", "general"]
     }
 }
 

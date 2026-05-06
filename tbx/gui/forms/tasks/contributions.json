@@ -1,9 +1,4 @@
 {
-    "IncludeInitial": {
-        "value": false,
-        "type": "logical",
-        "label": "Include initial conditions in output table"
-    },
     "SaveXLS": {
         "value": true,
         "type": "logical",

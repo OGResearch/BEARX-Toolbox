@@ -1,48 +1,42 @@
 
 %% Run unconditional forecast using structural model 
 
+% Define forecast periods
+fcastSpan = ?FORECAST_SPAN?;
+fcastStart = fcastSpan(1);
+histEnd = datex.shift(fcastStart, -1);
+?HAS_HISTORY?histStart = datex.shift(fcastStart, -?NUM_HISTORY?);
+
 % Run an unconditional forecast using the structural model
-[structForecastTbl, structForecastContribsTbl] = structModel.forecast( ...
-    ?FORECAST_SPAN? ...
+[structFcastTbl, structFcastContTbl] = structModel.forecast( ...
+    fcastSpan ...
     , stochasticResiduals=?STOCHASTIC_RESIDUALS? ...
-    , includeInitial=?INCLUDE_INITIAL?...
     , contributions=?CONTRIBUTIONS? ...
+    , precontributions=contribTbl ...
+    , includeInitial=false ...
 );
 
 % Condense the forecast to percentiles
-structForecastPercentilesTbl = tablex.apply(structForecastTbl, percentilesFunc);
-?PRINT_TABLE?display(structForecastPercentilesTbl);
+structFcastPctTbl = tablex.apply(structFcastTbl, percentilesFunc);
+?HAS_HISTORY?clippedInputTbl = tablex.clip(inputTbl, histStart, histEnd);
+?HAS_HISTORY?structFcastPctTbl = tablex.merge(clippedInputTbl, structFcastPctTbl);
+?PRINT_TABLE?display(structFcastPctTbl);
 
 % Define the output path for saving the results
-outputPath = fullfile(outputFolder, "structForecastPercentiles");
+outputPath = fullfile(outputFolder, "structFcastPct");
 
 % Save the forecast results as percentiles as MAT and/or CSV and/or
 % and XLS files
-?SAVE_MAT?save(outputPath + ".mat", "structForecastPercentilesTbl");
-?SAVE_CSV?tablex.writetimetable(structForecastPercentilesTbl, outputPath + ".csv");
-?SAVE_XLS?tablex.writetimetable(structForecastPercentilesTbl, outputPath + ".xlsx");
-
-if ~isempty(structForecastContribsTbl)
-    % Condense the forecast contributions to percentiles
-    structForecastContribsPercentilesTbl = tablex.apply(structForecastContribsTbl, percentilesFunc);
-
-    % Flatten the 3D contributions table to 2D contributions table
-    structForecastContribsPercentilesTbl = tablex.flatten(structForecastContribsPercentilesTbl);
-
-    % Define the output path for saving the results
-    outputPath = fullfile(outputFolder, "structForecastContribsPercentiles");
-
-    % Save the percentiles of the forecast contributions
-    ?SAVE_MAT?save(outputPath + ".mat", "structForecastContribsPercentilesTbl");
-    ?SAVE_CSV?tablex.writetimetable(structForecastContribsPercentilesTbl, outputPath + ".csv");
-    ?SAVE_XLS?tablex.writetimetable(structForecastContribsPercentilesTbl, outputPath + ".xlsx");
-end
+?SAVE_MAT?save(outputPath + ".mat", "structFcastPctTbl");
+?SAVE_CSV?tablex.writetimetable(structFcastPctTbl, outputPath + ".csv");
+?SAVE_XLS?tablex.writetimetable(structFcastPctTbl, outputPath + ".xlsx");
 
 % Plot the forecast results as percentiles
 ?DRAW_CHARTS?figureHandles = chartpack.forecastPercentiles( ...
-?DRAW_CHARTS?    structForecastPercentilesTbl, structModel ...
+?DRAW_CHARTS?    structFcastPctTbl, structModel ...
 ?DRAW_CHARTS?    , "figureTitle", "Structural model forecast (percentiles)" ...
 ?DRAW_CHARTS?    , "figureLegend", percentilesLegend ...
+?DRAW_CHARTS?    , "chartSettings", {"plotSettings", linePlotSettings, "vertical", histEnd} ...
 ?DRAW_CHARTS?);
 
 % Save the figures

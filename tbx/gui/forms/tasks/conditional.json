@@ -14,11 +14,6 @@
         "type": "logical",
         "label": "Use exogenous variables from conditioning data table"
     },
-    "IncludeInitial": {
-        "value": true,
-        "type": "logical",
-        "label": "Include initial conditions in output table"
-    },
     "Contributions": {
         "value": false,
         "type": "logical",

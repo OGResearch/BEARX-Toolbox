@@ -1,7 +1,7 @@
 
 nav:
     - Selection of tasks: selection.md
-    - Prerequisites: prerequisites.md
+    - General settings: general.md
     - Reduced-form estimation: estimation.md
     - Structural estimation: identification.md
     - Unconditional forecast using reduced-form model: redForecast.md

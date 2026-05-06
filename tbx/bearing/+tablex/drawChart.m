@@ -17,6 +17,9 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
         %
         options.TimeAxis (1, 1) string = "periods"
         options.ReferencePeriod (1, 1) = NaN
+        %
+        options.BarPadding (1, 1) logical = false
+        options.Vertical = []
     end
 
     if isstring(options.Variant)
@@ -28,16 +31,30 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
         periods = tablex.span(tt);
     end
 
+    barPadding = 0;
     if options.TimeAxis == "periods"
         timeAxis = periods;
         xLim = [timeAxis(1), timeAxis(end)];
+        if options.BarPadding
+            t1 = timeAxis(1);
+            t0 = datex.shift(t1, -1);
+            barPadding = (t1 - t0) / 2;
+        end
     else
         % timeAxis = 0 : (numel(periods)-1);
         if isequaln(options.ReferencePeriod, NaN)
             error("ReferencePeriod must be specified when TimeAxis is 'integers'.");
         end
         timeAxis = 1 + datex.diff(periods, options.ReferencePeriod);
-        xLim = [timeAxis(1)-0.5, timeAxis(end)+0.5];
+        xLim = [timeAxis(1), timeAxis(end)];
+        if options.BarPadding
+            barPadding = 0.5;
+        end
+    end
+
+    timeAxisStart = timeAxis(1);
+    if barPadding > 0
+        xLim = xLim + [-barPadding, barPadding];
     end
 
     if ~isempty(options.AxesHandle)
@@ -63,6 +80,7 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
     end
 
     plotHandles = plotFunc(axesHandle, timeAxis, [dataCell{:}]);
+    drawVertical_(axesHandle, options.Vertical, timeAxisStart, barPadding);
 
     if ~isempty(axesSettings)
         set(axesHandle, axesSettings{:});
@@ -85,5 +103,27 @@ function [plotHandles, axesHandle] = drawChart(plotFunc, tt, names, options)
         end
     end
 
+end%
+
+
+function drawVertical_(axesHandle, vertical, timeAxisStart, barPadding)
+    %[
+    if isempty(vertical)
+        return
+    end
+    %
+    if vertical <= timeAxisStart
+        return
+    end
+    if barPadding > 0
+        vertical = vertical + barPadding;
+    end
+    %
+    xline( ...
+        axesHandle, vertical ...
+        , "color", 0.7 * [1, 1, 1] ...
+        , "lineWidth", 3 ...
+    );
+    %]
 end%
 

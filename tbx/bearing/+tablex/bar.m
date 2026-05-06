@@ -2,7 +2,7 @@
 function varargout = bar(varargin)
 
     plotFunc = @(varargin) bar(varargin{:}, "stacked");
-    [varargout{1:nargout}] = tablex.drawChart(plotFunc, varargin{:});
+    [varargout{1:nargout}] = tablex.drawChart(plotFunc, varargin{:}, "barPadding", true);
 
 end%
 

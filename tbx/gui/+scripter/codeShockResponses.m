@@ -6,11 +6,6 @@ function code = codeShockResponses()
     mts = gui.MatlabToScript();
 
     place = struct();
-
-    % Parts of the code
-    place = struct();
-    place.INCLUDE_INITIAL = mts.logical(taskSettings.IncludeInitial.value);
-
     place = scripter.conditionalComments(place, taskSettings);
 
     % Create the code from the template

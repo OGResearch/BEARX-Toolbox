@@ -38,9 +38,11 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
     end
     numX = size(fcastX, 2);
 
-    cfconds = conditional.createConditionsCF(meta, options.Plan, options.Conditions, shortFcastSpan);
-    cfshocks = conditional.createShocksCF(meta, options.Plan, shortFcastSpan);
-    cfblocks = conditional.createBlocksCF(cfconds, cfshocks);
+    hasPlan = ~isempty(options.Plan);
+    if hasPlan
+        cfconds = conditional.createConditionsCF(meta, options.Plan, options.Conditions, shortFcastSpan);
+        cfshocks = conditional.createShocksCF(meta, options.Plan, shortFcastSpan);
+    end
     numShockConcepts = meta.NumShockConcepts;
 
     internalOptions = struct();
@@ -55,14 +57,9 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
 
     numSeparableUnits = meta.NumSeparableUnits;
     if numSeparableUnits > 1
-        if ~isempty(cfconds)
+        if hasPlan
             cfconds = reshape(cfconds, size(cfconds, 1), [], numSeparableUnits);
-        end
-        if ~isempty(cfshocks)
             cfshocks = reshape(cfshocks, size(cfshocks, 1), [], numSeparableUnits);
-        end
-        if ~isempty(cfblocks)
-            cfblocks = reshape(cfblocks, size(cfblocks, 1), [], numSeparableUnits);
         end
     end
     fcastY = cell(1, numPresampled);
@@ -82,28 +79,29 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
         EXTRA_DIM = 3;
         sampleInitY = [];
         for unit = 1 : numSeparableUnits
-            if ~isempty(cfconds)
+            if hasPlan
                 internalOptions.cfconds = cfconds(:, :, unit);
-            end
-            if ~isempty(cfshocks)
                 internalOptions.cfshocks = cfshocks(:, :, unit);
-                for k = 1 : numel(internalOptions.cfshocks)
-                    internalOptions.cfshocks{k} = internalOptions.cfshocks{k} - (unit-1)*numShockConcepts;
-                end
-            end
-            if ~isempty(cfblocks)
-                internalOptions.cfblocks = cfblocks(:, :, unit);
+                internalOptions.cfblocks = conditional.createBlocksCF(internalOptions.cfconds, internalOptions.cfshocks);
             end
 
-            unitLongY = system.extractUnitFromNumericArray(longY, unit, EXTRA_DIM);
+            unitLongY = longY;
+            if numSeparableUnits > 1
+                unitLongY = system.extractUnitFromNumericArray(unitLongY, unit, EXTRA_DIM);
+            end
             unitInitY = this.ReducedForm.getInitY(unitLongY, order, sample, fcastStartIndex);
 
-            unitD = sample.D(:, :, unit);
+            unitD = sample.D;
+            if numSeparableUnits > 1
+                unitD = unitD(:, :, unit);
+            end
 
-            if numSeparableUnits == 1
-                unitBeta = draw.beta;
-            else
-                unitBeta = system.extractUnitFromCellArray(draw.beta, unit, EXTRA_DIM);
+            unitBeta = draw.beta;
+            if numSeparableUnits > 1
+                % TODO:Rearrange draw.beta in separable panels so that
+                % units run in 3rd dimension
+                EXTRA_DIM_BUG = 2;
+                unitBeta = system.extractUnitFromCellArray(unitBeta, unit, EXTRA_DIM_BUG);
             end
             %
             %
@@ -120,7 +118,7 @@ function [fcastTbl, contribsTbl] = conditionalForecast(this, fcastSpan, options)
             %
             fcastY{i} = [fcastY{i}, unitY];
             fcastE{i} = [fcastE{i}, unitE];
-            sampleInitY = [sampleInitY, unitInitY];
+            sampleInitY = [sampleInitY, unitInitY]; %#ok<AGROW>
 
             if options.Contributions
                 unitA = cell(1, fcastHorizon);

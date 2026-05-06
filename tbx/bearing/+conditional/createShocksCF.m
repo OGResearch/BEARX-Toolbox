@@ -8,7 +8,7 @@ function shocksCF = createShocksCF(meta, planTbx, fcastSpan)
 
     planArray = planTbx{fcastSpan, meta.PseudoEndogenousNames};
     shocksCF = cell(size(planArray));
-    dict = textual.createDictionary(meta.ShockNames);
+    dict = textual.createDictionary(meta.SeparableShockNames);
 
     inxEmpty = cellfun(@isempty, planArray);
     for i = reshape(find(~inxEmpty), 1, [])

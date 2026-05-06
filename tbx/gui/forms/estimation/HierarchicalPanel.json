@@ -33,25 +33,29 @@
     "label": "Priors on exogenous variables flag",
     "type": "logicals",
     "value": false,
-    "details": "priorexogenous"
+    "details": "priorexogenous",
+    "show": false
   },
   "BlockExogenous": {
     "label": "Block exogeneity flag",
     "type": "logical",
     "value": false,
-    "details": "bex"
+    "details": "bex",
+    "show": false
   },
   "Autoregression": {
     "label": "Prior on first-order autoregression",
     "type": "numbers",
     "value": 0.8,
-    "details": "ar"
+    "details": "ar",
+    "show": false
   },
   "Lambda1": {
     "label": "Overall tightness of priors",
     "type": "numbers",
     "value": 0.1,
-    "details": "lambda1"
+    "details": "lambda1",
+    "show": false
   },
   "Lambda2": {
     "label": "Variable weighting",
@@ -75,6 +79,7 @@
     "label": "Block exogeneity shrinkage",
     "type": "numbers",
     "value": 0.001,
-    "details": "lambda5"
+    "details": "lambda5",
+    "show": false
   }
 }

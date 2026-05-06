@@ -10,4 +10,5 @@ notes.md
 
 *.asv
 *\ 2*
+.venv*
 

@@ -6,7 +6,7 @@ function gui_collectTasksSelection(submission)
     end
 
     FORM_PATH = {"tasks", "selection"};
-    TARGET_PAGE = {"html", "tasks", "prerequisites.html"};
+    TARGET_PAGE = {"html", "tasks", "general.html"};
 
     newSelection = string.empty(1, 0);
     if ~isequal(submission, "")
@@ -16,7 +16,7 @@ function gui_collectTasksSelection(submission)
     gui.updateSelection(FORM_PATH, newSelection);
     gui.populateTasksSelectionHTML();
 
-    % Move on the prerequisites page
+    % Move on the general page
     targetPage = fullfile(".", TARGET_PAGE{:});
     gui.web(targetPage);
 

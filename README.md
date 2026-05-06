@@ -22,7 +22,7 @@ available as before.
 
 **Step 1.** Clone this repository and, optionally, the companion
 [BEARX GUI Examples](https://github.com/OGResearch/BEARX-GUI-Examples)
-repository:
+repository from within Matlab:
 
 ```matlab
 !git clone https://github.com/OGResearch/BEARX-Toolbox
@@ -71,3 +71,4 @@ Full documentation is available in the
 
 See the BEAR End User Licence Agreement included in the repository
 (`tbx/bear/BEAR End User Licence Agreement.pdf`).
+
